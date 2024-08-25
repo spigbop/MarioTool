@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://bc2u8vwhksrer"]
+
+[ext_resource type="Script" path="res://scenes/tiles/coin.gd" id="1_1mbuy"]
+[ext_resource type="Texture2D" uid="uid://cqe6b0ibn8fgg" path="res://assets/textures/tiles.png" id="1_pu02t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrya4"]
+atlas = ExtResource("1_pu02t")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qimm3"]
+atlas = ExtResource("1_pu02t")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7fr0u"]
+atlas = ExtResource("1_pu02t")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_muje6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lrya4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qimm3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7fr0u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.5
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hffs4"]
+size = Vector2(14, 15)
+
+[node name="coin" type="Area2D"]
+script = ExtResource("1_1mbuy")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_muje6")
+autoplay = "default"
+frame_progress = 0.484063
+
+[node name="shape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_hffs4")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

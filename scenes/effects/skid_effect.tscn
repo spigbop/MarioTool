@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://bfqpfbyrhkcch"]
+
+[ext_resource type="Texture2D" uid="uid://vqg17eai7gub" path="res://assets/textures/effects/skid.png" id="1_ttn18"]
+[ext_resource type="Script" path="res://scenes/effects/effect_timer.gd" id="2_jfk2a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjjlc"]
+atlas = ExtResource("1_ttn18")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56271"]
+atlas = ExtResource("1_ttn18")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwabl"]
+atlas = ExtResource("1_ttn18")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o8sou"]
+animations = [{
+"frames": [{
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_mjjlc")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_56271")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_vwabl")
+}, {
+"duration": 4.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 60.0
+}]
+
+[node name="skid_effect" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_o8sou")
+autoplay = "default"
+frame = 3
+frame_progress = 0.207684
+
+[node name="death_timer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+script = ExtResource("2_jfk2a")
+
+[connection signal="timeout" from="death_timer" to="death_timer" method="_on_timeout"]

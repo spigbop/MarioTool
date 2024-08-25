@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://jt24itrw3jdg"]
+
+[ext_resource type="PackedScene" uid="uid://c5ggejhxdho17" path="res://scenes/objects/player.tscn" id="1_ohph1"]
+[ext_resource type="Texture2D" uid="uid://dbtmgyvs2fvvc" path="res://assets/textures/background.png" id="2_2x0le"]
+[ext_resource type="PackedScene" uid="uid://bc2u8vwhksrer" path="res://scenes/tiles/coin.tscn" id="3_rwu83"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_eqtb4"]
+distance = 2.0
+
+[node name="world" type="Node2D"]
+
+[node name="background" type="Sprite2D" parent="."]
+texture = ExtResource("2_2x0le")
+
+[node name="main_camera" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="player" parent="." instance=ExtResource("1_ohph1")]
+position = Vector2(-63, -7)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 91)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_eqtb4")
+
+[node name="coin" parent="." instance=ExtResource("3_rwu83")]
+position = Vector2(58, 38)
+
+[node name="coin4" parent="." instance=ExtResource("3_rwu83")]
+position = Vector2(100, 38)
+
+[node name="coin3" parent="." instance=ExtResource("3_rwu83")]
+position = Vector2(86, 38)
+
+[node name="coin5" parent="." instance=ExtResource("3_rwu83")]
+position = Vector2(58, 53)
+
+[node name="coin6" parent="." instance=ExtResource("3_rwu83")]
+position = Vector2(100, 53)
+
+[node name="coin7" parent="." instance=ExtResource("3_rwu83")]
+position = Vector2(86, 53)
+
+[node name="coin8" parent="." instance=ExtResource("3_rwu83")]
+position = Vector2(72, 53)
+
+[node name="coin2" parent="." instance=ExtResource("3_rwu83")]
+position = Vector2(72, 38)

@@ -1,0 +1,114 @@
+[gd_scene load_steps=16 format=3 uid="uid://c5ggejhxdho17"]
+
+[ext_resource type="Texture2D" uid="uid://cnbsbm736i5rm" path="res://assets/textures/players/mario/mario_small.png" id="1_ge7ul"]
+[ext_resource type="Script" path="res://scenes/objects/player.gd" id="1_j8iyy"]
+[ext_resource type="AudioStream" uid="uid://fgtcpwfslnnu" path="res://assets/sounds/jump.wav" id="3_22ayf"]
+[ext_resource type="AudioStream" uid="uid://cfcfkyhnm1syl" path="res://assets/sounds/skid.wav" id="4_wx8g4"]
+[ext_resource type="AudioStream" uid="uid://b4t8poq8733dp" path="res://assets/sounds/coin.wav" id="5_d7x13"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cyd1"]
+atlas = ExtResource("1_ge7ul")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q0emk"]
+atlas = ExtResource("1_ge7ul")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkxt3"]
+atlas = ExtResource("1_ge7ul")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37pti"]
+atlas = ExtResource("1_ge7ul")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jr0f2"]
+atlas = ExtResource("1_ge7ul")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6hyg7"]
+atlas = ExtResource("1_ge7ul")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gu1rx"]
+atlas = ExtResource("1_ge7ul")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5mmnd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cyd1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q0emk")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vkxt3")
+}],
+"loop": true,
+"name": &"skid",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_37pti")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jr0f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6hyg7")
+}, {
+"duration": 0.8,
+"texture": SubResource("AtlasTexture_gu1rx")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v6dvv"]
+radius = 6.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rsyxb"]
+size = Vector2(8, 12)
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_j8iyy")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5mmnd")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_v6dvv")
+
+[node name="channels" type="Node" parent="."]
+
+[node name="jump_sound" type="AudioStreamPlayer2D" parent="channels"]
+stream = ExtResource("3_22ayf")
+
+[node name="skid_sound" type="AudioStreamPlayer2D" parent="channels"]
+stream = ExtResource("4_wx8g4")
+
+[node name="collect_sound" type="AudioStreamPlayer2D" parent="channels"]
+stream = ExtResource("5_d7x13")
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="shape" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_rsyxb")
