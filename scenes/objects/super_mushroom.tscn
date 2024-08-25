@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://bh8j6lqf5b553"]
+
+[ext_resource type="Texture2D" uid="uid://d2mrke3nllvtp" path="res://assets/textures/powerups.png" id="1_8sqj7"]
+[ext_resource type="Script" path="res://scenes/objects/powerup.gd" id="2_xal1j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxl3i"]
+atlas = ExtResource("1_8sqj7")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajqsr"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qixh6"]
+size = Vector2(16, 16)
+
+[node name="super_mushroom" type="RigidBody2D"]
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_xxl3i")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+rotation = 3.14159
+shape = SubResource("RectangleShape2D_ajqsr")
+one_way_collision = true
+
+[node name="hitbox" type="Area2D" parent="."]
+script = ExtResource("2_xal1j")
+
+[node name="shape" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("RectangleShape2D_qixh6")
+
+[connection signal="body_entered" from="hitbox" to="hitbox" method="_on_body_entered"]

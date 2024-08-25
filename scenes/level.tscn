@@ -1,13 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://jt24itrw3jdg"]
+[gd_scene load_steps=7 format=3 uid="uid://jt24itrw3jdg"]
 
 [ext_resource type="PackedScene" uid="uid://c5ggejhxdho17" path="res://scenes/objects/player.tscn" id="1_ohph1"]
 [ext_resource type="Texture2D" uid="uid://dbtmgyvs2fvvc" path="res://assets/textures/background.png" id="2_2x0le"]
 [ext_resource type="PackedScene" uid="uid://bc2u8vwhksrer" path="res://scenes/tiles/coin.tscn" id="3_rwu83"]
+[ext_resource type="PackedScene" uid="uid://bvmpi7obayaji" path="res://scenes/tiles/content_block.tscn" id="4_unfnx"]
+[ext_resource type="PackedScene" uid="uid://bh8j6lqf5b553" path="res://scenes/objects/super_mushroom.tscn" id="5_ncypy"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_eqtb4"]
 distance = 2.0
 
-[node name="world" type="Node2D"]
+[node name="level" type="Node2D"]
 
 [node name="background" type="Sprite2D" parent="."]
 texture = ExtResource("2_2x0le")
@@ -47,3 +49,19 @@ position = Vector2(72, 53)
 
 [node name="coin2" parent="." instance=ExtResource("3_rwu83")]
 position = Vector2(72, 38)
+
+[node name="content_block" parent="." instance=ExtResource("4_unfnx")]
+position = Vector2(-97, 21)
+contents = ExtResource("1_ohph1")
+
+[node name="content_block2" parent="." instance=ExtResource("4_unfnx")]
+position = Vector2(-81, 21)
+
+[node name="content_block3" parent="." instance=ExtResource("4_unfnx")]
+position = Vector2(-65, 21)
+
+[node name="content_block4" parent="." instance=ExtResource("4_unfnx")]
+position = Vector2(-49, 21)
+
+[node name="super_mushroom" parent="." instance=ExtResource("5_ncypy")]
+position = Vector2(32, 34)
