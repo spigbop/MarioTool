@@ -53,6 +53,13 @@ down_duck={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Tiles"
+2d_physics/layer_2="Players"
+2d_physics/layer_3="Powerups"
+2d_physics/layer_4="Enemies"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

@@ -1,0 +1,90 @@
+[gd_scene load_steps=7 format=3 uid="uid://ccocv06nfvaoy"]
+
+[ext_resource type="AudioStream" uid="uid://cgw6upyqd3kb0" path="res://assets/sounds/brick_break.wav" id="1_8f5wo"]
+[ext_resource type="Script" path="res://scenes/effects/effect_timer.gd" id="1_oatf3"]
+[ext_resource type="Texture2D" uid="uid://cifnhojmuecid" path="res://assets/textures/effects/effects.png" id="2_ll1di"]
+[ext_resource type="Script" path="res://scenes/effects/sprite_flip.gd" id="3_ajx7h"]
+[ext_resource type="Script" path="res://scenes/objects/ai/patrol.gd" id="3_vc5c3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_obyjb"]
+atlas = ExtResource("2_ll1di")
+region = Rect2(0, 0, 8, 8)
+
+[node name="brick_breaking_effect" type="RigidBody2D"]
+z_index = 10
+position = Vector2(0, -18)
+gravity_scale = 0.8
+
+[node name="breaking_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_8f5wo")
+autoplay = true
+
+[node name="sprite0" type="Sprite2D" parent="."]
+position = Vector2(4, 4)
+texture = SubResource("AtlasTexture_obyjb")
+flip_h = true
+
+[node name="ai" type="Node" parent="sprite0"]
+script = ExtResource("3_vc5c3")
+speed = 1.1
+autostart = true
+
+[node name="flipper" type="Timer" parent="sprite0"]
+wait_time = 0.15
+autostart = true
+script = ExtResource("3_ajx7h")
+
+[node name="sprite1" type="Sprite2D" parent="."]
+position = Vector2(-4, 4)
+texture = SubResource("AtlasTexture_obyjb")
+flip_v = true
+
+[node name="ai" type="Node" parent="sprite1"]
+script = ExtResource("3_vc5c3")
+speed = -1.1
+autostart = true
+
+[node name="flipper" type="Timer" parent="sprite1"]
+wait_time = 0.15
+autostart = true
+script = ExtResource("3_ajx7h")
+
+[node name="sprite2" type="Sprite2D" parent="."]
+position = Vector2(4, -10)
+texture = SubResource("AtlasTexture_obyjb")
+flip_h = true
+flip_v = true
+
+[node name="ai" type="Node" parent="sprite2"]
+script = ExtResource("3_vc5c3")
+speed = 0.9
+autostart = true
+
+[node name="flipper" type="Timer" parent="sprite2"]
+wait_time = 0.15
+autostart = true
+script = ExtResource("3_ajx7h")
+
+[node name="sprite3" type="Sprite2D" parent="."]
+position = Vector2(-4, -10)
+texture = SubResource("AtlasTexture_obyjb")
+
+[node name="ai" type="Node" parent="sprite3"]
+script = ExtResource("3_vc5c3")
+speed = -0.9
+autostart = true
+
+[node name="flipper" type="Timer" parent="sprite3"]
+wait_time = 0.15
+autostart = true
+script = ExtResource("3_ajx7h")
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+script = ExtResource("1_oatf3")
+
+[connection signal="timeout" from="sprite0/flipper" to="sprite0/flipper" method="_on_timeout"]
+[connection signal="timeout" from="sprite1/flipper" to="sprite1/flipper" method="_on_timeout"]
+[connection signal="timeout" from="sprite2/flipper" to="sprite2/flipper" method="_on_timeout"]
+[connection signal="timeout" from="sprite3/flipper" to="sprite3/flipper" method="_on_timeout"]

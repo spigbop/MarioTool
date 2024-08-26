@@ -36,6 +36,8 @@ animations = [{
 size = Vector2(14, 15)
 
 [node name="coin" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_1mbuy")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]

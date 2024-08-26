@@ -1,10 +1,18 @@
-[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://cjhbn72jjmhgf"]
+[gd_resource type="SpriteFrames" load_steps=11 format=3 uid="uid://cjhbn72jjmhgf"]
 
 [ext_resource type="Texture2D" uid="uid://dfxwfkftphkaj" path="res://assets/textures/players/mario/mario_big.png" id="1_ntwmj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_urkq4"]
 atlas = ExtResource("1_ntwmj")
 region = Rect2(16, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rgile"]
+atlas = ExtResource("1_ntwmj")
+region = Rect2(32, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxf5g"]
+atlas = ExtResource("1_ntwmj")
+region = Rect2(48, 32, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gwjf0"]
 atlas = ExtResource("1_ntwmj")
@@ -39,6 +47,17 @@ animations = [{
 "loop": true,
 "name": &"duck",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rgile")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxf5g")
+}],
+"loop": true,
+"name": &"get_big",
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,

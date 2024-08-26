@@ -28,10 +28,14 @@ var ducking = false
 
 
 @onready var jumping_factor = SPEED * RUN_SPEED_MULTIPLIER * 0.5 / RUN_JUMP_VELOCITY_MAX
+var freeze = false
 
 
 # physc process is fixed framerate
 func _physics_process(delta: float) -> void:
+	if freeze:
+		return
+	
 	grounded = is_on_floor()
 
 	var direction := Input.get_axis("left", "right")
@@ -72,8 +76,6 @@ func _physics_process(delta: float) -> void:
 			if not ducking:
 				set_powerup_collisions(true)
 				ducking = true
-			if not velocity.x == 0:
-				generate_skidding()
 		if Input.is_action_just_released("down_duck"):
 			set_powerup_collisions(false)
 			ducking = false
@@ -131,13 +133,15 @@ const POWERUP_OFFSETS = [0.0, -8.0]
 @onready var collision_big_mid: CollisionShape2D = $collision_big_mid
 @onready var collision_big_top: CollisionShape2D = $collision_big_top
 @onready var shape_big: CollisionShape2D = $hitbox/shape_big
+@onready var powerup_sound: AudioStreamPlayer2D = $channels/powerup_sound
+@onready var powerup_timer: Timer = $hitbox/powerup_timer
 
 func powerup_picker(tier) -> void:
 	if tier == 1 and powerup > 0 or powerup == tier:
 		#powerup_same_sound.play()
 		return
 	else:
-		#powerup_sound.play()
+		powerup_sound.play()
 		set_powerup(tier)
 
 func powerdown() -> void:
@@ -152,6 +156,10 @@ func set_powerup(tier) -> void:
 	powerup = tier
 	# animation here
 	sprite.sprite_frames = POWERUP_FRAMES[tier]
+	freeze = true
+	sprite.speed_scale = 1.0
+	sprite.animation = "get_big"
+	powerup_timer.start()
 	sprite.play()
 	sprite.offset.y = POWERUP_OFFSETS[tier]
 	if tier > 0:
@@ -163,6 +171,11 @@ func set_powerup_collisions(enabled) -> void:
 	collision_big_mid.set_deferred("disabled", enabled)
 	collision_big_top.set_deferred("disabled", enabled)
 	shape_big.set_deferred("disabled", enabled)
+
+func _on_powerup_timer_timeout() -> void:
+	sprite.animation = "idle"
+	sprite.play()
+	freeze = false
 
 func block_bumper() -> void:
 	return

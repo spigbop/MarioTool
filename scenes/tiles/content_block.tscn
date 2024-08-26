@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bvmpi7obayaji"]
+[gd_scene load_steps=12 format=3 uid="uid://bvmpi7obayaji"]
 
 [ext_resource type="Script" path="res://scenes/tiles/content_block.gd" id="1_gp5hw"]
 [ext_resource type="Texture2D" uid="uid://cqe6b0ibn8fgg" path="res://assets/textures/tiles.png" id="1_k5tbx"]
@@ -8,6 +8,9 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_0gojf"]
 atlas = ExtResource("1_k5tbx")
 region = Rect2(96, 32, 16, 16)
+
+[sub_resource type="Animation" id="Animation_cxk3n"]
+length = 0.001
 
 [sub_resource type="Animation" id="Animation_36knn"]
 resource_name = "bumped"
@@ -25,9 +28,6 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(0, -6), Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_cxk3n"]
-length = 0.001
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xicxp"]
 _data = {
 "RESET": SubResource("Animation_cxk3n"),
@@ -40,7 +40,12 @@ size = Vector2(16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fg3tb"]
 size = Vector2(16, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_utcm0"]
+size = Vector2(16, 2)
+
 [node name="content_block" type="AnimatableBody2D"]
+z_index = 2
+collision_mask = 15
 script = ExtResource("1_gp5hw")
 
 [node name="sprite" type="Sprite2D" parent="."]
@@ -56,10 +61,17 @@ shape = SubResource("RectangleShape2D_6b8lm")
 
 [node name="bump" type="Area2D" parent="."]
 position = Vector2(0, 0.1)
+collision_mask = 10
 
 [node name="shape" type="CollisionShape2D" parent="bump"]
 position = Vector2(0, 7.5)
 shape = SubResource("RectangleShape2D_fg3tb")
+
+[node name="coin_collect" type="Area2D" parent="."]
+
+[node name="shape" type="CollisionShape2D" parent="coin_collect"]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_utcm0")
 
 [node name="channels" type="Node" parent="."]
 

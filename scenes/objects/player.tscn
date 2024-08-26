@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://c5ggejhxdho17"]
+[gd_scene load_steps=11 format=3 uid="uid://c5ggejhxdho17"]
 
 [ext_resource type="Script" path="res://scenes/objects/player.gd" id="1_j8iyy"]
 [ext_resource type="SpriteFrames" uid="uid://hwlm3u6ubli" path="res://scenes/objects/resources/mario_small.tres" id="2_1e4oc"]
 [ext_resource type="AudioStream" uid="uid://fgtcpwfslnnu" path="res://assets/sounds/jump.wav" id="3_22ayf"]
 [ext_resource type="AudioStream" uid="uid://cfcfkyhnm1syl" path="res://assets/sounds/skid.wav" id="4_wx8g4"]
 [ext_resource type="AudioStream" uid="uid://b4t8poq8733dp" path="res://assets/sounds/coin.wav" id="5_d7x13"]
+[ext_resource type="AudioStream" uid="uid://b8j6665sqiyc7" path="res://assets/sounds/powerup.wav" id="6_so6ea"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qr8j6"]
 size = Vector2(12, 14)
@@ -19,6 +20,8 @@ size = Vector2(8, 13)
 size = Vector2(8, 14)
 
 [node name="player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_j8iyy")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
@@ -52,6 +55,9 @@ stream = ExtResource("4_wx8g4")
 [node name="collect_sound" type="AudioStreamPlayer2D" parent="channels"]
 stream = ExtResource("5_d7x13")
 
+[node name="powerup_sound" type="AudioStreamPlayer2D" parent="channels"]
+stream = ExtResource("6_so6ea")
+
 [node name="hitbox" type="Area2D" parent="."]
 
 [node name="shape_small" type="CollisionShape2D" parent="hitbox"]
@@ -62,3 +68,9 @@ shape = SubResource("RectangleShape2D_rsyxb")
 position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_fibcf")
 disabled = true
+
+[node name="powerup_timer" type="Timer" parent="hitbox"]
+wait_time = 0.8
+one_shot = true
+
+[connection signal="timeout" from="hitbox/powerup_timer" to="." method="_on_powerup_timer_timeout"]
