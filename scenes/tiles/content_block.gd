@@ -12,7 +12,6 @@ extends AnimatableBody2D
 
 
 var emptied = false
-var coin = null
 const EMPTY_BLOCK_ATLAS = preload("res://scenes/tiles/resources/empty_block_atlas.tres")
 
 
@@ -26,17 +25,18 @@ func _on_bump_body_entered(body: Node2D) -> void:
 		else:
 			hit(body.powerup, body)
 
-func hit(ptier, body):
-	if coin:
-		coin.bumpable_collectable(body)
+func hit(ptier, _body):
 	if contents:
 		emptied = true
 		sprite.texture = EMPTY_BLOCK_ATLAS
+		# powerup generation
 		var content = contents.instantiate()
 		content.position = position
 		content.position.y -= 16.0
 		add_sibling(content)
-		content.appear()
+		if content.has_method("appear"):
+			content.appear()
+		animation.stop()
 		animation.play("bumped")
 		contents_sound.play()
 	else:
@@ -47,4 +47,11 @@ func hit(ptier, body):
 			add_sibling(inst)
 			queue_free()
 		else:
+			animation.stop()
 			animation.play("bumped")
+
+
+@onready var collect_sound: AudioStreamPlayer2D = $channels/collect_sound
+
+func coin_picker():
+	collect_sound.play()

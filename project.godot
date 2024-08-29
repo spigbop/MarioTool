@@ -13,6 +13,8 @@ config_version=5
 config/name="Mario Tool"
 run/main_scene="res://scenes/level.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
+boot_splash/bg_color=Color(0.103744, 0.103744, 0.103744, 1)
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [display]

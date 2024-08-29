@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cqe6b0ibn8fgg" path="res://assets/textures/tiles.png" id="1_k5tbx"]
 [ext_resource type="AudioStream" uid="uid://c8btas6b0427k" path="res://assets/sounds/bump.wav" id="3_8uxgf"]
 [ext_resource type="AudioStream" uid="uid://btnyk5k65mj6m" path="res://assets/sounds/contents.wav" id="4_7rgi0"]
+[ext_resource type="AudioStream" uid="uid://b4t8poq8733dp" path="res://assets/sounds/coin.wav" id="5_mwq2k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0gojf"]
 atlas = ExtResource("1_k5tbx")
@@ -40,9 +41,6 @@ size = Vector2(16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fg3tb"]
 size = Vector2(16, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_utcm0"]
-size = Vector2(16, 2)
-
 [node name="content_block" type="AnimatableBody2D"]
 z_index = 2
 collision_mask = 15
@@ -67,12 +65,6 @@ collision_mask = 10
 position = Vector2(0, 7.5)
 shape = SubResource("RectangleShape2D_fg3tb")
 
-[node name="coin_collect" type="Area2D" parent="."]
-
-[node name="shape" type="CollisionShape2D" parent="coin_collect"]
-position = Vector2(0, -9)
-shape = SubResource("RectangleShape2D_utcm0")
-
 [node name="channels" type="Node" parent="."]
 
 [node name="bump_sound" type="AudioStreamPlayer2D" parent="channels"]
@@ -81,5 +73,8 @@ stream = ExtResource("3_8uxgf")
 
 [node name="contents_sound" type="AudioStreamPlayer2D" parent="channels"]
 stream = ExtResource("4_7rgi0")
+
+[node name="collect_sound" type="AudioStreamPlayer2D" parent="channels"]
+stream = ExtResource("5_mwq2k")
 
 [connection signal="body_entered" from="bump" to="." method="_on_bump_body_entered"]

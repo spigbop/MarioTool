@@ -4,9 +4,11 @@ extends Node
 @export var speed = 1.0 # +: to right -: to left
 @export var autostart = false
 var current_speed = 0.0
+var rigid = null
 
 
 func _ready():
+	rigid = get_parent()
 	if autostart:
 		spawn()
 
@@ -14,7 +16,7 @@ func spawn():
 	current_speed = speed
 
 func _physics_process(_delta: float) -> void:
-	get_parent().position.x += current_speed
+	rigid.position.x += current_speed
 
-func _on_body_shape_entered():
+func turn() -> void:
 	current_speed *= -1.0

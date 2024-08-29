@@ -33,7 +33,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hffs4"]
-size = Vector2(14, 15)
+size = Vector2(14, 14)
 
 [node name="coin" type="Area2D"]
 collision_layer = 4
@@ -46,7 +46,6 @@ autoplay = "default"
 frame_progress = 0.484063
 
 [node name="shape" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_hffs4")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

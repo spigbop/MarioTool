@@ -1,13 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://bh8j6lqf5b553"]
+[gd_scene load_steps=12 format=3 uid="uid://bh8j6lqf5b553"]
 
 [ext_resource type="Texture2D" uid="uid://d2mrke3nllvtp" path="res://assets/textures/powerups.png" id="1_8sqj7"]
 [ext_resource type="Script" path="res://scenes/objects/ai/patrol.gd" id="2_ark5q"]
-[ext_resource type="Script" path="res://scenes/objects/powerup.gd" id="2_xal1j"]
+[ext_resource type="Script" path="res://scenes/objects/powerups/powerup.gd" id="2_xal1j"]
 [ext_resource type="Script" path="res://scenes/objects/ai/ai_timer.gd" id="3_odcp4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xxl3i"]
 atlas = ExtResource("1_8sqj7")
 region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajqsr"]
+size = Vector2(16, 16)
 
 [sub_resource type="Animation" id="Animation_dhqh2"]
 length = 0.001
@@ -46,39 +49,39 @@ _data = {
 "appear": SubResource("Animation_kfx74")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajqsr"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qixh6"]
 size = Vector2(16, 16)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qixh6"]
-size = Vector2(16.1, 16.1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o5vfb"]
+size = Vector2(1.1, 15)
 
 [node name="super_mushroom" type="RigidBody2D"]
 collision_layer = 4
-collision_mask = 5
 lock_rotation = true
 script = ExtResource("2_xal1j")
 
-[node name="patrol_ai" type="Node" parent="."]
-script = ExtResource("2_ark5q")
-
-[node name="timer" type="Timer" parent="patrol_ai"]
-wait_time = 0.5
-one_shot = true
-autostart = true
-script = ExtResource("3_odcp4")
-
 [node name="sprite" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_xxl3i")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(-2.38419e-07, -2.38419e-07)
+rotation = 3.14159
+shape = SubResource("RectangleShape2D_ajqsr")
+debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="animation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_jonp8")
 }
 
-[node name="collision" type="CollisionShape2D" parent="."]
-position = Vector2(-2.38419e-07, -2.38419e-07)
-rotation = 3.14159
-shape = SubResource("RectangleShape2D_ajqsr")
+[node name="ai" type="Node" parent="."]
+script = ExtResource("2_ark5q")
+
+[node name="timer" type="Timer" parent="ai"]
+wait_time = 0.5
+one_shot = true
+autostart = true
+script = ExtResource("3_odcp4")
 
 [node name="hitbox" type="Area2D" parent="."]
 collision_layer = 4
@@ -86,8 +89,18 @@ collision_mask = 2
 
 [node name="shape" type="CollisionShape2D" parent="hitbox"]
 shape = SubResource("RectangleShape2D_qixh6")
+debug_color = Color(0, 0.6, 0.701961, 0)
 
-[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
-[connection signal="timeout" from="patrol_ai/timer" to="patrol_ai/timer" method="_on_timeout"]
+[node name="turn" type="Area2D" parent="."]
+
+[node name="shape_left" type="CollisionShape2D" parent="turn"]
+position = Vector2(-7.5, 0)
+shape = SubResource("RectangleShape2D_o5vfb")
+
+[node name="shape_right" type="CollisionShape2D" parent="turn"]
+position = Vector2(7.5, 0)
+shape = SubResource("RectangleShape2D_o5vfb")
+
+[connection signal="timeout" from="ai/timer" to="ai/timer" method="_on_timeout"]
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
-[connection signal="body_entered" from="hitbox" to="hitbox" method="_on_body_entered"]
+[connection signal="body_entered" from="turn" to="." method="_on_turn_body_entered"]
