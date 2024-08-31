@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://bxkv6vhghbn36"]
+
+[ext_resource type="Texture2D" uid="uid://cifnhojmuecid" path="res://assets/textures/effects/effects.png" id="1_1el02"]
+[ext_resource type="Script" path="res://scenes/effects/effect_timer.gd" id="2_g7pma"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1uys0"]
+atlas = ExtResource("1_1el02")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mp6mn"]
+atlas = ExtResource("1_1el02")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7tv05"]
+atlas = ExtResource("1_1el02")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o8sou"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1uys0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mp6mn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7tv05")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="fireball_effect" type="AnimatedSprite2D"]
+z_index = 300
+sprite_frames = SubResource("SpriteFrames_o8sou")
+autoplay = "default"
+frame_progress = 0.8204
+
+[node name="death_timer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+script = ExtResource("2_g7pma")
+
+[connection signal="timeout" from="death_timer" to="death_timer" method="_on_timeout"]

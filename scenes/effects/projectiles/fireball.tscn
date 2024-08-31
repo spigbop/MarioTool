@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvdmqij23d322"]
+
+[ext_resource type="Script" path="res://scenes/effects/projectiles/fireball.gd" id="1_k0qyl"]
+[ext_resource type="Texture2D" uid="uid://cifnhojmuecid" path="res://assets/textures/effects/effects.png" id="1_vdlpb"]
+[ext_resource type="Script" path="res://scenes/effects/sprite_flip.gd" id="2_s8pvf"]
+[ext_resource type="AudioStream" uid="uid://r6ftgj8chf7g" path="res://assets/sounds/player/fireball.wav" id="4_6qvc3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tt4vj"]
+atlas = ExtResource("1_vdlpb")
+region = Rect2(0, 8, 8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qin80"]
+size = Vector2(6, 6)
+
+[node name="fireball" type="Area2D"]
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_k0qyl")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_tt4vj")
+
+[node name="flipper" type="Timer" parent="sprite"]
+wait_time = 0.1
+autostart = true
+script = ExtResource("2_s8pvf")
+
+[node name="throw" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_6qvc3")
+autoplay = true
+
+[node name="shape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qin80")
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="timeout" from="sprite/flipper" to="sprite/flipper" method="_on_timeout"]

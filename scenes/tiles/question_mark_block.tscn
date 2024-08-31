@@ -1,0 +1,112 @@
+[gd_scene load_steps=16 format=3 uid="uid://cqvgw3ogwppb4"]
+
+[ext_resource type="Script" path="res://scenes/tiles/content_block.gd" id="1_rdt8a"]
+[ext_resource type="PackedScene" uid="uid://bc2u8vwhksrer" path="res://scenes/tiles/coin.tscn" id="2_jh6od"]
+[ext_resource type="Texture2D" uid="uid://cqe6b0ibn8fgg" path="res://assets/textures/tiles.png" id="2_w8pql"]
+[ext_resource type="AudioStream" uid="uid://c8btas6b0427k" path="res://assets/sounds/blocks/bump.wav" id="3_8v7b5"]
+[ext_resource type="AudioStream" uid="uid://btnyk5k65mj6m" path="res://assets/sounds/blocks/contents.wav" id="4_s070n"]
+[ext_resource type="AudioStream" uid="uid://b4t8poq8733dp" path="res://assets/sounds/blocks/coin.wav" id="5_f0f8q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_766na"]
+atlas = ExtResource("2_w8pql")
+region = Rect2(96, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2b1il"]
+atlas = ExtResource("2_w8pql")
+region = Rect2(112, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xkbck"]
+atlas = ExtResource("2_w8pql")
+region = Rect2(128, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lf7yo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_766na")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2b1il")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xkbck")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.5
+}]
+
+[sub_resource type="Animation" id="Animation_cxk3n"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_36knn"]
+resource_name = "bumped"
+length = 0.266
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133, 0.266),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -6), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xicxp"]
+_data = {
+"RESET": SubResource("Animation_cxk3n"),
+"bumped": SubResource("Animation_36knn")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6b8lm"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fg3tb"]
+size = Vector2(16, 1)
+
+[node name="content_block" type="AnimatableBody2D"]
+z_index = 2
+collision_mask = 15
+script = ExtResource("1_rdt8a")
+breakable = false
+contents = ExtResource("2_jh6od")
+
+[node name="animated_sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_lf7yo")
+autoplay = "default"
+frame_progress = 0.139281
+
+[node name="sprite" type="Sprite2D" parent="."]
+
+[node name="animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xicxp")
+}
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6b8lm")
+
+[node name="bump" type="Area2D" parent="."]
+position = Vector2(0, 0.1)
+collision_mask = 10
+
+[node name="shape" type="CollisionShape2D" parent="bump"]
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_fg3tb")
+
+[node name="channels" type="Node" parent="."]
+
+[node name="bump_sound" type="AudioStreamPlayer2D" parent="channels"]
+position = Vector2(0, 0.1)
+stream = ExtResource("3_8v7b5")
+
+[node name="contents_sound" type="AudioStreamPlayer2D" parent="channels"]
+stream = ExtResource("4_s070n")
+
+[node name="collect_sound" type="AudioStreamPlayer2D" parent="channels"]
+stream = ExtResource("5_f0f8q")
+
+[connection signal="body_entered" from="bump" to="." method="_on_bump_body_entered"]

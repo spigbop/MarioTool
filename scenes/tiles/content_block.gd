@@ -28,6 +28,8 @@ func _on_bump_body_entered(body: Node2D) -> void:
 func hit(ptier, _body):
 	if contents:
 		emptied = true
+		if $animated_sprite:
+			$animated_sprite.queue_free()
 		sprite.texture = EMPTY_BLOCK_ATLAS
 		# powerup generation
 		var content = contents.instantiate()
@@ -35,12 +37,12 @@ func hit(ptier, _body):
 		content.position.y -= 16.0
 		add_sibling(content)
 		if content.has_method("appear"):
-			content.appear()
+			content.appear(ptier)
 		animation.stop()
 		animation.play("bumped")
 		contents_sound.play()
 	else:
-		if ptier > 0:
+		if ptier > 0 and breakable:
 			var effect = load("res://scenes/effects/brick_breaking_effect.tscn")
 			var inst = effect.instantiate()
 			inst.position = position

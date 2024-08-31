@@ -18,28 +18,27 @@ region = Rect2(16, 0, 8, 8)
 [sub_resource type="SpriteFrames" id="SpriteFrames_o8sou"]
 animations = [{
 "frames": [{
-"duration": 4.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_mjjlc")
 }, {
-"duration": 4.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_56271")
 }, {
-"duration": 4.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_vwabl")
 }, {
-"duration": 4.0,
+"duration": 1.0,
 "texture": null
 }],
 "loop": true,
 "name": &"default",
-"speed": 60.0
+"speed": 15.0
 }]
 
 [node name="skid_effect" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_o8sou")
 autoplay = "default"
-frame = 3
-frame_progress = 0.207684
+frame_progress = 0.799631
 
 [node name="death_timer" type="Timer" parent="."]
 wait_time = 0.2

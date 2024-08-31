@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcalhgdhc7hm1"]
+
+[ext_resource type="AudioStream" uid="uid://bt4tgcnw2bn7g" path="res://assets/music/yi-underground-loop.wav" id="1_5wcvh"]
+[ext_resource type="AudioStream" uid="uid://bk6s23h8qr1dh" path="res://assets/music/yi-underground-start.wav" id="2_ndeyc"]
+[ext_resource type="Script" path="res://scenes/music/music_logic.gd" id="3_xpj3b"]
+
+[node name="yi_underground" type="Node2D"]
+script = ExtResource("3_xpj3b")
+
+[node name="start" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_ndeyc")
+autoplay = true
+
+[node name="loop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_5wcvh")
+
+[connection signal="finished" from="start" to="." method="_on_start_finished"]
+[connection signal="finished" from="loop" to="." method="_on_loop_finished"]

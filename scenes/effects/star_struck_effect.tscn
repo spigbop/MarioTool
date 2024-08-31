@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://fvh8uhtvjl6o"]
+
+[ext_resource type="Texture2D" uid="uid://mgph0sciyul4" path="res://assets/textures/effects/star_struck_effect.png" id="1_d254d"]
+[ext_resource type="Script" path="res://scenes/effects/effect_timer.gd" id="2_ipuhe"]
+[ext_resource type="AudioStream" uid="uid://pl0bxprp7h2o" path="res://assets/sounds/enemies/kick.wav" id="3_wxlp4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ltgj"]
+atlas = ExtResource("1_d254d")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lcxlc"]
+atlas = ExtResource("1_d254d")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xtqgn"]
+atlas = ExtResource("1_d254d")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5k2hr"]
+atlas = ExtResource("1_d254d")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o8sou"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ltgj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lcxlc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xtqgn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5k2hr")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="skid_effect" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_o8sou")
+autoplay = "default"
+frame = 3
+frame_progress = 0.58859
+
+[node name="death_timer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+script = ExtResource("2_ipuhe")
+
+[node name="kick" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_wxlp4")
+autoplay = true
+
+[connection signal="timeout" from="death_timer" to="death_timer" method="_on_timeout"]

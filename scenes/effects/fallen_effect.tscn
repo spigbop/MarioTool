@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dv8ialxw01p3s"]
+
+[ext_resource type="Script" path="res://scenes/effects/fallen_effect.gd" id="1_rjgvc"]
+[ext_resource type="Script" path="res://scenes/effects/effect_timer.gd" id="2_f6b1f"]
+
+[node name="fallen_effect" type="Node2D"]
+script = ExtResource("1_rjgvc")
+
+[node name="sprite" type="Sprite2D" parent="."]
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 5.0
+script = ExtResource("2_f6b1f")
+
+[connection signal="timeout" from="timer" to="timer" method="_on_timeout"]

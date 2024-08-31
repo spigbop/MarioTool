@@ -53,7 +53,7 @@ _data = {
 size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5vfb"]
-size = Vector2(1.1, 15)
+size = Vector2(1.1, 14)
 
 [node name="super_mushroom" type="RigidBody2D"]
 collision_layer = 4
