@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://ckp7pgt27w85"]
+[gd_scene load_steps=3 format=3 uid="uid://ckp7pgt27w85"]
 
 [ext_resource type="Script" path="res://scenes/objects/generator.gd" id="1_lxt5h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g784u"]
+size = Vector2(32, 16)
 
 [node name="generator" type="Marker2D"]
 script = ExtResource("1_lxt5h")
@@ -9,4 +12,13 @@ script = ExtResource("1_lxt5h")
 wait_time = 5.0
 autostart = true
 
+[node name="inhibit" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 2
+
+[node name="shape" type="CollisionShape2D" parent="inhibit"]
+shape = SubResource("RectangleShape2D_g784u")
+
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="inhibit" to="." method="_on_inhibit_body_entered"]
+[connection signal="body_exited" from="inhibit" to="." method="_on_inhibit_body_exited"]

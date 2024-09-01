@@ -18,9 +18,9 @@ func enter_spawn_area() -> void:
 		ai.spawn()
 
 func exit_spawn_area() -> void:
-	queue_free() # change this to freeze later
+	pass
 
-func _on_turn_body_entered(body: Node2D) -> void:
+func _on_turn_body_entered(_body: Node2D) -> void:
 	ai.turn()
 
 
@@ -57,6 +57,7 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		effect_1_sprite.flip_v = true
 		add_sibling(effect_1)
 		queue_free()
+
 
 func appear():
 	animation.play("appear")

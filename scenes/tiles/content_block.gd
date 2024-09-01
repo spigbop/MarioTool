@@ -3,6 +3,7 @@ extends AnimatableBody2D
 
 @export var breakable: bool = true
 @export var contents: PackedScene = null
+@export var count: int = 1
 
 
 @onready var sprite: Sprite2D = $sprite
@@ -12,7 +13,9 @@ extends AnimatableBody2D
 
 
 var emptied = false
+@onready var current_count = count
 const EMPTY_BLOCK_ATLAS = preload("res://scenes/tiles/resources/empty_block_atlas.tres")
+const QUESTION_MARK_BLOCK = preload("res://scenes/tiles/resources/question_mark_block.tres")
 
 
 func _on_bump_body_entered(body: Node2D) -> void:
@@ -27,10 +30,22 @@ func _on_bump_body_entered(body: Node2D) -> void:
 
 func hit(ptier, _body):
 	if contents:
-		emptied = true
-		if $animated_sprite:
-			$animated_sprite.queue_free()
-		sprite.texture = EMPTY_BLOCK_ATLAS
+		# box empty
+		current_count -= 1
+		animation.stop()
+		
+		if current_count == 0:
+			emptied = true
+			if $animated_sprite:
+				$animated_sprite.queue_free()
+			sprite.texture = EMPTY_BLOCK_ATLAS
+			animation.play("bumped")
+		else:
+			if $animated_sprite:
+				animation.play("animated_bump")
+			else:
+				animation.play("bumped")
+		
 		# powerup generation
 		var content = contents.instantiate()
 		content.position = position
@@ -38,9 +53,8 @@ func hit(ptier, _body):
 		add_sibling(content)
 		if content.has_method("appear"):
 			content.appear(ptier)
-		animation.stop()
-		animation.play("bumped")
-		contents_sound.play()
+		if not content.has_method("collect"):
+			contents_sound.play()
 	else:
 		if ptier > 0 and breakable:
 			var effect = load("res://scenes/effects/brick_breaking_effect.tscn")
@@ -53,7 +67,5 @@ func hit(ptier, _body):
 			animation.play("bumped")
 
 
-@onready var collect_sound: AudioStreamPlayer2D = $channels/collect_sound
-
-func coin_picker():
-	collect_sound.play()
+func coin_popper():
+	pass

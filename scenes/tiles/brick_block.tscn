@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bvmpi7obayaji"]
+[gd_scene load_steps=11 format=3 uid="uid://bvmpi7obayaji"]
 
 [ext_resource type="Script" path="res://scenes/tiles/content_block.gd" id="1_gp5hw"]
 [ext_resource type="Texture2D" uid="uid://cqe6b0ibn8fgg" path="res://assets/textures/tiles.png" id="1_k5tbx"]
 [ext_resource type="AudioStream" uid="uid://c8btas6b0427k" path="res://assets/sounds/blocks/bump.wav" id="3_8uxgf"]
 [ext_resource type="AudioStream" uid="uid://btnyk5k65mj6m" path="res://assets/sounds/blocks/contents.wav" id="4_7rgi0"]
-[ext_resource type="AudioStream" uid="uid://b4t8poq8733dp" path="res://assets/sounds/blocks/coin.wav" id="5_mwq2k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0gojf"]
 atlas = ExtResource("1_k5tbx")
@@ -23,6 +22,18 @@ tracks/0/path = NodePath("sprite:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133, 0.266),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -6), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("collision:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.133, 0.266),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
@@ -73,8 +84,5 @@ stream = ExtResource("3_8uxgf")
 
 [node name="contents_sound" type="AudioStreamPlayer2D" parent="channels"]
 stream = ExtResource("4_7rgi0")
-
-[node name="collect_sound" type="AudioStreamPlayer2D" parent="channels"]
-stream = ExtResource("5_mwq2k")
 
 [connection signal="body_entered" from="bump" to="." method="_on_bump_body_entered"]

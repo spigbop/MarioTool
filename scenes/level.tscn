@@ -160,6 +160,11 @@ position = Vector2(168, 24)
 position = Vector2(88, 24)
 contents = ExtResource("7_8cdcs")
 
+[node name="content_block8" parent="contents" instance=ExtResource("4_unfnx")]
+position = Vector2(-136, 24)
+contents = ExtResource("3_rwu83")
+count = 5
+
 [node name="content_block7" parent="contents" instance=ExtResource("4_unfnx")]
 position = Vector2(72, 24)
 
@@ -168,6 +173,10 @@ position = Vector2(56, 24)
 
 [node name="content_block4" parent="contents" instance=ExtResource("4_unfnx")]
 position = Vector2(40, 24)
+
+[node name="content_block3" parent="contents" instance=ExtResource("9_4s3u7")]
+position = Vector2(-120, 24)
+count = 5
 
 [node name="content_block" parent="contents" instance=ExtResource("9_4s3u7")]
 position = Vector2(104, 24)

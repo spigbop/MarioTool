@@ -1,7 +1,7 @@
 extends Area2D
 
 
-const SPEED = 3.65
+const SPEED = 3.75
 const BOUNCE_SPEED = 1.6
 
 var player = null
@@ -19,7 +19,7 @@ func _physics_process(delta: float) -> void:
 	position.y += bounce_velocity * BOUNCE_SPEED # accel = 9.8
 	position.x += direction * SPEED # accel = 0
 	
-	bounce_velocity += BOUNCE_SPEED * 6.0 * delta
+	bounce_velocity += BOUNCE_SPEED * 8.0 * delta
 
 var once = false
 
@@ -31,7 +31,7 @@ func exit_spawn_area() -> void:
 	despawn(false)
 
 func despawn(play_effect = true) -> void:
-	player.projectiles = clamp(player.projectiles - 1, 0, 2)
+	player.projectiles.erase(get_node("."))
 	if not once:
 		player.is_throwing = false
 	if play_effect:
@@ -44,7 +44,7 @@ func despawn(play_effect = true) -> void:
 
 
 
-func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_body_shape_entered(body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if not logical_position:
 		despawn()
 		return
@@ -63,7 +63,7 @@ func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, 
 	else:
 		return
 	
-	if collider.y > logical_position.y + 4.0:
+	if collider.y >= logical_position.y + 3.0:
 		last_bounce_position = position.y
 		bounce_velocity = -2.2
 		if not once:

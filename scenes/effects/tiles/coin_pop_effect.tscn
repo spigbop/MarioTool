@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://d3iyw10jkb5eh"]
+
+[ext_resource type="Texture2D" uid="uid://b5onrabrj17wv" path="res://assets/textures/effects/coin_pop_effect.png" id="1_krhvq"]
+[ext_resource type="Script" path="res://scenes/effects/effect_timer.gd" id="2_uopbi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rh7uy"]
+atlas = ExtResource("1_krhvq")
+region = Rect2(0, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hh6bu"]
+atlas = ExtResource("1_krhvq")
+region = Rect2(20, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifcli"]
+atlas = ExtResource("1_krhvq")
+region = Rect2(40, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0y6f"]
+atlas = ExtResource("1_krhvq")
+region = Rect2(60, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jll5r"]
+atlas = ExtResource("1_krhvq")
+region = Rect2(80, 0, 20, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gwk5v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rh7uy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hh6bu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ifcli")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0y6f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jll5r")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="coin_pop_effect" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_gwk5v")
+autoplay = "default"
+frame_progress = 0.515756
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 0.34
+one_shot = true
+autostart = true
+script = ExtResource("2_uopbi")
+
+[connection signal="timeout" from="timer" to="timer" method="_on_timeout"]

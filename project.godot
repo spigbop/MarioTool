@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=768
 window/size/viewport_height=672
+window/size/resizable=false
 
 [input]
 
@@ -61,6 +62,7 @@ down_duck={
 2d_physics/layer_2="Players"
 2d_physics/layer_3="Powerups"
 2d_physics/layer_4="Enemies"
+2d_physics/layer_8="Markers"
 
 [rendering]
 

@@ -1,0 +1,75 @@
+[gd_scene load_steps=12 format=3 uid="uid://22t5v6aianjt"]
+
+[ext_resource type="Texture2D" uid="uid://bgei0w025bgkv" path="res://assets/textures/effects/coin_spin_effect.png" id="1_kti8u"]
+[ext_resource type="Script" path="res://scenes/timers/spawn_timer.gd" id="2_dsddt"]
+[ext_resource type="Script" path="res://scenes/effects/fallen_effect.gd" id="2_gk5va"]
+[ext_resource type="AudioStream" uid="uid://b4t8poq8733dp" path="res://assets/sounds/blocks/coin.wav" id="2_pdlnr"]
+[ext_resource type="Script" path="res://scenes/effects/effect_timer.gd" id="2_wdy8f"]
+[ext_resource type="PackedScene" uid="uid://d3iyw10jkb5eh" path="res://scenes/effects/tiles/coin_pop_effect.tscn" id="3_lkwv1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmwge"]
+atlas = ExtResource("1_kti8u")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_055m5"]
+atlas = ExtResource("1_kti8u")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptae8"]
+atlas = ExtResource("1_kti8u")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k03po"]
+atlas = ExtResource("1_kti8u")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pcb8d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xmwge")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_055m5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ptae8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k03po")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="coin_spin_effect" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_pcb8d")
+autoplay = "default"
+frame_progress = 0.115918
+script = ExtResource("2_gk5va")
+velocity = Vector2(0, -3.2)
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 0.39
+one_shot = true
+autostart = true
+script = ExtResource("2_wdy8f")
+
+[node name="spawn_timer" type="Timer" parent="."]
+wait_time = 0.34
+one_shot = true
+autostart = true
+script = ExtResource("2_dsddt")
+subject = ExtResource("3_lkwv1")
+delete_original = true
+
+[node name="stream" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_pdlnr")
+autoplay = true
+
+[connection signal="timeout" from="timer" to="timer" method="_on_timeout"]
+[connection signal="timeout" from="spawn_timer" to="spawn_timer" method="_on_timeout"]

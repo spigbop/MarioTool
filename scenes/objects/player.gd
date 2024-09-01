@@ -32,7 +32,7 @@ var freeze = false
 
 
 var logical_position = Vector2(0, 0)
-var projectiles = 0
+var projectiles = []
 var is_throwing = false
 
 
@@ -51,13 +51,13 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("run_fire_decline"):
 		speed_mult = RUN_SPEED_MULTIPLIER
 		accel_mult = RUN_ACCEL_MULTIPLIER
-		if powerup == 2 and projectiles < 2:
+		if powerup == 2 and projectiles.size() < 2:
 			var fireball = load("res://scenes/effects/projectiles/fireball.tscn")
 			var inst = fireball.instantiate()
 			inst.player = get_node(".")
 			if sprite.flip_h:
 				inst.direction *= -1.0
-			projectiles = clamp(projectiles + 1, 0, 2)
+			projectiles.append(inst)
 			inst.position = position
 			inst.position.x += 4.0 * inst.direction
 			inst.position.y -= 12.0
