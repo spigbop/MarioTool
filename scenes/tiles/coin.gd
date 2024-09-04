@@ -8,7 +8,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.has_method("coin_picker"):
 		collect(body)
 	if body.has_method("coin_popper"):
-		appear(0)
+		on_appear(0)
 
 func collect(body: Node2D = null) -> void:
 	if body and body.has_method("coin_picker"):
@@ -17,7 +17,7 @@ func collect(body: Node2D = null) -> void:
 	queue_free()
 
 
-func appear(_ptier) -> void:
+func on_appear(_ptier) -> void:
 	var coin_spin_effect = load("res://scenes/effects/tiles/coin_spin_effect.tscn")
 	var effect = coin_spin_effect.instantiate()
 	effect.position = position

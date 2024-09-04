@@ -36,6 +36,7 @@ animations = [{
 }]
 
 [node name="skid_effect" type="AnimatedSprite2D"]
+z_index = 50
 sprite_frames = SubResource("SpriteFrames_o8sou")
 autoplay = "default"
 frame_progress = 0.799631

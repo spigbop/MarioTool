@@ -258,3 +258,8 @@ func lose_life():
 	var death_timer = get_parent().get_node("testroom_death_timer")
 	if death_timer:
 		death_timer.start()
+
+
+# Methods
+func is_running() -> bool:
+	return speed_mult > 1.0

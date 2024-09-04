@@ -1,0 +1,115 @@
+[gd_scene load_steps=13 format=3 uid="uid://di0mccvgaubmr"]
+
+[ext_resource type="Script" path="res://scenes/objects/enemies/shell.gd" id="1_2gn56"]
+[ext_resource type="SpriteFrames" uid="uid://b02x8e7vuwu3c" path="res://scenes/objects/enemies/resources/green_shell.tres" id="2_pgohn"]
+[ext_resource type="Script" path="res://scenes/objects/ai/generic_defeat.gd" id="4_ew7ap"]
+[ext_resource type="Script" path="res://scenes/objects/ai/patrol.gd" id="4_il46n"]
+[ext_resource type="Script" path="res://scenes/objects/ai/ai_timer.gd" id="5_8s6q3"]
+[ext_resource type="Script" path="res://scenes/objects/ai/stompable.gd" id="5_n1oe1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajqsr"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qixh6"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o5vfb"]
+size = Vector2(1.1, 12)
+
+[sub_resource type="Animation" id="Animation_dhqh2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kfx74"]
+resource_name = "appear"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 11), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jonp8"]
+_data = {
+"RESET": SubResource("Animation_dhqh2"),
+"appear": SubResource("Animation_kfx74")
+}
+
+[node name="shell" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 9
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_2gn56")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_pgohn")
+autoplay = "default"
+speed_scale = 0.0
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(9.53674e-07, 1.58933e-08)
+rotation = 3.14159
+shape = SubResource("RectangleShape2D_ajqsr")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="patrol_ai" type="Node" parent="."]
+script = ExtResource("4_il46n")
+speed = 0.0
+autostart = true
+
+[node name="generic_defeat_ai" type="Node" parent="."]
+script = ExtResource("4_ew7ap")
+
+[node name="stompable_ai" type="Node" parent="."]
+script = ExtResource("5_n1oe1")
+
+[node name="timer" type="Timer" parent="stompable_ai"]
+wait_time = 0.5
+one_shot = true
+autostart = true
+script = ExtResource("5_8s6q3")
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 10
+
+[node name="shape" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("RectangleShape2D_qixh6")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="turn" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="shape_left" type="CollisionShape2D" parent="turn"]
+position = Vector2(-6.5, 0)
+shape = SubResource("RectangleShape2D_o5vfb")
+
+[node name="shape_right" type="CollisionShape2D" parent="turn"]
+position = Vector2(6.5, 0)
+shape = SubResource("RectangleShape2D_o5vfb")
+
+[node name="animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jonp8")
+}
+
+[connection signal="timeout" from="stompable_ai/timer" to="stompable_ai/timer" method="_on_timeout"]

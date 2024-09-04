@@ -1,16 +1,33 @@
-[gd_scene load_steps=12 format=3 uid="uid://bpdobfook80da"]
+[gd_scene load_steps=13 format=3 uid="uid://bbu7wme6ergvg"]
 
-[ext_resource type="Script" path="res://scenes/objects/enemies/goomba.gd" id="1_g0l7p"]
-[ext_resource type="Texture2D" uid="uid://dffstk2br0228" path="res://assets/textures/enemies.png" id="2_35hdl"]
-[ext_resource type="Script" path="res://scenes/effects/sprite_flip.gd" id="3_4p5cv"]
-[ext_resource type="Script" path="res://scenes/objects/ai/patrol.gd" id="3_qsaae"]
-[ext_resource type="Script" path="res://scenes/objects/ai/ai_timer.gd" id="5_0tohq"]
-[ext_resource type="Script" path="res://scenes/objects/ai/generic_defeat.gd" id="6_a3ej5"]
-[ext_resource type="Script" path="res://scenes/objects/ai/stompable.gd" id="7_1tgk2"]
+[ext_resource type="Script" path="res://scenes/objects/enemies/koopa_troopa.gd" id="1_3cmdy"]
+[ext_resource type="Texture2D" uid="uid://dffstk2br0228" path="res://assets/textures/enemies.png" id="2_cs3q4"]
+[ext_resource type="Script" path="res://scenes/objects/ai/patrol.gd" id="4_5ahaw"]
+[ext_resource type="Script" path="res://scenes/objects/ai/ai_timer.gd" id="5_5srs3"]
+[ext_resource type="Script" path="res://scenes/objects/ai/generic_defeat.gd" id="5_hyroa"]
+[ext_resource type="Script" path="res://scenes/objects/ai/stompable.gd" id="6_1eymy"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_csjkr"]
-atlas = ExtResource("2_35hdl")
-region = Rect2(0, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_35x3n"]
+atlas = ExtResource("2_cs3q4")
+region = Rect2(0, 16, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j63aq"]
+atlas = ExtResource("2_cs3q4")
+region = Rect2(16, 16, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i3en5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35x3n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j63aq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ajqsr"]
 size = Vector2(14, 14)
@@ -21,21 +38,19 @@ size = Vector2(14, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5vfb"]
 size = Vector2(1.1, 12)
 
-[node name="goomba" type="RigidBody2D"]
+[node name="green_koopa_troopa" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 9
 gravity_scale = 0.0
 lock_rotation = true
-script = ExtResource("1_g0l7p")
+script = ExtResource("1_3cmdy")
+shell_color_index = 0
 
-[node name="sprite" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_csjkr")
-
-[node name="flipper" type="Timer" parent="sprite"]
-wait_time = 0.12
-autostart = true
-script = ExtResource("3_4p5cv")
-vertical_flips = false
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_i3en5")
+autoplay = "default"
+speed_scale = 0.0
 
 [node name="collision" type="CollisionShape2D" parent="."]
 position = Vector2(9.53674e-07, 1.58933e-08)
@@ -44,26 +59,27 @@ shape = SubResource("RectangleShape2D_ajqsr")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="patrol_ai" type="Node" parent="."]
-script = ExtResource("3_qsaae")
+script = ExtResource("4_5ahaw")
 speed = 0.6
+flip_when_turned = true
 
 [node name="timer" type="Timer" parent="patrol_ai"]
 wait_time = 0.5
 one_shot = true
 autostart = true
-script = ExtResource("5_0tohq")
+script = ExtResource("5_5srs3")
 
 [node name="generic_defeat_ai" type="Node" parent="."]
-script = ExtResource("6_a3ej5")
+script = ExtResource("5_hyroa")
 
 [node name="stompable_ai" type="Node" parent="."]
-script = ExtResource("7_1tgk2")
+script = ExtResource("6_1eymy")
 
 [node name="timer" type="Timer" parent="stompable_ai"]
 wait_time = 0.5
 one_shot = true
 autostart = true
-script = ExtResource("5_0tohq")
+script = ExtResource("5_5srs3")
 
 [node name="hitbox" type="Area2D" parent="."]
 collision_layer = 4
@@ -85,6 +101,5 @@ shape = SubResource("RectangleShape2D_o5vfb")
 position = Vector2(6.5, 0)
 shape = SubResource("RectangleShape2D_o5vfb")
 
-[connection signal="timeout" from="sprite/flipper" to="sprite/flipper" method="_on_timeout"]
 [connection signal="timeout" from="patrol_ai/timer" to="patrol_ai/timer" method="_on_timeout"]
 [connection signal="timeout" from="stompable_ai/timer" to="stompable_ai/timer" method="_on_timeout"]

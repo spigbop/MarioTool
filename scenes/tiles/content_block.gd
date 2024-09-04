@@ -10,6 +10,7 @@ extends AnimatableBody2D
 @onready var animation: AnimationPlayer = $animation
 @onready var bump_sound: AudioStreamPlayer2D = $channels/bump_sound
 @onready var contents_sound: AudioStreamPlayer2D = $channels/contents_sound
+@onready var animated_sprite: AnimatedSprite2D = find_child("animated_sprite")
 
 
 var emptied = false
@@ -36,25 +37,17 @@ func hit(ptier, _body):
 		
 		if current_count == 0:
 			emptied = true
-			if $animated_sprite:
-				$animated_sprite.queue_free()
+			if animated_sprite:
+				animated_sprite.queue_free()
 			sprite.texture = EMPTY_BLOCK_ATLAS
 			animation.play("bumped")
 		else:
-			if $animated_sprite:
+			if animated_sprite:
 				animation.play("animated_bump")
 			else:
 				animation.play("bumped")
 		
-		# powerup generation
-		var content = contents.instantiate()
-		content.position = position
-		content.position.y -= 16.0
-		add_sibling(content)
-		if content.has_method("appear"):
-			content.appear(ptier)
-		if not content.has_method("collect"):
-			contents_sound.play()
+		spawn_content(ptier)
 	else:
 		if ptier > 0 and breakable:
 			var effect = load("res://scenes/effects/brick_breaking_effect.tscn")
@@ -65,6 +58,20 @@ func hit(ptier, _body):
 		else:
 			animation.stop()
 			animation.play("bumped")
+
+
+func spawn_content(ptier):
+	var inst = contents.instantiate()
+	if not inst.has_method("collect"):
+		contents_sound.play()
+	if inst.has_method("on_appear"):
+		inst.position = position
+		inst.position.y -= 16.0
+		add_sibling(inst)
+		inst.on_appear(ptier)
+	else:
+		inst.queue_free()
+		DummySpawner.spawn_from_pipe(self, contents.resource_path, Vector2(position.x, position.y - 16.0))
 
 
 func coin_popper():
