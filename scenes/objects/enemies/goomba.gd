@@ -6,7 +6,6 @@ extends RigidBody2D
 @onready var sprite: Sprite2D = $sprite
 
 
-# spawn_area.gd
 func enter_spawn_area() -> void:
 	gravity_scale = 1.0
 	patrol_ai.spawn()
@@ -16,7 +15,6 @@ func exit_spawn_area() -> void:
 	pass
 
 
-# stompable_ai
 func on_stomp() -> void:
 	var stomp = load("res://scenes/effects/goomba_stomp_effect.tscn")
 	var inst = stomp.instantiate()

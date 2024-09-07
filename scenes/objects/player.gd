@@ -63,6 +63,7 @@ func _physics_process(delta: float) -> void:
 			inst.position.y -= 12.0
 			is_throwing = true
 			add_sibling(inst)
+		emit_signal("just_ran_or_fired")
 	
 	if Input.is_action_just_released("run_fire_decline"):
 		speed_mult = 1.0
@@ -95,16 +96,17 @@ func _physics_process(delta: float) -> void:
 			skid.position.y += 6.0
 			add_sibling(skid)
 	
-	# Ducking
-	if powerup > 0:
-		if Input.is_action_pressed("down_duck") and grounded:
+	# Ducking & Entering Downards Pipes
+	if Input.is_action_pressed("down_duck") and grounded:
+		if powerup > 0:
 			sprite.animation = "duck"
 			if not ducking:
 				set_powerup_collisions(true)
 				ducking = true
-		if Input.is_action_just_released("down_duck"):
-			set_powerup_collisions(false)
-			ducking = false
+		emit_signal("just_ducked")
+	if powerup > 0 and Input.is_action_just_released("down_duck"):
+		set_powerup_collisions(false)
+		ducking = false
 	
 	# Jumping
 	jump_mult = clamp(abs(velocity.x * (speed_mult - 1.0) / jumping_factor), 1.0, 1.25)
@@ -139,6 +141,7 @@ func _physics_process(delta: float) -> void:
 
 func force_jump():
 	velocity.y = JUMP_VELOCITY * jump_mult
+	emit_signal("just_jumped")
 
 
 @onready var collect_sound: AudioStreamPlayer2D = $channels/collect_sound

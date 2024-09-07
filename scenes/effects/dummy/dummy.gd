@@ -22,6 +22,10 @@ func add_scene() -> void:
 
 
 func setup(duration, init_direction, init_texture, sprite_offset, a: Node2D, b: Node2D, c = null) -> void:
+	if not init_texture:
+		queue_free()
+		return
+	
 	sprite.texture = init_texture
 	sprite.position.y = sprite_offset
 	

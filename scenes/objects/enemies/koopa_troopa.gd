@@ -8,7 +8,6 @@ extends RigidBody2D
 @onready var sprite: AnimatedSprite2D = $sprite
 
 
-# spawn_area.gd
 func enter_spawn_area() -> void:
 	gravity_scale = 1.0
 	sprite.speed_scale = 1.0
@@ -19,7 +18,6 @@ func exit_spawn_area() -> void:
 	pass
 
 
-# stompable_ai
 func on_stomp() -> void:
 	var shell = load("res://scenes/objects/enemies/shell.tscn")
 	var inst = shell.instantiate()

@@ -94,6 +94,7 @@ physics_layer_0/collision_mask = 15
 sources/0 = SubResource("TileSetAtlasSource_p1nwl")
 
 [node name="level" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [-155.0]
 
 [node name="testroom_death_timer" type="Timer" parent="."]
 wait_time = 4.0

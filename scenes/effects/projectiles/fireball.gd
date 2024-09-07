@@ -1,39 +1,26 @@
 extends Area2D
 
 
-const SPEED = 3.75
-const BOUNCE_SPEED = 1.6
+@onready var bounce_ai: Node = $bounce_ai
 
 var player = null
 var direction = 1.0
 
-var bounce_velocity = 1.0
-var last_bounce_position = 0.0
-
 var logical_position = null
 
 
-func _physics_process(delta: float) -> void:
-	logical_position = position
-	
-	position.y += bounce_velocity * BOUNCE_SPEED # accel = 9.8
-	position.x += direction * SPEED # accel = 0
-	
-	bounce_velocity += BOUNCE_SPEED * 8.0 * delta
+func enter_spawn_area() -> void:
+	bounce_ai.direction = direction
+	bounce_ai.spawn()
 
-var once = false
-
-
-func fireball() -> void:
-	despawn()
 
 func exit_spawn_area() -> void:
-	despawn(false)
+	on_despawn(false)
 
-func despawn(play_effect = true) -> void:
+
+func on_despawn(play_effect = true) -> void:
 	player.projectiles.erase(get_node("."))
-	if not once:
-		player.is_throwing = false
+	player.is_throwing = false
 	if play_effect:
 		var fireball_effect = load("res://scenes/effects/fireball_effect.tscn")
 		var effect = fireball_effect.instantiate()
@@ -42,32 +29,9 @@ func despawn(play_effect = true) -> void:
 	queue_free()
 
 
+func on_first_bounce() -> void:
+	player.is_throwing = false
 
 
-func _on_body_shape_entered(body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
-	if not logical_position:
-		despawn()
-		return
-	
-	var collider
-	
-	if body.has_method("get_collision_layer"):
-		if body.get_collision_layer() == 1:
-			collider = body.position
-		else:
-			return
-	elif body.has_method("get_coords_for_body_rid"):
-		var coords = body.get_coords_for_body_rid(body_rid)
-		var tsize = body.tile_set.tile_size
-		collider = Vector2(body.position.x + coords.x * tsize.x, body.position.y + coords.y * tsize.y)
-	else:
-		return
-	
-	if collider.y >= logical_position.y + 3.0:
-		last_bounce_position = position.y
-		bounce_velocity = -2.2
-		if not once:
-			player.is_throwing = false
-		once = true
-	else:
-		despawn()
+func fireball() -> void:
+	on_despawn()

@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://di0mccvgaubmr"]
+[gd_scene load_steps=12 format=3 uid="uid://di0mccvgaubmr"]
 
 [ext_resource type="Script" path="res://scenes/objects/enemies/shell.gd" id="1_2gn56"]
 [ext_resource type="SpriteFrames" uid="uid://b02x8e7vuwu3c" path="res://scenes/objects/enemies/resources/green_shell.tres" id="2_pgohn"]
 [ext_resource type="Script" path="res://scenes/objects/ai/generic_defeat.gd" id="4_ew7ap"]
 [ext_resource type="Script" path="res://scenes/objects/ai/patrol.gd" id="4_il46n"]
-[ext_resource type="Script" path="res://scenes/objects/ai/ai_timer.gd" id="5_8s6q3"]
 [ext_resource type="Script" path="res://scenes/objects/ai/stompable.gd" id="5_n1oe1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ajqsr"]
@@ -82,12 +81,6 @@ script = ExtResource("4_ew7ap")
 [node name="stompable_ai" type="Node" parent="."]
 script = ExtResource("5_n1oe1")
 
-[node name="timer" type="Timer" parent="stompable_ai"]
-wait_time = 0.5
-one_shot = true
-autostart = true
-script = ExtResource("5_8s6q3")
-
 [node name="hitbox" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 10
@@ -111,5 +104,3 @@ shape = SubResource("RectangleShape2D_o5vfb")
 libraries = {
 "": SubResource("AnimationLibrary_jonp8")
 }
-
-[connection signal="timeout" from="stompable_ai/timer" to="stompable_ai/timer" method="_on_timeout"]

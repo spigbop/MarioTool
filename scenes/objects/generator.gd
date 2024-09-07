@@ -29,6 +29,9 @@ func enter_spawn_area() -> void:
 	if timer.is_stopped():
 		timer.start()
 
+func exit_spawn_area() -> void:
+	timer.stop()
+
 func _on_timer_timeout() -> void:
 	if player_can_disable and inhibited:
 		spawn_asap = true
