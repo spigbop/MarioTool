@@ -24,7 +24,8 @@ func spawn() -> void:
 
 func body_entered(body: Node2D) -> void:
 	if body.has_method("stomper"):
-		if body.logical_position.y < rigid.position.y - shape_offset:
+		var log_pos = CollisionLogic.get_logical_position(null, body)
+		if log_pos.y < rigid.position.y - shape_offset:
 				if force_jump and body.has_method("force_jump"):
 					body.force_jump()
 				
@@ -32,10 +33,10 @@ func body_entered(body: Node2D) -> void:
 					rigid.on_stomp()
 					
 				if rigid.has_method("on_kick"):
-					rigid.on_kick(body.logical_position, true)
+					rigid.on_kick(log_pos, true)
 		else:
 			if rigid.has_method("on_contact"):
 				rigid.on_contact(body)
 			
 			if rigid.has_method("on_kick"):
-				rigid.on_kick(body.logical_position, false)
+				rigid.on_kick(log_pos, false)

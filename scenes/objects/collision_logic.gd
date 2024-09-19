@@ -1,7 +1,7 @@
 class_name CollisionLogic
 
 
-static func get_logical_position(body_rid: RID, body: Node2D) -> Vector2:
+static func get_logical_position(body_rid, body: Node2D) -> Vector2:
 	var position = Vector2.INF
 	
 	# for objects with precalculated logical positions

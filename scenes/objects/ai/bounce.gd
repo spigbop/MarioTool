@@ -9,6 +9,7 @@ extends Node
 
 var direction = 1.0
 var bounce_velocity = 1.0
+var shape_offset = 3.0
 var last_bounce_position = 0.0
 
 
@@ -26,6 +27,7 @@ func _ready() -> void:
 		
 	if bouncebox:
 		bouncebox.body_shape_entered.connect(shape_entered)
+		shape_offset = bouncebox.get_node("shape").shape.size.y / 2.0
 	
 	if autostart:
 		spawn()
@@ -52,7 +54,7 @@ func shape_entered(body_rid: RID, body: Node2D, _body_shape_index: int, _local_s
 			rigid.on_despawn()
 		return
 	
-	if CollisionLogic.get_logical_position(body_rid, body).y >= rigid.logical_position.y + 3.0:
+	if CollisionLogic.get_logical_position(body_rid, body).y >= rigid.logical_position.y + shape_offset:
 		last_bounce_position = rigid.position.y
 		bounce_velocity = -2.2
 		if not once and rigid.has_method("on_first_bounce"):
