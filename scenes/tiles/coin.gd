@@ -1,7 +1,7 @@
 extends Area2D
 
 
-static var coin_count = 0
+static var coin_count: int = 0
 
 
 func _on_body_entered(body: Node2D) -> void:

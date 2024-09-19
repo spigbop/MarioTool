@@ -18,6 +18,11 @@ func enter_spawn_area() -> void:
 func exit_spawn_area() -> void:
 	pass
 
+# called when entering the death barrier.
+# the death barrier kills enemies as well as players.
+func enter_death_barrier() -> void:
+	queue_free()
+
 # -------------------------
 # stompable_ai.gd Functions
 # -------------------------

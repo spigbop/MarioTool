@@ -44,7 +44,7 @@ func on_kick(impact, _aerial) -> void:
 	if position.x - impact.x < 0:
 		multiplier *= -1.0
 	
-	patrol_ai.current_speed = 4.2 * multiplier
+	patrol_ai.speed = 4.2 * multiplier
 
 func on_contact(body) -> void:
 	if kicked and body.has_method("hurt"):
@@ -67,4 +67,4 @@ func set_shell_color(color_index: int) -> void:
 	sprite.play()
 
 func get_shell_speed() -> float:
-	return patrol_ai.current_speed
+	return patrol_ai.speed

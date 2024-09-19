@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://jt24itrw3jdg"]
+[gd_scene load_steps=21 format=4 uid="uid://jt24itrw3jdg"]
 
 [ext_resource type="PackedScene" uid="uid://bcalhgdhc7hm1" path="res://scenes/music/yi_underground.tscn" id="1_6mcrj"]
 [ext_resource type="PackedScene" uid="uid://c5ggejhxdho17" path="res://scenes/objects/player.tscn" id="1_ohph1"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://ckp7pgt27w85" path="res://scenes/objects/generator.tscn" id="11_1jkuy"]
 [ext_resource type="PackedScene" uid="uid://bbu7wme6ergvg" path="res://scenes/objects/enemies/green_koopa_troopa.tscn" id="15_1q337"]
 [ext_resource type="PackedScene" uid="uid://cgundduxylatj" path="res://scenes/objects/enemies/red_koopa_troopa.tscn" id="16_ob6nc"]
+[ext_resource type="PackedScene" uid="uid://cm603oeauj2tb" path="res://scenes/objects/zones/warp_pipe.tscn" id="17_fmmn5"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_eqtb4"]
 distance = -44.0
@@ -175,7 +176,6 @@ count = 5
 
 [node name="content_block7" parent="contents" instance=ExtResource("4_unfnx")]
 position = Vector2(72, 24)
-contents = ExtResource("7_bkpva")
 
 [node name="content_block5" parent="contents" instance=ExtResource("4_unfnx")]
 position = Vector2(56, 24)
@@ -198,6 +198,13 @@ subject = ExtResource("15_1q337")
 [node name="generator" parent="contents" instance=ExtResource("11_1jkuy")]
 position = Vector2(-224, -8)
 subject = ExtResource("7_bkpva")
+
+[node name="goomba" parent="contents" instance=ExtResource("7_bkpva")]
+position = Vector2(284, 27)
+
+[node name="warp_pipe" parent="contents" instance=ExtResource("17_fmmn5")]
+position = Vector2(-224, -8)
+destination = Vector2(288, 40)
 
 [node name="red_koopa_troopa" parent="." instance=ExtResource("16_ob6nc")]
 position = Vector2(672, 73)

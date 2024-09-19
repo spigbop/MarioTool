@@ -7,13 +7,13 @@ extends Node
 @export var autostart = false
 @export var flip_when_turned = false
 
-var current_speed = 0.0
 var shape_offset = 3.0
 var logical_position = null
 @onready var rigid = get_parent()
 
 
 func _ready():
+	set_process(false)
 	var turnbox = rigid.get_node(turnbox_name)
 	if turnbox:
 		turnbox.body_shape_entered.connect(turn)
@@ -30,7 +30,7 @@ var spawned = false
 func spawn():
 	if not spawned:
 		spawned = true
-		current_speed = speed
+		set_process(true)
 		# unhides from pipe
 		if rigid.z_index < 15:
 			rigid.z_index = 15
@@ -39,12 +39,12 @@ func spawn():
 
 func _physics_process(_delta: float) -> void:
 	logical_position = rigid.position
-	rigid.position.x += current_speed
+	rigid.position.x += speed
 
 func turn(body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if not logical_position.y - CollisionLogic.get_logical_position(body_rid, body).y >= 8.0 + shape_offset:
-		current_speed *= -1.0
+		speed *= -1.0
 		if flip_when_turned:
-			rigid.get_node("sprite").flip_h = current_speed < 0
+			rigid.get_node("sprite").flip_h = speed < 0
 		if rigid.has_method("on_turn"):
 			rigid.on_turn()
