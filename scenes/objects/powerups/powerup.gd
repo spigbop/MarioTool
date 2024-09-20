@@ -7,7 +7,8 @@ extends RigidBody2D
 
 
 static var mushrooms_in_scene = []
-
+static func _static_init() -> void:
+	mushrooms_in_scene = []
 
 func enter_spawn_area() -> void:
 	if tier == 1:

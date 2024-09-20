@@ -87,21 +87,27 @@ shape = SubResource("CircleShape2D_v6dvv")
 
 [node name="jump_sound" type="AudioStreamPlayer2D" parent="channels"]
 stream = ExtResource("3_22ayf")
+bus = &"Sound Effect"
 
 [node name="skid_sound" type="AudioStreamPlayer2D" parent="channels"]
 stream = ExtResource("4_wx8g4")
+bus = &"Sound Effect"
 
 [node name="collect_sound" type="AudioStreamPlayer2D" parent="channels"]
 stream = ExtResource("5_d7x13")
+bus = &"Sound Effect"
 
 [node name="powerup_sound" type="AudioStreamPlayer2D" parent="channels"]
 stream = ExtResource("6_so6ea")
+bus = &"Sound Effect"
 
 [node name="lose_life_sound" type="AudioStreamPlayer2D" parent="channels"]
 stream = ExtResource("7_m1h1l")
+bus = &"Sound Effect"
 
 [node name="pipe_sound" type="AudioStreamPlayer2D" parent="channels"]
 stream = ExtResource("8_oej2d")
+bus = &"Sound Effect"
 
 [node name="hitbox" type="Area2D" parent="."]
 

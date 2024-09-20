@@ -70,6 +70,7 @@ delete_original = true
 [node name="stream" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_pdlnr")
 autoplay = true
+bus = &"Sound Effect"
 
 [connection signal="timeout" from="timer" to="timer" method="_on_timeout"]
 [connection signal="timeout" from="spawn_timer" to="spawn_timer" method="_on_timeout"]

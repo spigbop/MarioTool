@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bbu7wme6ergvg"]
 
 [ext_resource type="Script" path="res://scenes/objects/enemies/koopa_troopa.gd" id="1_3cmdy"]
-[ext_resource type="Texture2D" uid="uid://dffstk2br0228" path="res://assets/textures/enemies.png" id="2_cs3q4"]
+[ext_resource type="Texture2D" uid="uid://dffstk2br0228" path="res://assets/textures/objects/enemies.png" id="2_cs3q4"]
 [ext_resource type="Script" path="res://scenes/objects/ai/patrol.gd" id="4_5ahaw"]
 [ext_resource type="Script" path="res://scenes/objects/ai/generic_defeat.gd" id="5_hyroa"]
 [ext_resource type="Script" path="res://scenes/objects/ai/stompable.gd" id="6_1eymy"]

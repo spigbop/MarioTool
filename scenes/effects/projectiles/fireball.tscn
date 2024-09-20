@@ -36,6 +36,7 @@ gravity_multiplier = 8.0
 [node name="throw" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_6qvc3")
 autoplay = true
+bus = &"Sound Effect"
 
 [node name="shape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_qin80")

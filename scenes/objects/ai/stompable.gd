@@ -1,4 +1,5 @@
-extends Node
+extends AI
+class_name Stompable
 
 
 @onready var rigid: RigidBody2D = get_parent()

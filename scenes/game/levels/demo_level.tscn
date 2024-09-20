@@ -1,15 +1,15 @@
-[gd_scene load_steps=21 format=4 uid="uid://jt24itrw3jdg"]
+[gd_scene load_steps=22 format=4 uid="uid://jt24itrw3jdg"]
 
 [ext_resource type="PackedScene" uid="uid://bcalhgdhc7hm1" path="res://scenes/music/yi_underground.tscn" id="1_6mcrj"]
 [ext_resource type="PackedScene" uid="uid://c5ggejhxdho17" path="res://scenes/objects/player.tscn" id="1_ohph1"]
-[ext_resource type="Script" path="res://scenes/testroom_death_timer.gd" id="1_saafs"]
-[ext_resource type="Texture2D" uid="uid://dbtmgyvs2fvvc" path="res://assets/textures/background.png" id="2_2x0le"]
-[ext_resource type="Script" path="res://scenes/death_zone.gd" id="2_bsqwm"]
-[ext_resource type="Script" path="res://scenes/level_camera.gd" id="2_jwbg5"]
+[ext_resource type="Script" path="res://scenes/game/testroom_death_timer.gd" id="1_saafs"]
+[ext_resource type="Texture2D" uid="uid://dbtmgyvs2fvvc" path="res://assets/textures/backgrounds/night.png" id="2_2x0le"]
+[ext_resource type="Script" path="res://scenes/game/death_zone.gd" id="2_bsqwm"]
+[ext_resource type="Script" path="res://scenes/game/level_camera.gd" id="2_jwbg5"]
 [ext_resource type="PackedScene" uid="uid://bc2u8vwhksrer" path="res://scenes/tiles/coin.tscn" id="3_rwu83"]
 [ext_resource type="PackedScene" uid="uid://bvmpi7obayaji" path="res://scenes/tiles/brick_block.tscn" id="4_unfnx"]
 [ext_resource type="Texture2D" uid="uid://cqe6b0ibn8fgg" path="res://assets/textures/tiles.png" id="6_jre2g"]
-[ext_resource type="PackedScene" uid="uid://cgrei0bayox1g" path="res://scenes/spawn_area.tscn" id="6_l3dkn"]
+[ext_resource type="PackedScene" uid="uid://cgrei0bayox1g" path="res://scenes/game/spawn_area.tscn" id="6_l3dkn"]
 [ext_resource type="PackedScene" uid="uid://dva85grqdyvie" path="res://scenes/objects/powerups/fire_flower.tscn" id="7_8cdcs"]
 [ext_resource type="PackedScene" uid="uid://bpdobfook80da" path="res://scenes/objects/enemies/goomba.tscn" id="7_bkpva"]
 [ext_resource type="PackedScene" uid="uid://cqvgw3ogwppb4" path="res://scenes/tiles/question_mark_block.tscn" id="9_4s3u7"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://bbu7wme6ergvg" path="res://scenes/objects/enemies/green_koopa_troopa.tscn" id="15_1q337"]
 [ext_resource type="PackedScene" uid="uid://cgundduxylatj" path="res://scenes/objects/enemies/red_koopa_troopa.tscn" id="16_ob6nc"]
 [ext_resource type="PackedScene" uid="uid://cm603oeauj2tb" path="res://scenes/objects/zones/warp_pipe.tscn" id="17_fmmn5"]
+[ext_resource type="PackedScene" uid="uid://dendcfcbdwy24" path="res://scenes/ui/menus/pause_menu.tscn" id="18_f3tq8"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_eqtb4"]
 distance = -44.0
@@ -205,6 +206,8 @@ level_dimensions = Rect2(-128, 0, 640, 0)
 visible = false
 
 [node name="level_music" parent="main_camera" instance=ExtResource("1_6mcrj")]
+
+[node name="pause_menu" parent="main_camera" instance=ExtResource("18_f3tq8")]
 
 [connection signal="timeout" from="testroom_death_timer" to="testroom_death_timer" method="_on_timeout"]
 [connection signal="body_entered" from="death_zone" to="death_zone" method="_on_body_entered"]

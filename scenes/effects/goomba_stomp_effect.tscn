@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c6h33yws26fhl"]
 
-[ext_resource type="Texture2D" uid="uid://dffstk2br0228" path="res://assets/textures/enemies.png" id="1_ggiaq"]
+[ext_resource type="Texture2D" uid="uid://dffstk2br0228" path="res://assets/textures/objects/enemies.png" id="1_ggiaq"]
 [ext_resource type="Script" path="res://scenes/effects/effect_timer.gd" id="2_tv1dv"]
 [ext_resource type="AudioStream" uid="uid://b1k8x5xc4an2d" path="res://assets/sounds/enemies/stomp.wav" id="3_7q0l7"]
 
@@ -20,5 +20,6 @@ script = ExtResource("2_tv1dv")
 [node name="stomp" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_7q0l7")
 autoplay = true
+bus = &"Sound Effect"
 
 [connection signal="timeout" from="timer" to="timer" method="_on_timeout"]

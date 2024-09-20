@@ -1,4 +1,5 @@
-extends Node
+extends AI
+class_name Defeatable
 
 
 @onready var rigid = get_parent()

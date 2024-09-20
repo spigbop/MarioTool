@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bh8j6lqf5b553"]
 
-[ext_resource type="Texture2D" uid="uid://d2mrke3nllvtp" path="res://assets/textures/powerups.png" id="1_8sqj7"]
+[ext_resource type="Texture2D" uid="uid://d2mrke3nllvtp" path="res://assets/textures/objects/powerups.png" id="1_8sqj7"]
 [ext_resource type="Script" path="res://scenes/objects/ai/patrol.gd" id="2_ark5q"]
 [ext_resource type="Script" path="res://scenes/objects/powerups/powerup.gd" id="2_xal1j"]
 

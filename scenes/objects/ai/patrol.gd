@@ -1,4 +1,5 @@
-extends Node
+extends AI
+class_name Patrolling
 
 
 @export var turnbox_name = "turn"

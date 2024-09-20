@@ -43,7 +43,7 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="skid_effect" type="AnimatedSprite2D"]
+[node name="star_struck_effect" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_o8sou")
 autoplay = "default"
 frame = 3
@@ -57,5 +57,6 @@ script = ExtResource("2_ipuhe")
 [node name="kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_wxlp4")
 autoplay = true
+bus = &"Sound Effect"
 
 [connection signal="timeout" from="death_timer" to="death_timer" method="_on_timeout"]

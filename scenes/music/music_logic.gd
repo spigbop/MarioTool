@@ -6,8 +6,7 @@ extends Node2D
 
 
 func _ready() -> void:
-	if not MarioTool.BOOL_MUSIC_MUTED:
-		start.play()
+	start.play()
 
 func _on_start_finished() -> void:
 	loop.play()

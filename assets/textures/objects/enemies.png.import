@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2mrke3nllvtp"
-path="res://.godot/imported/powerups.png-1cfd903e132899c0d5b0c9ed3c4b8a7f.ctex"
+uid="uid://dffstk2br0228"
+path="res://.godot/imported/enemies.png-45af43bbbc239318022dd15159feac76.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/powerups.png"
-dest_files=["res://.godot/imported/powerups.png-1cfd903e132899c0d5b0c9ed3c4b8a7f.ctex"]
+source_file="res://assets/textures/objects/enemies.png"
+dest_files=["res://.godot/imported/enemies.png-45af43bbbc239318022dd15159feac76.ctex"]
 
 [params]
 

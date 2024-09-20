@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://dendcfcbdwy24"]
+
+[ext_resource type="Script" path="res://scenes/ui/controls/text_menu.gd" id="1_akppp"]
+[ext_resource type="Script" path="res://scenes/ui/menus/pause_menu.gd" id="1_shb47"]
+[ext_resource type="Script" path="res://scenes/ui/fonts/sprite_text.gd" id="2_me55k"]
+[ext_resource type="Texture2D" uid="uid://cinhvhpkyuhcx" path="res://assets/textures/ui/screen_overlay.png" id="2_s1t20"]
+
+[node name="pause_menu" type="Node2D"]
+process_mode = 3
+z_index = 999
+script = ExtResource("1_shb47")
+
+[node name="background" type="Sprite2D" parent="."]
+texture = ExtResource("2_s1t20")
+
+[node name="title" type="Node2D" parent="."]
+position = Vector2(-109, -100)
+script = ExtResource("2_me55k")
+text = "game paused!"
+
+[node name="menu" type="Node2D" parent="."]
+position = Vector2(-109, 46)
+script = ExtResource("1_akppp")
+focused = false
+function_calls = ["m_continue", "m_exit_level", "m_settings", "m_save_exit", "m_quit_desktop"]
+
+[node name="cursor" type="Node2D" parent="menu"]
+z_index = 999
+position = Vector2(-10, 0)
+script = ExtResource("2_me55k")
+text = "→"
+
+[node name="buttons" type="Node2D" parent="menu"]
+
+[node name="continue" type="Node2D" parent="menu/buttons"]
+z_index = 999
+script = ExtResource("2_me55k")
+text = "continue"
+
+[node name="exit_level" type="Node2D" parent="menu/buttons"]
+z_index = 999
+position = Vector2(0, 12)
+script = ExtResource("2_me55k")
+text = "exit level"
+
+[node name="settings" type="Node2D" parent="menu/buttons"]
+z_index = 999
+position = Vector2(0, 24)
+script = ExtResource("2_me55k")
+text = "settings"
+
+[node name="save_exit" type="Node2D" parent="menu/buttons"]
+z_index = 999
+position = Vector2(0, 42)
+script = ExtResource("2_me55k")
+text = "save & exit"
+
+[node name="quit_desktop" type="Node2D" parent="menu/buttons"]
+z_index = 999
+position = Vector2(0, 54)
+script = ExtResource("2_me55k")
+text = "quit to desktop"

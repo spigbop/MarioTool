@@ -18,6 +18,7 @@ gravity_scale = 0.8
 [node name="breaking_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("1_8f5wo")
 autoplay = true
+bus = &"Sound Effect"
 
 [node name="sprite0" type="Sprite2D" parent="."]
 position = Vector2(4, 4)

@@ -1,4 +1,5 @@
-extends Node
+extends AI
+class_name Bouncing
 
 
 @export var bouncebox_name = "bounce"
@@ -27,7 +28,7 @@ func _ready() -> void:
 		
 	if bouncebox:
 		bouncebox.body_shape_entered.connect(shape_entered)
-		shape_offset = bouncebox.get_node("shape").shape.size.y / 2.0
+		shape_offset = bouncebox.get_node("shape").shape.size.y / 2.0 - 1.0
 	
 	if autostart:
 		spawn()

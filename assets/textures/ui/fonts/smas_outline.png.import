@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dffstk2br0228"
-path="res://.godot/imported/enemies.png-b2e8c98793ad7d3af591f0b8611aa048.ctex"
+uid="uid://m2piw061xc6o"
+path="res://.godot/imported/smas_outline.png-06808fc1bd88fdb4e181bf99c3b63c3a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/enemies.png"
-dest_files=["res://.godot/imported/enemies.png-b2e8c98793ad7d3af591f0b8611aa048.ctex"]
+source_file="res://assets/textures/ui/fonts/smas_outline.png"
+dest_files=["res://.godot/imported/smas_outline.png-06808fc1bd88fdb4e181bf99c3b63c3a.ctex"]
 
 [params]
 
