@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 
 # Basic Settings
@@ -36,6 +37,12 @@ var projectiles = []
 var is_throwing = false
 
 
+static var current = null
+
+
+func _ready() -> void:
+	current = self
+	
 # physc process is fixed framerate
 func _physics_process(delta: float) -> void:
 	logical_position = position

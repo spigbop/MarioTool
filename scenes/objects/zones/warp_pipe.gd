@@ -41,8 +41,9 @@ func warp_reach_destination() -> void:
 
 func warp_finalise() -> void:
 	warping_subject.freeze = false
-	warping_subject.set_powerup_collisions(false)
-	warping_subject.ducking = false
+	if warping_subject.powerup > 0:
+		warping_subject.set_powerup_collisions(false)
+		warping_subject.ducking = false
 	warping_subject.visible = true
 	subject = null
 	if not can_only_enter_once:

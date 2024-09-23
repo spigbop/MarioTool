@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddxin8qn3astx"]
+
+[ext_resource type="Script" path="res://scenes/objects/generator.gd" id="1_6frjb"]
+[ext_resource type="PackedScene" uid="uid://du8pbjkw457aw" path="res://scenes/objects/enemies/bullet_bill.tscn" id="2_dbhe1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jvjnm"]
+size = Vector2(12, 32)
+
+[node name="blaster_generator" type="Area2D"]
+collision_layer = 128
+collision_mask = 2
+script = ExtResource("1_6frjb")
+subject = ExtResource("2_dbhe1")
+pipe_direction = 4
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="shape_left" type="CollisionShape2D" parent="."]
+position = Vector2(-14, 8)
+shape = SubResource("RectangleShape2D_jvjnm")
+
+[node name="shape_right" type="CollisionShape2D" parent="."]
+position = Vector2(14, 8)
+shape = SubResource("RectangleShape2D_jvjnm")
+
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

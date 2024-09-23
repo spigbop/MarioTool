@@ -7,7 +7,6 @@ extends RigidBody2D
 
 
 func enter_spawn_area() -> void:
-	gravity_scale = 1.0
 	patrol_ai.spawn()
 	stompable_ai.spawn()
 

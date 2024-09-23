@@ -2,7 +2,7 @@ extends Area2D
 
 
 @export var subject: PackedScene = null
-enum PIPE_DIRECTION { NORTH, SOUTH, WEST, EAST, NONE }
+enum PIPE_DIRECTION { NORTH, SOUTH, WEST, EAST, PLAYER }
 @export var pipe_direction: PIPE_DIRECTION = PIPE_DIRECTION.NORTH
 @export var player_can_disable = true
 
@@ -15,22 +15,33 @@ var spawn_asap = false
 func spawn_subject() -> Node2D:
 	var inst = subject.instantiate()
 	if pipe_direction == PIPE_DIRECTION.NORTH:
-		if inst.has_method("on_appear"):
-			inst.position = position
-			add_sibling(inst)
-			inst.on_appear()
-		else:
-			inst.queue_free()
-			DummySpawner.spawn_from_pipe(self, subject.resource_path, position)
+		finalise_subject(inst)
+	elif pipe_direction == PIPE_DIRECTION.PLAYER:
+		finalise_subject(inst)
 	return inst
+
+func finalise_subject(inst) -> void:
+	if inst.has_method("on_appear"):
+		inst.position = position
+		add_sibling(inst)
+		inst.on_appear()
+	else:
+		inst.queue_free()
+		DummySpawner.spawn_from_pipe(self, subject.resource_path, position)
+	if turned and "patrol_ai" in inst:
+		inst.patrol_ai.force_turn()
 
 
 func enter_spawn_area() -> void:
+	if pipe_direction == PIPE_DIRECTION.PLAYER:
+		set_process(true)
 	if timer.is_stopped():
 		timer.start()
 
 func exit_spawn_area() -> void:
 	timer.stop()
+	if pipe_direction == PIPE_DIRECTION.PLAYER:
+		set_process(false)
 
 func _on_timer_timeout() -> void:
 	if player_can_disable and inhibited:
@@ -51,3 +62,8 @@ func _on_body_exited(body: Node2D) -> void:
 			spawn_subject()
 		inhibited = false
 		timer.start()
+
+
+var turned = true
+func _process(delta: float) -> void:
+	turned = Player.current.position.x - position.x <= 0

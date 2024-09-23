@@ -1,0 +1,83 @@
+[gd_scene load_steps=12 format=3 uid="uid://du8pbjkw457aw"]
+
+[ext_resource type="Script" path="res://scenes/objects/enemies/bullet_bill.gd" id="1_fwaxh"]
+[ext_resource type="Texture2D" uid="uid://dffstk2br0228" path="res://assets/textures/objects/enemies.png" id="2_y8h6h"]
+[ext_resource type="AudioStream" uid="uid://bikveyngkbfxo" path="res://assets/sounds/enemies/bullet.wav" id="3_i52j4"]
+[ext_resource type="Script" path="res://scenes/objects/ai/patrol.gd" id="3_y20rd"]
+[ext_resource type="Script" path="res://scenes/objects/ai/generic_defeat.gd" id="4_sxtyn"]
+[ext_resource type="Script" path="res://scenes/objects/ai/stompable.gd" id="5_dshal"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_joqlp"]
+atlas = ExtResource("2_y8h6h")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wi7o5"]
+atlas = ExtResource("2_y8h6h")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qpfff"]
+atlas = ExtResource("2_y8h6h")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i3en5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_joqlp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wi7o5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qpfff")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qc14o"]
+size = Vector2(14, 12)
+
+[node name="bullet_bill" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_fwaxh")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_i3en5")
+autoplay = "default"
+frame_progress = 0.816118
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qc14o")
+
+[node name="bullet_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_i52j4")
+
+[node name="patrol_ai" type="Node" parent="."]
+script = ExtResource("3_y20rd")
+speed = 2.0
+can_fly = true
+flip_when_turned = true
+
+[node name="generic_defeat_ai" type="Node" parent="."]
+script = ExtResource("4_sxtyn")
+fireballable = false
+shellable = false
+
+[node name="stompable_ai" type="Node" parent="."]
+script = ExtResource("5_dshal")
+
+[node name="despawn_interval" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="shape" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("RectangleShape2D_qc14o")
+debug_color = Color(0, 0.6, 0.701961, 0)
