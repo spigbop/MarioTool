@@ -28,7 +28,7 @@ func finalise_subject(inst) -> void:
 	else:
 		inst.queue_free()
 		DummySpawner.spawn_from_pipe(self, subject.resource_path, position)
-	if turned and inst and "patrol_ai" in inst:
+	if turned and inst and "patrol_ai" in inst and inst.patrol_ai:
 		inst.patrol_ai.force_turn()
 
 

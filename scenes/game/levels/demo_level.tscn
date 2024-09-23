@@ -193,6 +193,12 @@ subject = ExtResource("15_1q337")
 position = Vector2(-224, -8)
 subject = ExtResource("7_bkpva")
 
+[node name="bullet_bill" parent="contents" instance=ExtResource("18_d7hnk")]
+position = Vector2(-251, -30)
+
+[node name="blaster_generator" parent="contents" instance=ExtResource("19_oaer7")]
+position = Vector2(744, 41)
+
 [node name="warp_pipe" parent="contents" instance=ExtResource("17_fmmn5")]
 position = Vector2(-224, -8)
 destination = Vector2(288, 40)
@@ -212,12 +218,6 @@ visible = false
 [node name="level_music" parent="main_camera" instance=ExtResource("1_6mcrj")]
 
 [node name="pause_menu" parent="main_camera" instance=ExtResource("18_f3tq8")]
-
-[node name="bullet_bill" parent="." instance=ExtResource("18_d7hnk")]
-position = Vector2(-251, -30)
-
-[node name="blaster_generator" parent="." instance=ExtResource("19_oaer7")]
-position = Vector2(744, 41)
 
 [connection signal="timeout" from="testroom_death_timer" to="testroom_death_timer" method="_on_timeout"]
 [connection signal="body_entered" from="death_zone" to="death_zone" method="_on_body_entered"]

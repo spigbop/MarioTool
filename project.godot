@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Mario Tool"
+config/version="0.28.1"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/bg_color=Color(0.103744, 0.103744, 0.103744, 1)
@@ -21,7 +22,7 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=768
 window/size/viewport_height=672
-window/size/resizable=false
+window/stretch/mode="viewport"
 
 [input]
 

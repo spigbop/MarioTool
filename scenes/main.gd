@@ -26,7 +26,6 @@ func _ready() -> void:
 	add_child(CURRENT_LEVEL)
 	
 	MAIN_CAMERA = CURRENT_LEVEL.get_node("main_camera")
-	set_game_size(6)
 
 
 var skip_pause = false
@@ -40,8 +39,3 @@ func window_lost_focus() -> void:
 	if get_tree().paused:
 		skip_pause = true
 	get_tree().paused = true
-
-
-func set_game_size(scale: int) -> void:
-	DisplayServer.window_set_size(Vector2i(256 * scale, 224 * scale))
-	MAIN_CAMERA.zoom = Vector2(scale, scale)
