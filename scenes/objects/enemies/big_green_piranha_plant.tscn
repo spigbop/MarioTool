@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://bmrqsimy0ohh5"]
+
+[ext_resource type="Script" path="res://scenes/objects/enemies/piranha_plant.gd" id="1_da68t"]
+[ext_resource type="Texture2D" uid="uid://dffstk2br0228" path="res://assets/textures/objects/enemies.png" id="2_neicj"]
+[ext_resource type="Script" path="res://scenes/objects/ai/generic_defeat.gd" id="3_n8oq2"]
+[ext_resource type="Script" path="res://scenes/objects/ai/stompable.gd" id="4_ljgns"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtwpn"]
+atlas = ExtResource("2_neicj")
+region = Rect2(64, 55, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5v0sm"]
+atlas = ExtResource("2_neicj")
+region = Rect2(80, 55, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i3en5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtwpn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5v0sm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajqsr"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exvev"]
+size = Vector2(14, 25)
+
+[node name="big_green_piranha_plant" type="RigidBody2D"]
+z_index = 5
+collision_layer = 8
+collision_mask = 0
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_da68t")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_i3en5")
+autoplay = "default"
+frame = 1
+frame_progress = 0.31044
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(9.53673e-07, -2.38419e-07)
+rotation = 3.14159
+shape = SubResource("RectangleShape2D_ajqsr")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="generic_defeat_ai" type="Node" parent="."]
+script = ExtResource("3_n8oq2")
+
+[node name="stompable_ai" type="Node" parent="."]
+script = ExtResource("4_ljgns")
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 10
+
+[node name="shape" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_exvev")
+debug_color = Color(0, 0.6, 0.701961, 0)

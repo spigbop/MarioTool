@@ -1,17 +1,19 @@
 extends RigidBody2D
 
 
-@onready var patrol_ai: Node = $patrol_ai
-@onready var stompable_ai: Node = $stompable_ai
+@export var direction: MarioTool.DIRECTION_H = MarioTool.DIRECTION_H.EAST
+
+@onready var patrol_ai: Patrolling = $patrol_ai
+@onready var stompable_ai: Stompable = $stompable_ai
 @onready var sprite: Sprite2D = $sprite
 
 
 func enter_spawn_area() -> void:
 	patrol_ai.spawn()
 	stompable_ai.spawn()
-
-func exit_spawn_area() -> void:
-	pass
+	
+func enter_death_barrier() -> void:
+	queue_free()
 
 
 func on_stomp() -> void:

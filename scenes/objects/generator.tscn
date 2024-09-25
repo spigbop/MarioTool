@@ -9,6 +9,7 @@ size = Vector2(32, 16)
 collision_layer = 128
 collision_mask = 2
 script = ExtResource("1_lxt5h")
+spawn_timer = 3.5
 
 [node name="timer" type="Timer" parent="."]
 wait_time = 5.0

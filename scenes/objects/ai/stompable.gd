@@ -34,10 +34,10 @@ func body_entered(body: Node2D) -> void:
 					rigid.on_stomp()
 					
 				if rigid.has_method("on_kick"):
-					rigid.on_kick(log_pos, true)
+					rigid.on_kick(log_pos, body, true)
 		else:
 			if rigid.has_method("on_contact"):
 				rigid.on_contact(body)
 			
 			if rigid.has_method("on_kick"):
-				rigid.on_kick(log_pos, false)
+				rigid.on_kick(log_pos, body, false)

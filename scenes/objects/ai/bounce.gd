@@ -37,7 +37,7 @@ func spawn() -> void:
 	set_process(true)
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	rigid.logical_position = rigid.position
 	
 	rigid.position.y += bounce_velocity * bounce_speed # accel = 9.8

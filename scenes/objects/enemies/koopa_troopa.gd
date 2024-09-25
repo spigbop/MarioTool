@@ -1,6 +1,8 @@
 extends RigidBody2D
 
 
+@export var direction: MarioTool.DIRECTION_H = MarioTool.DIRECTION_H.EAST
+
 @export var shell_color_index: int = 1
 
 @onready var patrol_ai: Node = $patrol_ai
@@ -9,18 +11,18 @@ extends RigidBody2D
 
 
 func enter_spawn_area() -> void:
-	sprite.speed_scale = 1.0
 	patrol_ai.spawn()
 	stompable_ai.spawn()
 
-func exit_spawn_area() -> void:
-	pass
+func enter_death_barrier() -> void:
+	queue_free()
 
 
 func on_stomp() -> void:
 	var shell = load("res://scenes/objects/enemies/shell.tscn")
 	var inst = shell.instantiate()
 	inst.position = position
+	inst.has_koopa = true
 	add_sibling(inst)
 	inst.set_shell_color(shell_color_index)
 	queue_free()

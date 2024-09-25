@@ -7,12 +7,12 @@ extends RigidBody2D
 
 @onready var animation: AnimationPlayer = $animation
 
+var has_koopa = false
 var kicked = false
 
 
 # spawn_area.gd
 func enter_spawn_area() -> void:
-	gravity_scale = 1.0
 	patrol_ai.spawn()
 	stompable_ai.spawn()
 
@@ -23,7 +23,7 @@ func exit_spawn_area() -> void:
 # stompable_ai
 var skip_kick = false
 
-func on_kick(impact, _aerial) -> void:
+func on_kick(impact, _body, _aerial) -> void:
 	if skip_kick:
 		skip_kick = false
 		return

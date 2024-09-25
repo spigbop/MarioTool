@@ -16,7 +16,7 @@ var logical_position = null
 
 func _ready():
 	set_physics_process(false)
-	var turnbox = rigid.get_node(turnbox_name)
+	var turnbox = rigid.find_child(turnbox_name)
 	if turnbox:
 		turnbox.body_shape_entered.connect(turn)
 	
@@ -32,6 +32,8 @@ var spawned = false
 func spawn():
 	if not spawned:
 		spawned = true
+		if "direction" in rigid:
+			apply_turn_logic(rigid.direction)
 		set_physics_process(true)
 		# unhides from pipe
 		if rigid.z_index < 15:
@@ -47,9 +49,20 @@ func turn(body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_inde
 	if logical_position and not logical_position.y - CollisionLogic.get_logical_position(body_rid, body).y >= 8.0 + shape_offset:
 		force_turn()
 
+
 func force_turn() -> void:
 	speed *= -1.0
 	if flip_when_turned:
 		rigid.get_node("sprite").flip_h = speed < 0
 	if rigid.has_method("on_turn"):
 		rigid.on_turn()
+
+
+func apply_turn_logic(direction: MarioTool.DIRECTION_H) -> void:
+	if direction == MarioTool.DIRECTION_H.WEST or direction == MarioTool.DIRECTION_H.PLAYER and Player.current.position.x - rigid.position.x < 0:
+		speed = -abs(speed)
+	elif direction == MarioTool.DIRECTION_H.EAST or direction == MarioTool.DIRECTION_H.PLAYER and Player.current.position.x - rigid.position.x > 0:
+		speed = abs(speed)
+	
+	if flip_when_turned:
+		rigid.get_node("sprite").flip_h = speed < 0

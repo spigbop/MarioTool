@@ -1,9 +1,11 @@
 extends RigidBody2D
 
 
-@onready var patrol_ai: Node = $patrol_ai
-@onready var stompable_ai: Node = $stompable_ai
-@onready var generic_defeat_ai: Node = $generic_defeat_ai
+@export var direction: MarioTool.DIRECTION_H = MarioTool.DIRECTION_H.PLAYER
+
+@onready var patrol_ai: Patrolling = $patrol_ai
+@onready var stompable_ai: Stompable = $stompable_ai
+@onready var generic_defeat_ai: Defeatable = $generic_defeat_ai
 
 @onready var bullet_sound: AudioStreamPlayer2D = $bullet_sound
 
@@ -13,14 +15,18 @@ func enter_spawn_area() -> void:
 		bullet_sound.play()
 	patrol_ai.spawn()
 	stompable_ai.spawn()
-	if not despawn_interval.is_stopped():
+	if despawn_interval and not despawn_interval.is_stopped():
 		despawn_interval.stop()
 
 @onready var despawn_interval: Timer = $despawn_interval
+var interval_connected: bool = false
 
 func exit_spawn_area() -> void:
-	despawn_interval.timeout.connect(despawn_interval_timeout)
-	despawn_interval.start()
+	if is_instance_valid(despawn_interval):
+		if not interval_connected:
+			despawn_interval.timeout.connect(despawn_interval_timeout)
+			interval_connected = true
+		despawn_interval.start()
 
 func despawn_interval_timeout() -> void:
 	queue_free()

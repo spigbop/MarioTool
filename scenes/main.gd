@@ -1,7 +1,9 @@
 extends Node
 class_name MarioTool
 
-enum DIRECTION { NORTH, SOUTH, WEST, EAST }
+enum DIRECTION { NORTH, SOUTH, WEST, EAST, PLAYER }
+enum DIRECTION_H { WEST, EAST, PLAYER }
+enum DIRECTION_V { NORTH, SOUTH, PLAYER }
 
 
 static var BUS_MASTER_VOLUME: float = 1.0
@@ -9,7 +11,6 @@ static var BUS_PAUSED_VOLUME: float = 0.0
 
 
 static var CURRENT_LEVEL: Node2D = null
-static var MAIN_CAMERA: Camera2D = null
 
 
 static func _static_init() -> void:
@@ -24,8 +25,6 @@ func _ready() -> void:
 	CURRENT_LEVEL = level_scene.instantiate()
 	CURRENT_LEVEL.position = Vector2.ZERO
 	add_child(CURRENT_LEVEL)
-	
-	MAIN_CAMERA = CURRENT_LEVEL.get_node("main_camera")
 
 
 var skip_pause = false

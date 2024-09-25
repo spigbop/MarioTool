@@ -1,27 +1,27 @@
-[gd_scene load_steps=12 format=3 uid="uid://bbu7wme6ergvg"]
+[gd_scene load_steps=12 format=3 uid="uid://cikdgbw5psu6a"]
 
-[ext_resource type="Script" path="res://scenes/objects/enemies/koopa_troopa.gd" id="1_3cmdy"]
-[ext_resource type="Texture2D" uid="uid://dffstk2br0228" path="res://assets/textures/objects/enemies.png" id="2_cs3q4"]
-[ext_resource type="Script" path="res://scenes/objects/ai/patrol.gd" id="4_5ahaw"]
-[ext_resource type="Script" path="res://scenes/objects/ai/generic_defeat.gd" id="5_hyroa"]
-[ext_resource type="Script" path="res://scenes/objects/ai/stompable.gd" id="6_1eymy"]
+[ext_resource type="Script" path="res://scenes/objects/enemies/spiny.gd" id="1_fy41h"]
+[ext_resource type="Texture2D" uid="uid://dffstk2br0228" path="res://assets/textures/objects/enemies.png" id="2_ww7pr"]
+[ext_resource type="Script" path="res://scenes/objects/ai/patrol.gd" id="3_ws2ja"]
+[ext_resource type="Script" path="res://scenes/objects/ai/generic_defeat.gd" id="4_aikue"]
+[ext_resource type="Script" path="res://scenes/objects/ai/stompable.gd" id="5_dg6y3"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_35x3n"]
-atlas = ExtResource("2_cs3q4")
-region = Rect2(0, 16, 16, 24)
+[sub_resource type="AtlasTexture" id="AtlasTexture_im77x"]
+atlas = ExtResource("2_ww7pr")
+region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_j63aq"]
-atlas = ExtResource("2_cs3q4")
-region = Rect2(16, 16, 16, 24)
+[sub_resource type="AtlasTexture" id="AtlasTexture_f70pp"]
+atlas = ExtResource("2_ww7pr")
+region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_i3en5"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_7qxhg"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_35x3n")
+"texture": SubResource("AtlasTexture_im77x")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_j63aq")
+"texture": SubResource("AtlasTexture_f70pp")
 }],
 "loop": true,
 "name": &"default",
@@ -37,18 +37,17 @@ size = Vector2(14, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5vfb"]
 size = Vector2(1.1, 12)
 
-[node name="green_koopa_troopa" type="RigidBody2D"]
+[node name="spiny" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 9
 gravity_scale = 0.0
 lock_rotation = true
-script = ExtResource("1_3cmdy")
-shell_color_index = 0
+script = ExtResource("1_fy41h")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -4)
-sprite_frames = SubResource("SpriteFrames_i3en5")
+sprite_frames = SubResource("SpriteFrames_7qxhg")
 autoplay = "default"
+frame_progress = 0.87148
 
 [node name="collision" type="CollisionShape2D" parent="."]
 position = Vector2(9.53674e-07, 1.58933e-08)
@@ -57,15 +56,15 @@ shape = SubResource("RectangleShape2D_ajqsr")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="patrol_ai" type="Node" parent="."]
-script = ExtResource("4_5ahaw")
+script = ExtResource("3_ws2ja")
 speed = 0.6
 flip_when_turned = true
 
 [node name="generic_defeat_ai" type="Node" parent="."]
-script = ExtResource("5_hyroa")
+script = ExtResource("4_aikue")
 
 [node name="stompable_ai" type="Node" parent="."]
-script = ExtResource("6_1eymy")
+script = ExtResource("5_dg6y3")
 
 [node name="hitbox" type="Area2D" parent="."]
 collision_layer = 4

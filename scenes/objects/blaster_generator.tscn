@@ -12,9 +12,10 @@ collision_mask = 2
 script = ExtResource("1_6frjb")
 subject = ExtResource("2_dbhe1")
 pipe_direction = 4
+spawn_timer = 2.2
 
 [node name="timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 1.5
 
 [node name="shape_left" type="CollisionShape2D" parent="."]
 position = Vector2(-14, 8)
