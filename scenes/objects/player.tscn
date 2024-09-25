@@ -110,6 +110,7 @@ stream = ExtResource("8_oej2d")
 bus = &"Sound Effect"
 
 [node name="hitbox" type="Area2D" parent="."]
+collision_layer = 2
 
 [node name="shape_small" type="CollisionShape2D" parent="hitbox"]
 position = Vector2(0, 0.5)

@@ -11,16 +11,11 @@ var has_koopa = false
 var kicked = false
 
 
-# spawn_area.gd
 func enter_spawn_area() -> void:
 	patrol_ai.spawn()
 	stompable_ai.spawn()
 
-func exit_spawn_area() -> void:
-	pass
 
-
-# stompable_ai
 var skip_kick = false
 
 func on_kick(impact, _body, _aerial) -> void:
@@ -32,9 +27,19 @@ func on_kick(impact, _body, _aerial) -> void:
 	var multiplier = 1.0
 	if kicked:
 		sprite.speed_scale = 1.0
+		
+		set_collision_layer_value(4, false)
+		set_collision_layer_value(5, true)
+		set_collision_mask_value(4, false)
+		set_collision_mask_value(5, true)
 	else:
 		sprite.speed_scale = 0.0
 		multiplier = 0.0
+		
+		set_collision_layer_value(4, true)
+		set_collision_layer_value(5, false)
+		set_collision_mask_value(4, true)
+		set_collision_mask_value(5, false)
 	
 	var star_struck_effect = load("res://scenes/effects/star_struck_effect.tscn")
 	var effect_0 = star_struck_effect.instantiate()
@@ -52,12 +57,6 @@ func on_contact(body) -> void:
 		body.hurt()
 
 
-# blocks & generators
-func appear():
-	animation.play("appear")
-
-
-# Methods
 const SHELL_COLORS = [ 
 	preload("res://scenes/objects/enemies/resources/green_shell.tres"),
 	preload("res://scenes/objects/enemies/resources/red_shell.tres") ]

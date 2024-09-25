@@ -69,6 +69,8 @@ pause_cancel={
 2d_physics/layer_2="Players"
 2d_physics/layer_3="Powerups"
 2d_physics/layer_4="Enemies"
+2d_physics/layer_5="Active Shells"
+2d_physics/layer_6="Alt Enemies"
 2d_physics/layer_8="Markers"
 
 [rendering]

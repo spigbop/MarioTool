@@ -46,7 +46,7 @@ func _physics_process(_delta: float) -> void:
 	rigid.position.x += speed
 
 func turn(body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
-	if logical_position and not logical_position.y - CollisionLogic.get_logical_position(body_rid, body).y >= 8.0 + shape_offset:
+	if body.has_method("enter_spawn_area") or logical_position and not logical_position.y - CollisionLogic.get_logical_position(body_rid, body).y >= 8.0 + shape_offset:
 		force_turn()
 
 
