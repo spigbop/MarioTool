@@ -30,7 +30,7 @@ func m_continue() -> void:
 	unfocus()
 
 func m_exit_level() -> void:
-	MarioTool.CURRENT_LEVEL.queue_free()
+	MarioTool.exit_level()
 
 func m_quit_desktop() -> void:
 	get_tree().quit()

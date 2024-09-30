@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://b226xraiwbri6"]
+
+[ext_resource type="Texture2D" uid="uid://bhn2si15wcfyi" path="res://assets/textures/ui/clear_overlay.png" id="1_isgan"]
+[ext_resource type="Script" path="res://scenes/ui/animations/spacing_animation.gd" id="2_5lckt"]
+[ext_resource type="Script" path="res://scenes/ui/fonts/sprite_text.gd" id="3_84fgb"]
+
+[node name="game_over" type="Node2D"]
+z_index = 999
+
+[node name="background" type="Sprite2D" parent="."]
+texture = ExtResource("1_isgan")
+
+[node name="title" type="Node" parent="."]
+script = ExtResource("2_5lckt")
+increment = -6.0
+
+[node name="text" type="Node2D" parent="title"]
+z_index = 999
+script = ExtResource("3_84fgb")
+text = "game over"
+alignment = 1
+spacing = 280.0

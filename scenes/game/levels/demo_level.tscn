@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://bcalhgdhc7hm1" path="res://scenes/music/yi_underground.tscn" id="1_6mcrj"]
 [ext_resource type="PackedScene" uid="uid://c5ggejhxdho17" path="res://scenes/objects/player.tscn" id="1_ohph1"]
-[ext_resource type="Script" path="res://scenes/game/testroom_death_timer.gd" id="1_saafs"]
 [ext_resource type="Texture2D" uid="uid://dbtmgyvs2fvvc" path="res://assets/textures/backgrounds/night.png" id="2_2x0le"]
 [ext_resource type="Script" path="res://scenes/game/death_zone.gd" id="2_bsqwm"]
 [ext_resource type="Script" path="res://scenes/game/level_camera.gd" id="2_jwbg5"]
@@ -13,14 +12,15 @@
 [ext_resource type="PackedScene" uid="uid://dva85grqdyvie" path="res://scenes/objects/powerups/fire_flower.tscn" id="7_8cdcs"]
 [ext_resource type="PackedScene" uid="uid://bpdobfook80da" path="res://scenes/objects/enemies/goomba.tscn" id="7_bkpva"]
 [ext_resource type="PackedScene" uid="uid://cqvgw3ogwppb4" path="res://scenes/tiles/question_mark_block.tscn" id="9_4s3u7"]
-[ext_resource type="PackedScene" uid="uid://ckp7pgt27w85" path="res://scenes/objects/generator.tscn" id="11_1jkuy"]
+[ext_resource type="PackedScene" uid="uid://ckp7pgt27w85" path="res://scenes/objects/zones/generator.tscn" id="11_1jkuy"]
 [ext_resource type="PackedScene" uid="uid://bbu7wme6ergvg" path="res://scenes/objects/enemies/green_koopa_troopa.tscn" id="15_1q337"]
 [ext_resource type="PackedScene" uid="uid://bmrqsimy0ohh5" path="res://scenes/objects/enemies/big_green_piranha_plant.tscn" id="16_se5el"]
 [ext_resource type="PackedScene" uid="uid://cm603oeauj2tb" path="res://scenes/objects/zones/warp_pipe.tscn" id="17_fmmn5"]
 [ext_resource type="PackedScene" uid="uid://dendcfcbdwy24" path="res://scenes/ui/menus/pause_menu.tscn" id="18_f3tq8"]
 [ext_resource type="PackedScene" uid="uid://cikdgbw5psu6a" path="res://scenes/objects/enemies/spiny.tscn" id="19_mekk4"]
-[ext_resource type="PackedScene" uid="uid://ddxin8qn3astx" path="res://scenes/objects/blaster_generator.tscn" id="19_oaer7"]
+[ext_resource type="PackedScene" uid="uid://ddxin8qn3astx" path="res://scenes/objects/zones/blaster_generator.tscn" id="19_oaer7"]
 [ext_resource type="PackedScene" uid="uid://dexs3y0emybbq" path="res://scenes/objects/enemies/green_piranha_plant.tscn" id="20_bw1l7"]
+[ext_resource type="Script" path="res://scenes/timers/death_timer.gd" id="21_10fxp"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_eqtb4"]
 distance = -44.0
@@ -104,13 +104,10 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 15
 sources/0 = SubResource("TileSetAtlasSource_p1nwl")
 
-[node name="level" type="Node2D"]
+[node name="demo_level" type="Node2D"]
+process_mode = 1
 position = Vector2(1, 0)
 metadata/_edit_horizontal_guides_ = [-155.0]
-
-[node name="testroom_death_timer" type="Timer" parent="."]
-wait_time = 4.0
-script = ExtResource("1_saafs")
 
 [node name="death_zone" type="Area2D" parent="."]
 position = Vector2(-89, 89)
@@ -221,17 +218,22 @@ position = Vector2(1233, 56)
 z_index = 20
 position = Vector2(-28, -3)
 
-[node name="main_camera" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
+[node name="level" type="Node2D" parent="."]
+
+[node name="main_camera" type="Camera2D" parent="level"]
 script = ExtResource("2_jwbg5")
 level_dimensions = Rect2(-128, 0, 1152, 0)
 
-[node name="spawn_area" parent="main_camera" instance=ExtResource("6_l3dkn")]
+[node name="spawn_area" parent="level/main_camera" instance=ExtResource("6_l3dkn")]
 visible = false
 
-[node name="level_music" parent="main_camera" instance=ExtResource("1_6mcrj")]
+[node name="level_music" parent="level/main_camera" instance=ExtResource("1_6mcrj")]
 
-[node name="pause_menu" parent="main_camera" instance=ExtResource("18_f3tq8")]
+[node name="pause_menu" parent="level/main_camera" instance=ExtResource("18_f3tq8")]
 
-[connection signal="timeout" from="testroom_death_timer" to="testroom_death_timer" method="_on_timeout"]
+[node name="death_timer" type="Timer" parent="level"]
+wait_time = 4.0
+one_shot = true
+script = ExtResource("21_10fxp")
+
 [connection signal="body_entered" from="death_zone" to="death_zone" method="_on_body_entered"]

@@ -262,10 +262,10 @@ func lose_life() -> void:
 	sprite.set_deferred("visible", false)
 	lose_life_sound.play()
 	freeze = true
-	var music = get_parent().get_node("main_camera/level_music")
+	var music = MarioTool.get_music()
 	if music:
 		music.queue_free()
-	var death_timer = get_parent().get_node("testroom_death_timer")
+	var death_timer = MarioTool.get_death_timer()
 	if death_timer:
 		death_timer.start()
 

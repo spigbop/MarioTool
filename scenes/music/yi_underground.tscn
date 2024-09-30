@@ -13,6 +13,3 @@ stream = ExtResource("2_ndeyc")
 
 [node name="loop" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("1_5wcvh")
-
-[connection signal="finished" from="start" to="." method="_on_start_finished"]
-[connection signal="finished" from="loop" to="." method="_on_loop_finished"]

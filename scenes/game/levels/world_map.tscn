@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://deqsvv60qd6qj"]
+
+[ext_resource type="PackedScene" uid="uid://c0k12oe1x7kol" path="res://scenes/music/smw_valley_of_bowser.tscn" id="1_1pj2n"]
+[ext_resource type="Script" path="res://scenes/ui/fonts/sprite_text.gd" id="1_rg5vk"]
+[ext_resource type="PackedScene" uid="uid://dendcfcbdwy24" path="res://scenes/ui/menus/pause_menu.tscn" id="2_dgm2h"]
+[ext_resource type="Texture2D" uid="uid://yer30x3p8xua" path="res://assets/textures/ui/map_overlay.png" id="2_lmnte"]
+[ext_resource type="Texture2D" uid="uid://cqe6b0ibn8fgg" path="res://assets/textures/tiles.png" id="5_h4mvn"]
+[ext_resource type="Script" path="res://scenes/ui/connectors/coin_text_connection.gd" id="6_xmtx4"]
+[ext_resource type="PackedScene" uid="uid://b226xraiwbri6" path="res://scenes/ui/menus/game_over.tscn" id="7_27p1o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1tppy"]
+atlas = ExtResource("5_h4mvn")
+region = Rect2(112, 0, 16, 16)
+filter_clip = true
+
+[node name="world_map" type="Node2D"]
+process_mode = 1
+
+[node name="level" type="Node2D" parent="."]
+
+[node name="main_camera" type="Camera2D" parent="level"]
+
+[node name="level_music" parent="level/main_camera" instance=ExtResource("1_1pj2n")]
+
+[node name="pause_menu" parent="level/main_camera" instance=ExtResource("2_dgm2h")]
+visible = false
+
+[node name="overlay" type="Sprite2D" parent="level/main_camera"]
+texture = ExtResource("2_lmnte")
+
+[node name="level_title" type="Node2D" parent="level/main_camera/overlay"]
+position = Vector2(0, -74)
+script = ExtResource("1_rg5vk")
+text = "level title"
+alignment = 1
+spacing = 0.0
+
+[node name="coins" type="Sprite2D" parent="level/main_camera/overlay"]
+position = Vector2(-118, 98)
+texture = SubResource("AtlasTexture_1tppy")
+
+[node name="coin_count" type="Node" parent="level/main_camera/overlay/coins"]
+script = ExtResource("6_xmtx4")
+
+[node name="text" type="Node2D" parent="level/main_camera/overlay/coins/coin_count"]
+position = Vector2(-115, 104)
+script = ExtResource("1_rg5vk")
+text = "0"
+spacing = 0.0
+
+[node name="game_over" parent="level" instance=ExtResource("7_27p1o")]

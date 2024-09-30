@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ddxin8qn3astx"]
 
-[ext_resource type="Script" path="res://scenes/objects/generator.gd" id="1_6frjb"]
+[ext_resource type="Script" path="res://scenes/objects/zones/generator.gd" id="1_6frjb"]
 [ext_resource type="PackedScene" uid="uid://du8pbjkw457aw" path="res://scenes/objects/enemies/bullet_bill.tscn" id="2_dbhe1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jvjnm"]
@@ -24,5 +24,3 @@ shape = SubResource("RectangleShape2D_jvjnm")
 [node name="shape_right" type="CollisionShape2D" parent="."]
 position = Vector2(14, 8)
 shape = SubResource("RectangleShape2D_jvjnm")
-
-[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

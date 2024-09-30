@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ckp7pgt27w85"]
 
-[ext_resource type="Script" path="res://scenes/objects/generator.gd" id="1_lxt5h"]
+[ext_resource type="Script" path="res://scenes/objects/zones/generator.gd" id="1_lxt5h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g784u"]
 size = Vector2(32, 16)
@@ -16,7 +16,3 @@ wait_time = 5.0
 
 [node name="shape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_g784u")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
-[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

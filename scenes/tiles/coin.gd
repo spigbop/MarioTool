@@ -1,4 +1,5 @@
 extends Area2D
+class_name Coin
 
 
 static var coin_count: int = 0

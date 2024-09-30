@@ -14,6 +14,9 @@ var spawn_asap = false
 
 func _ready() -> void:
 	timer.wait_time = spawn_timer
+	timer.timeout.connect(on_timeout)
+	body_entered.connect(on_enter)
+	body_exited.connect(on_exit)
 
 func spawn_subject() -> Node2D:
 	var inst = subject.instantiate()
@@ -34,7 +37,7 @@ func enter_spawn_area() -> void:
 func exit_spawn_area() -> void:
 	timer.stop()
 
-func _on_timer_timeout() -> void:
+func on_timeout() -> void:
 	if player_can_disable and inhibited:
 		spawn_asap = true
 		timer.stop()
@@ -42,11 +45,11 @@ func _on_timer_timeout() -> void:
 		spawn_subject()
 
 
-func _on_body_entered(body: Node2D) -> void:
+func on_enter(body: Node2D) -> void:
 	if body.has_method("hurt"):
 		inhibited = true
 
-func _on_body_exited(body: Node2D) -> void:
+func on_exit(body: Node2D) -> void:
 	if body.has_method("hurt"):
 		if spawn_asap:
 			spawn_asap = false

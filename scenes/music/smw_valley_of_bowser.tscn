@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0k12oe1x7kol"]
+
+[ext_resource type="Script" path="res://scenes/music/music_logic.gd" id="1_8ahes"]
+[ext_resource type="AudioStream" uid="uid://cnac6bh3qgem0" path="res://assets/music/smw-valley-of-bowser-start.wav" id="2_vttsy"]
+[ext_resource type="AudioStream" uid="uid://6gtmc46rd3cm" path="res://assets/music/smw-valley-of-bowser-loop.wav" id="3_hrgm0"]
+
+[node name="smw_valley_of_bowser" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_8ahes")
+
+[node name="start" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_vttsy")
+
+[node name="loop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_hrgm0")
