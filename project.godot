@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Mario Tool"
-config/version="0.36.0"
+config/version="0.37.0"
 config/tags=PackedStringArray("engine", "fangame", "mario")
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
 
 [display]
 

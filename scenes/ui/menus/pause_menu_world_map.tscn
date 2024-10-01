@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://wrrcf828qx87"]
+
+[ext_resource type="Script" path="res://scenes/ui/menus/pause_menu.gd" id="1_c17rg"]
+[ext_resource type="Texture2D" uid="uid://chcu2dfq3bjvc" path="res://assets/textures/ui/small_overlay.png" id="2_aotft"]
+[ext_resource type="Script" path="res://scenes/ui/fonts/sprite_text.gd" id="3_ywiae"]
+[ext_resource type="Script" path="res://scenes/ui/controls/text_menu.gd" id="4_ocsw6"]
+
+[node name="pause_menu_world_map" type="Node2D"]
+process_mode = 3
+z_index = 999
+script = ExtResource("1_c17rg")
+
+[node name="background" type="Sprite2D" parent="."]
+texture = ExtResource("2_aotft")
+
+[node name="menu" type="Node2D" parent="."]
+position = Vector2(-49, -21)
+script = ExtResource("4_ocsw6")
+focused = false
+function_calls = ["m_continue", "m_settings", "m_save_exit", "m_quit_desktop"]
+
+[node name="cursor" type="Node2D" parent="menu"]
+z_index = 999
+position = Vector2(-10, 0)
+script = ExtResource("3_ywiae")
+text = "→"
+
+[node name="buttons" type="Node2D" parent="menu"]
+
+[node name="continue" type="Node2D" parent="menu/buttons"]
+z_index = 999
+script = ExtResource("3_ywiae")
+text = "continue"
+spacing = 0.0
+
+[node name="settings" type="Node2D" parent="menu/buttons"]
+z_index = 999
+position = Vector2(0, 12)
+script = ExtResource("3_ywiae")
+text = "settings"
+spacing = 0.0
+
+[node name="save_exit" type="Node2D" parent="menu/buttons"]
+z_index = 999
+position = Vector2(0, 30)
+script = ExtResource("3_ywiae")
+text = "save & exit"
+spacing = 0.0
+
+[node name="quit_desktop" type="Node2D" parent="menu/buttons"]
+z_index = 999
+position = Vector2(0, 42)
+script = ExtResource("3_ywiae")
+text = "quit to desktop"
+spacing = 0.0

@@ -31,10 +31,8 @@ var offset_x: float = 0.0
 var sprites = []
 
 
-func _ready() -> void:
-	pass
-	#if not Engine.is_editor_hint():
-	#	print_text()
+# printing currently erases and then creates sprite children.
+# this is costly when animating. I will find a better way for animations.
 
 
 func print_text() -> void:

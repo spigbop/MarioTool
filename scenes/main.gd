@@ -59,15 +59,7 @@ func _process(_delta: float) -> void:
 
 func _notification(noti):
 	if noti == NOTIFICATION_WM_CLOSE_REQUEST:
-		config.set_value("window", "fullscreen", is_fullscreen)
-		config.set_value("window", "window_scale", current_window_size)
-		
-		config.set_value("bus", "master_volume", BUS_MASTER_VOLUME)
-		config.set_value("bus", "music_volume", db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music"))))
-		config.set_value("bus", "sound_volume", db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Sound Effect"))))
-		
-		config.save("user://config.cfg")
-		get_tree().quit()
+		quit_to_desktop()
 
 
 # Config file
@@ -176,3 +168,16 @@ static func get_death_timer() -> Timer:
 
 static func get_player() -> Player:
 	return CURRENT_LEVEL.get_node_or_null("player")
+
+
+# Methods
+static func quit_to_desktop() -> void:
+	config.set_value("window", "fullscreen", is_fullscreen)
+	config.set_value("window", "window_scale", current_window_size)
+	
+	config.set_value("bus", "master_volume", BUS_MASTER_VOLUME)
+	config.set_value("bus", "music_volume", db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music"))))
+	config.set_value("bus", "sound_volume", db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Sound Effect"))))
+	
+	config.save("user://config.cfg")
+	inst.get_tree().quit()

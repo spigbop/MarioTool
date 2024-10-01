@@ -33,4 +33,4 @@ func m_exit_level() -> void:
 	MarioTool.exit_level()
 
 func m_quit_desktop() -> void:
-	get_tree().quit()
+	MarioTool.quit_to_desktop()
