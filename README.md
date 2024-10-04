@@ -25,9 +25,9 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 ||Tiles|✅ Done||
 ||Objects|✅ Done||
 |![img](https://i.imgur.com/qjX1MtK.gif)|Mario|✅ Done|Same old plumber.|
-|![img](https://i.imgur.com/R5GySVD.gif)|Luigi|For Itch.io Release|Same old plumber. Higher jump, less acceleration and friction.|
-||Ledge AI|For Itch.io Release|Objects that can turn when met with a ledge|
-|![img](https://i.imgur.com/v2XARhq.gif)|Water & Swimming|For Itch.io Release| |
+|![img](https://i.imgur.com/R5GySVD.gif)|Luigi|For Release|Same old plumber. Higher jump, less acceleration and friction.|
+||Ledge AI|For Release|Objects that can turn when met with a ledge|
+|![img](https://i.imgur.com/v2XARhq.gif)|Water & Swimming|For Release| |
 ||Slopes|After 1.0||
 |**Enemies**| | | |
 ||Goomba|✅ Done|Goomba enemy from SMB.|
@@ -35,16 +35,16 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 ||Bullet Bill & Blaster|✅ Done|Bullet Bill enemy from SMB.|
 ||Piranha Plant|✅ Done|Piranha Plant enemy from SMB.|
 |![img](https://i.imgur.com/hd4pyzr.gif)|Buzzy Beetle|✏️ Work In Progress|Buzzy Beetle enemy from SMB.|
-|![img](https://i.imgur.com/36Ln0Dz.gif)|Blooper|For Itch.io Release|Blooper enemy from SMB.|
-|![img](https://i.imgur.com/iX7FJpr.gif)|Cheep Cheep|For Itch.io Release|I love fish.|
-||Paratroopas|For Itch.io Release|Flying koopas.|
-||Lakitu|For Itch.io Release|Throws spinies.|
-||Podoboo|For Itch.io Release|Podoboo enemy from SMB.|
+|![img](https://i.imgur.com/36Ln0Dz.gif)|Blooper|For Release|Blooper enemy from SMB.|
+|![img](https://i.imgur.com/iX7FJpr.gif)|Cheep Cheep|For Release|I love fish.|
+||Paratroopas|For Release|Flying koopas.|
+||Lakitu|For Release|Throws spinies.|
+||Podoboo|For Release|Podoboo enemy from SMB.|
 ||Fire Piranha Plant|After 1.0|Fire Piranha Plant enemy from SMB3.|
 ||Wiggler|After 1.0|Wiggler enemy from SMW.|
 ||Banzai Bill|After 1.0|Banzai Bill enemy from SMW.|
 |**Bosses**| | | |
-|![img](https://i.imgur.com/HnjSbn5.gif)|Bowser|For Itch.io Release|Bowser from SMB.|
+|![img](https://i.imgur.com/HnjSbn5.gif)|Bowser|For Release|Bowser from SMB.|
 
 # Asset Credits
 
