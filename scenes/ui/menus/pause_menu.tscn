@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dendcfcbdwy24"]
+[gd_scene load_steps=6 format=3 uid="uid://dendcfcbdwy24"]
 
 [ext_resource type="Script" path="res://scenes/ui/controls/text_menu.gd" id="1_akppp"]
 [ext_resource type="Script" path="res://scenes/ui/menus/pause_menu.gd" id="1_shb47"]
 [ext_resource type="Script" path="res://scenes/ui/fonts/sprite_text.gd" id="2_me55k"]
 [ext_resource type="Texture2D" uid="uid://cinhvhpkyuhcx" path="res://assets/textures/ui/screen_overlay.png" id="2_s1t20"]
+[ext_resource type="PackedScene" uid="uid://bg2igxj8jr68m" path="res://scenes/ui/menus/settings_menu.tscn" id="5_ulpci"]
 
 [node name="pause_menu" type="Node2D"]
 process_mode = 3
@@ -22,7 +23,6 @@ text = "game paused"
 position = Vector2(-109, 46)
 script = ExtResource("1_akppp")
 focused = false
-function_calls = ["m_continue", "m_exit_level", "m_settings", "m_save_exit", "m_quit_desktop"]
 
 [node name="cursor" type="Node2D" parent="menu"]
 z_index = 999
@@ -65,3 +65,5 @@ position = Vector2(0, 54)
 script = ExtResource("2_me55k")
 text = "quit to desktop"
 spacing = 0.0
+
+[node name="menu_settings" parent="." instance=ExtResource("5_ulpci")]

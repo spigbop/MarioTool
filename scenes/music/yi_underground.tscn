@@ -10,6 +10,8 @@ script = ExtResource("3_xpj3b")
 
 [node name="start" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_ndeyc")
+bus = &"Music"
 
 [node name="loop" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("1_5wcvh")
+bus = &"Music"

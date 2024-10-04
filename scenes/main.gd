@@ -6,18 +6,16 @@ enum DIRECTION_H { WEST, EAST, PLAYER }
 enum DIRECTION_V { NORTH, SOUTH, PLAYER }
 
 
-const CONFIG = {
+const CONFIG_DEFAULTS = {
 	"window,fullscreen": false,
 	"window,window_scale": 2,
 	
-	"bus,master_volume": 1.0,
+	"bus,master_volume": 0.5,
 	"bus,music_volume": 1.0,
 	"bus,sound_volume": 1.0
 }
 
-
-static var BUS_MASTER_VOLUME: float = 1.0
-static var BUS_PAUSED_VOLUME: float = 0.0
+static var config_maps = {}
 
 
 static var inst: MarioTool = null
@@ -30,12 +28,14 @@ static func _static_init() -> void:
 	if config.get_value("window", "fullscreen"):
 		toggle_fullscreen()
 	
-	BUS_MASTER_VOLUME = config.get_value("bus", "master_volume")
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(BUS_MASTER_VOLUME))
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(config.get_value("bus", "music_volume")))
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sound Effect"), linear_to_db(config.get_value("bus", "sound_volume")))
+	master_volume = config.get_value("bus", "master_volume")
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(master_volume))
+	music_volume = config.get_value("bus", "music_volume")
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(music_volume))
+	sound_volume = config.get_value("bus", "sound_volume")
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sound Effect"), linear_to_db(sound_volume))
 	
-	BUS_PAUSED_VOLUME = BUS_MASTER_VOLUME / 5
+	paused_volume = master_volume / 5
 
 
 func _ready() -> void:
@@ -79,9 +79,9 @@ static func load_config() -> ConfigFile:
 static func generate_config() -> ConfigFile:
 	config = ConfigFile.new()
 	
-	for entry in CONFIG:
+	for entry in CONFIG_DEFAULTS:
 		var a = entry.split(',')
-		config.set_value(a[0], a[1], CONFIG[entry])
+		config.set_value(a[0], a[1], CONFIG_DEFAULTS[entry])
 	
 	config.save("user://config.cfg")
 	return config
@@ -90,12 +90,12 @@ static func generate_config() -> ConfigFile:
 # Window management
 var skip_pause = false
 func window_gained_focus() -> void:
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(BUS_MASTER_VOLUME))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(master_volume))
 	if not skip_pause:
 		get_tree().paused = false
 
 func window_lost_focus() -> void:
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(BUS_PAUSED_VOLUME))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(paused_volume))
 	if get_tree().paused:
 		skip_pause = true
 	get_tree().paused = true
@@ -106,6 +106,8 @@ const MIN_WIN_SCALE: int = 1
 static var current_window_size: int = 2
 
 static func set_window_size(scale: int) -> void:
+	if DisplayServer.window_get_mode() == 2:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MINIMIZED)
 	if DisplayServer.window_get_mode() == 0:
 		var init_win_size: Vector2i = DisplayServer.window_get_size()
 		var win_size: Vector2i = Vector2i(256 * scale, 224 * scale)
@@ -113,14 +115,39 @@ static func set_window_size(scale: int) -> void:
 		var delta: Vector2i = (init_win_size - win_size) / 2
 		
 		current_window_size = scale
+		config_maps["window,window_scale"] = current_window_size
+		
 		DisplayServer.window_set_size(win_size)
 		DisplayServer.window_set_position(win_pos + delta)
 
 static var is_fullscreen: bool = DisplayServer.window_get_mode() > 2
 static func toggle_fullscreen() -> void:
-	DisplayServer.window_set_mode(Mathx.bool_gate(not is_fullscreen, 3, 0))
+	DisplayServer.window_set_mode(Mathx.bool_gate(not is_fullscreen, 4, 0))
 	is_fullscreen = not is_fullscreen
+	config_maps["window,fullscreen"] = is_fullscreen
 
+
+# Bus management
+static var master_volume = 1.0
+static var music_volume = 1.0
+static var sound_volume = 1.0
+static var paused_volume = 0.2
+
+static func set_master_volume(multiplier: float) -> void:
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(multiplier))
+	master_volume = multiplier
+	paused_volume = multiplier / 5
+	config_maps["bus,master_volume"] = multiplier
+
+static func set_music_volume(multiplier: float) -> void:
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(multiplier))
+	music_volume = multiplier
+	config_maps["bus,music_volume"] = multiplier
+
+static func set_sound_volume(multiplier: float) -> void:
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sound Effect"), linear_to_db(multiplier))
+	sound_volume = multiplier
+	config_maps["bus,sound_volume"] = multiplier
 
 
 # Level management
@@ -172,12 +199,14 @@ static func get_player() -> Player:
 
 # Methods
 static func quit_to_desktop() -> void:
-	config.set_value("window", "fullscreen", is_fullscreen)
-	config.set_value("window", "window_scale", current_window_size)
-	
-	config.set_value("bus", "master_volume", BUS_MASTER_VOLUME)
-	config.set_value("bus", "music_volume", db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music"))))
-	config.set_value("bus", "sound_volume", db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Sound Effect"))))
-	
+	for entry in config_maps:
+		var a = entry.split(',')
+		config.set_value(a[0], a[1], config_maps[entry])
 	config.save("user://config.cfg")
 	inst.get_tree().quit()
+
+func avsa(asd) -> int:
+	if asd:
+		return 3
+	else:
+		return 1

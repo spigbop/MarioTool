@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://cexckgdvdr2v6"]
+
+[ext_resource type="Texture2D" uid="uid://bmcs0bftrxpxo" path="res://assets/textures/ui/controls.png" id="1_u2hlo"]
+[ext_resource type="Texture2D" uid="uid://h8i6uac2ca4t" path="res://scenes/ui/controls/resources/handle_unselected.tres" id="2_ri1ys"]
+[ext_resource type="Script" path="res://scenes/ui/controls/slider_control.gd" id="2_xtgky"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_si3jp"]
+atlas = ExtResource("1_u2hlo")
+region = Rect2(8, 0, 29, 4)
+
+[node name="slider_control" type="Sprite2D"]
+texture = SubResource("AtlasTexture_si3jp")
+script = ExtResource("2_xtgky")
+
+[node name="handle" type="Sprite2D" parent="."]
+texture = ExtResource("2_ri1ys")

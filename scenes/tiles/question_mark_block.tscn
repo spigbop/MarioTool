@@ -142,8 +142,10 @@ shape = SubResource("RectangleShape2D_fg3tb")
 [node name="bump_sound" type="AudioStreamPlayer2D" parent="channels"]
 position = Vector2(0, 0.1)
 stream = ExtResource("3_8v7b5")
+bus = &"Sound Effect"
 
 [node name="contents_sound" type="AudioStreamPlayer2D" parent="channels"]
 stream = ExtResource("4_s070n")
+bus = &"Sound Effect"
 
 [connection signal="body_entered" from="bump" to="." method="_on_bump_body_entered"]

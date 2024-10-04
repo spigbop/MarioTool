@@ -7,7 +7,6 @@ class_name TextMenu
 		focused = newval
 		set_process(focused)
 @export var selected_index: int = 0
-@export var function_calls: PackedStringArray = []
 @onready var cursor: Node2D = $cursor
 var buttons = []
 
@@ -35,9 +34,7 @@ func reset() -> void:
 var cooldown: float = 0.0
 func _process(delta: float) -> void:
 	if focused and Input.is_action_just_pressed("jump_accept"):
-		var fun = function_calls[selected_index]
-		if boss.has_method(fun):
-			boss.call(fun)
+		call_on_boss("on_menu_accepted", selected_index)
 	
 	cooldown -= delta
 	if cooldown > 0.0:
@@ -46,9 +43,16 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("down_duck"):
 		cooldown = 0.09
 		selected_index = Mathx.clampi_cycle(selected_index + 1, 0, buttons.size() - 1)
+		call_on_boss("on_menu_selection", selected_index)
 		cursor.position.y = buttons[selected_index].position.y
 	
 	if Input.is_action_pressed("up_interact"):
 		cooldown = 0.09
 		selected_index = Mathx.clampi_cycle(selected_index - 1, 0, buttons.size() - 1)
+		call_on_boss("on_menu_selection", selected_index)
 		cursor.position.y = buttons[selected_index].position.y
+
+
+func call_on_boss(function: String, ind: int) -> void:
+	if boss.has_method(function):
+		boss.call_deferred(function, ind, self.name)

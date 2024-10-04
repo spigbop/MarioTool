@@ -67,8 +67,8 @@ func spawn_content(ptier):
 	if inst.has_method("on_appear"):
 		inst.position = position
 		inst.position.y -= 16.0
-		add_sibling(inst)
-		inst.on_appear(ptier)
+		self.call_deferred("add_sibling", inst)
+		inst.call_deferred("on_appear", ptier)
 	else:
 		inst.queue_free()
 		DummySpawner.spawn_from_pipe(self, contents.resource_path, Vector2(position.x, position.y - 16.0))

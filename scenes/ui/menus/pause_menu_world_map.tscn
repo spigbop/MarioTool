@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://wrrcf828qx87"]
+[gd_scene load_steps=6 format=3 uid="uid://wrrcf828qx87"]
 
 [ext_resource type="Script" path="res://scenes/ui/menus/pause_menu.gd" id="1_c17rg"]
 [ext_resource type="Texture2D" uid="uid://chcu2dfq3bjvc" path="res://assets/textures/ui/small_overlay.png" id="2_aotft"]
+[ext_resource type="PackedScene" uid="uid://bg2igxj8jr68m" path="res://scenes/ui/menus/settings_menu.tscn" id="3_lqtd5"]
 [ext_resource type="Script" path="res://scenes/ui/fonts/sprite_text.gd" id="3_ywiae"]
 [ext_resource type="Script" path="res://scenes/ui/controls/text_menu.gd" id="4_ocsw6"]
 
@@ -9,15 +10,18 @@
 process_mode = 3
 z_index = 999
 script = ExtResource("1_c17rg")
+is_world_map = true
 
 [node name="background" type="Sprite2D" parent="."]
 texture = ExtResource("2_aotft")
+
+[node name="menu_settings" parent="." instance=ExtResource("3_lqtd5")]
+position = Vector2(-67, -39)
 
 [node name="menu" type="Node2D" parent="."]
 position = Vector2(-49, -21)
 script = ExtResource("4_ocsw6")
 focused = false
-function_calls = ["m_continue", "m_settings", "m_save_exit", "m_quit_desktop"]
 
 [node name="cursor" type="Node2D" parent="menu"]
 z_index = 999

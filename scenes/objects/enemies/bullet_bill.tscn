@@ -55,6 +55,7 @@ shape = SubResource("RectangleShape2D_qc14o")
 
 [node name="bullet_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_i52j4")
+bus = &"Sound Effect"
 
 [node name="patrol_ai" type="Node" parent="."]
 script = ExtResource("3_y20rd")

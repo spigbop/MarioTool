@@ -22,7 +22,7 @@ func enter_spawn_area() -> void:
 var interval_connected: bool = false
 
 func exit_spawn_area() -> void:
-	if is_instance_valid(despawn_interval):
+	if is_instance_valid(despawn_interval) and despawn_interval.is_inside_tree():
 		if not interval_connected:
 			despawn_interval.timeout.connect(despawn_interval_timeout)
 			interval_connected = true
