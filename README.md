@@ -34,12 +34,12 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 ||Koopa Troopa|✅ Done|Koopa Troopa enemy from SMB.|
 ||Bullet Bill & Blaster|✅ Done|Bullet Bill enemy from SMB.|
 ||Piranha Plant|✅ Done|Piranha Plant enemy from SMB.|
-|![img](https://i.imgur.com/hd4pyzr.gif)|Buzzy Beetle|Work In Progress|Buzzy Beetle enemy from SMB.|
+|![img](https://i.imgur.com/hd4pyzr.gif)|Buzzy Beetle|✏️ Work In Progress|Buzzy Beetle enemy from SMB.|
 |![img](https://i.imgur.com/36Ln0Dz.gif)|Blooper|For Itch.io Release|Blooper enemy from SMB.|
 |![img](https://i.imgur.com/iX7FJpr.gif)|Cheep Cheep|For Itch.io Release|I love fish.|
 ||Paratroopas|For Itch.io Release|Flying koopas.|
 ||Lakitu|For Itch.io Release|Throws spinies.|
-||Podoboo|For Itch.io Release|Throws spinies.|
+||Podoboo|For Itch.io Release|Podoboo enemy from SMB.|
 ||Fire Piranha Plant|After 1.0|Fire Piranha Plant enemy from SMB3.|
 ||Wiggler|After 1.0|Wiggler enemy from SMW.|
 ||Banzai Bill|After 1.0|Banzai Bill enemy from SMW.|
