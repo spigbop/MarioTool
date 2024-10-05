@@ -18,7 +18,7 @@ func add_scene() -> void:
 		else:
 			add_sibling(node)
 	if callback and caller.has_method(callback.get_method()):
-		caller.call(callback.get_method())
+		caller.call(callback.get_method(), node)
 	queue_free()
 
 

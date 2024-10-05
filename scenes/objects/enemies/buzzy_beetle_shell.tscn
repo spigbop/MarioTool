@@ -1,10 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://di0mccvgaubmr"]
+[gd_scene load_steps=9 format=3 uid="uid://1okd0f8geiti"]
 
-[ext_resource type="Script" path="res://scenes/objects/enemies/shell.gd" id="1_2gn56"]
-[ext_resource type="SpriteFrames" uid="uid://b02x8e7vuwu3c" path="res://scenes/objects/enemies/resources/green_shell.tres" id="2_pgohn"]
-[ext_resource type="Script" path="res://scenes/objects/ai/generic_defeat.gd" id="4_ew7ap"]
-[ext_resource type="Script" path="res://scenes/objects/ai/patrol.gd" id="4_il46n"]
-[ext_resource type="Script" path="res://scenes/objects/ai/stompable.gd" id="5_n1oe1"]
+[ext_resource type="Script" path="res://scenes/objects/enemies/shell.gd" id="1_f5lg1"]
+[ext_resource type="SpriteFrames" uid="uid://bvtoy2jyf3w25" path="res://scenes/objects/enemies/resources/buzzy_beetle_shell.tres" id="2_6c4e4"]
+[ext_resource type="Script" path="res://scenes/objects/ai/patrol.gd" id="3_68nog"]
+[ext_resource type="Script" path="res://scenes/objects/ai/generic_defeat.gd" id="4_bbgq3"]
+[ext_resource type="Script" path="res://scenes/objects/ai/stompable.gd" id="5_i2v3k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ajqsr"]
 size = Vector2(14, 14)
@@ -15,15 +15,15 @@ size = Vector2(14, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5vfb"]
 size = Vector2(1.1, 12)
 
-[node name="shell" type="RigidBody2D"]
+[node name="buzzy_beetle_shell" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 9
 gravity_scale = 0.0
 lock_rotation = true
-script = ExtResource("1_2gn56")
+script = ExtResource("1_f5lg1")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = ExtResource("2_pgohn")
+sprite_frames = ExtResource("2_6c4e4")
 autoplay = "default"
 speed_scale = 0.0
 
@@ -34,15 +34,16 @@ shape = SubResource("RectangleShape2D_ajqsr")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="patrol_ai" type="Node" parent="."]
-script = ExtResource("4_il46n")
+script = ExtResource("3_68nog")
 speed = 0.0
 autostart = true
 
 [node name="generic_defeat_ai" type="Node" parent="."]
-script = ExtResource("4_ew7ap")
+script = ExtResource("4_bbgq3")
+fireballable = false
 
 [node name="stompable_ai" type="Node" parent="."]
-script = ExtResource("5_n1oe1")
+script = ExtResource("5_i2v3k")
 
 [node name="hitbox" type="Area2D" parent="."]
 collision_layer = 4

@@ -5,6 +5,7 @@ extends Area2D
 @export var pipe_direction: MarioTool.DIRECTION = MarioTool.DIRECTION.NORTH
 @export var spawn_timer: float = 3.0
 @export var player_can_disable = true
+@export var object_deferation: PackedStringArray
 
 @onready var timer: Timer = $timer
 
@@ -18,7 +19,10 @@ func _ready() -> void:
 	body_entered.connect(on_enter)
 	body_exited.connect(on_exit)
 
+
 func spawn_subject() -> Node2D:
+	if inhibited:
+		return null
 	var inst = subject.instantiate()
 	if inst.has_method("on_appear"):
 		inst.position = position
@@ -26,19 +30,34 @@ func spawn_subject() -> Node2D:
 		inst.on_appear()
 	else:
 		inst.queue_free()
-		DummySpawner.spawn_from_pipe(self, subject.resource_path, position)
+		DummySpawner.spawn_from_pipe(self, subject.resource_path, position, false, pipe_direction, 0.0, 0.5, finalise_subject)
 	return inst
+
+func finalise_subject(node: Node2D) -> void:
+	for line in object_deferation:
+		line = line.replace(" ", "")
+		
+		if "=" in line:
+			var data = line.split("=")
+			if data[0] in node:
+				node.set_deferred(data[0], convert(data[1], typeof(node.get(data[0]))))
+			pass
+		
+		elif "(" in line and ")" in line:
+			var data = line.left(-1).split("(")
+			if node.has_method(data[0]):
+				node.callv(data[0], data[1].split(","))
 
 
 func enter_spawn_area() -> void:
 	if timer.is_stopped():
-		timer.start()
+		uninhibit()
 
 func exit_spawn_area() -> void:
-	timer.stop()
+	inhibited = true
 
 func on_timeout() -> void:
-	if player_can_disable and inhibited:
+	if inhibited:
 		spawn_asap = true
 		timer.stop()
 	else:
@@ -46,13 +65,17 @@ func on_timeout() -> void:
 
 
 func on_enter(body: Node2D) -> void:
-	if body.has_method("hurt"):
+	if player_can_disable and body.has_method("hurt"):
 		inhibited = true
 
 func on_exit(body: Node2D) -> void:
-	if body.has_method("hurt"):
-		if spawn_asap:
-			spawn_asap = false
-			spawn_subject()
-		inhibited = false
-		timer.start()
+	if player_can_disable and body.has_method("hurt"):
+		uninhibit()
+
+
+func uninhibit() -> void:
+	if spawn_asap:
+		spawn_asap = false
+		spawn_subject()
+	inhibited = false
+	timer.start()

@@ -101,7 +101,7 @@ func window_lost_focus() -> void:
 	get_tree().paused = true
 
 
-const MAX_WIN_SCALE: int = 10
+const MAX_WIN_SCALE: int = 6
 const MIN_WIN_SCALE: int = 1
 static var current_window_size: int = 2
 
@@ -204,9 +204,3 @@ static func quit_to_desktop() -> void:
 		config.set_value(a[0], a[1], config_maps[entry])
 	config.save("user://config.cfg")
 	inst.get_tree().quit()
-
-func avsa(asd) -> int:
-	if asd:
-		return 3
-	else:
-		return 1

@@ -33,7 +33,13 @@ func _physics_process(_delta: float) -> void:
 	if cooldown > 0:
 		return
 	
-	if position.y <= outside_pos_y or position.y >= inside_pos_y:
+	if position.y <= outside_pos_y:
+		position.y = outside_pos_y
 		speed *= -1.0
 		cooldown = chomp_time
+	elif position.y >= inside_pos_y:
+		position.y = inside_pos_y
+		speed *= -1.0
+		cooldown = chomp_time
+	
 	position.y += speed

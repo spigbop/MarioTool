@@ -1,17 +1,33 @@
 extends RigidBody2D
 
 
+@export var shell_color_index = 0
+
 @onready var patrol_ai: Node = $patrol_ai
 @onready var stompable_ai: Node = $stompable_ai
 @onready var sprite: AnimatedSprite2D = $sprite
-
-@onready var animation: AnimationPlayer = $animation
 
 var has_koopa = false
 var kicked = false
 
 
+const SHELL_COLORS = [ 
+	preload("res://scenes/objects/enemies/resources/green_shell.tres"),
+	preload("res://scenes/objects/enemies/resources/red_shell.tres"),
+	preload("res://scenes/objects/enemies/resources/buzzy_beetle_shell.tres") ]
+var done_colored = false
+
+
 func enter_spawn_area() -> void:
+	if not done_colored:
+		done_colored = true
+		sprite.sprite_frames = SHELL_COLORS[shell_color_index]
+		sprite.play()
+		if has_koopa:
+			var star_struck_effect = load("res://scenes/effects/star_struck_effect.tscn")
+			var effect_0 = star_struck_effect.instantiate()
+			effect_0.position = position
+			add_sibling(effect_0)
 	patrol_ai.spawn()
 	stompable_ai.spawn()
 
@@ -56,14 +72,6 @@ func on_contact(body) -> void:
 		skip_kick = true
 		body.hurt()
 
-
-const SHELL_COLORS = [ 
-	preload("res://scenes/objects/enemies/resources/green_shell.tres"),
-	preload("res://scenes/objects/enemies/resources/red_shell.tres") ]
-
-func set_shell_color(color_index: int) -> void:
-	sprite.sprite_frames = SHELL_COLORS[color_index]
-	sprite.play()
 
 func get_shell_speed() -> float:
 	return patrol_ai.speed

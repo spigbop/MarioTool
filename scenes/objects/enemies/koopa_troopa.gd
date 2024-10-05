@@ -19,12 +19,12 @@ func enter_death_barrier() -> void:
 
 
 func on_stomp() -> void:
-	var shell = load("res://scenes/objects/enemies/shell.tscn")
+	var shell = load("res://scenes/objects/enemies/" + Mathx.bool_gate(shell_color_index == 2, "buzzy_beetle_", "") + "shell.tscn")
 	var inst = shell.instantiate()
 	inst.position = position
 	inst.has_koopa = true
-	add_sibling(inst)
-	inst.set_shell_color(shell_color_index)
+	inst.shell_color_index = shell_color_index
+	call_deferred("add_sibling", inst) 
 	queue_free()
 
 func on_contact(body) -> void:

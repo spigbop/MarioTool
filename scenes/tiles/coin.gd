@@ -5,7 +5,10 @@ class_name Coin
 static var coin_count: int = 0
 
 
-func _on_body_entered(body: Node2D) -> void:
+func _ready() -> void:
+	body_entered.connect(on_enter)
+
+func on_enter(body: Node2D) -> void:
 	if body.has_method("coin_picker"):
 		collect(body)
 	if body.has_method("coin_popper"):

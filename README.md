@@ -6,16 +6,16 @@
 
 The characters and assets (graphics, audio) all belong to and/or are inspired from Nintendo. This is an unofficial fan-game made by someone who grew up on awesome games those people make, so if you like this consider buying official Nintendo games.
 
-# Changelog (0.40.1 - 10/4/2024 4:47 PM)
-- Previous update added the world map overlay, it is now visible.
-- Changes how `TextMenu` behaves.
-- Adds world map pause menu.
-- Adds **SETTINGS** to the level and map pause menu.
-- Adds `MenuDepth`, the settings menu now has *depth* items which when selected can change their state using the `LEFT` and `RIGHT` keys (by default).
-- Adds the *Window Scale* setting to the ui, previously only changable with `CTRL + .` or `CTRL + ,` (by default).
-- Adds the *Fullscreen* setting to the ui, previously only changable with `F11` (by default).
-- Adds the *Master*, *Music* and *Sound* settings. Also adds their volume sliders to the ui.
+[![itch.io](https://img.shields.io/badge/itch.io-%23FF0B34.svg?logo=Itch.io&logoColor=white&style=for-the-badge)](https://xpoxy.itch.io/mariotool)
 
+# Changelog (0.41.0 - 10/5/24)
+- Finished documenting Classes Reference on the wiki page.
+- Adds Buzzy Beetles. Koopa Troopa AI that is not defeatable with a fireball.
+- Adds generator object deferation, which makes generators able to set variables and call functions on the spawned nodes.
+- Signals are now connected by script instead of the editor.
+- Fixes a bug where generators would generate the same exact frame the player enters the inhib zone. (Happened when warping.)
+- Fixes a bug where generators generated after being despawned.
+- Generators now only stop their timer after timing out when despawned. Meaning after entering the spawn area again, a new object can spawn instantly.
 
 # Roadmap
 
@@ -26,7 +26,7 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 ||Objects|✅ Done||
 |![img](https://i.imgur.com/qjX1MtK.gif)|Mario|✅ Done|Same old plumber.|
 |![img](https://i.imgur.com/R5GySVD.gif)|Luigi|For Release|Same old plumber. Higher jump, less acceleration and friction.|
-||Ledge AI|For Release|Objects that can turn when met with a ledge|
+||Ledge AI|✏️ Working On|Objects that can turn when met with a ledge|
 |![img](https://i.imgur.com/v2XARhq.gif)|Water & Swimming|For Release| |
 ||Slopes|After 1.0||
 |**Enemies**| | | |
@@ -34,7 +34,7 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 ||Koopa Troopa|✅ Done|Koopa Troopa enemy from SMB.|
 ||Bullet Bill & Blaster|✅ Done|Bullet Bill enemy from SMB.|
 ||Piranha Plant|✅ Done|Piranha Plant enemy from SMB.|
-|![img](https://i.imgur.com/hd4pyzr.gif)|Buzzy Beetle|✏️ Work In Progress|Buzzy Beetle enemy from SMB.|
+|![img](https://i.imgur.com/hd4pyzr.gif)|Buzzy Beetle|✅ Done|Buzzy Beetle enemy from SMB.|
 |![img](https://i.imgur.com/36Ln0Dz.gif)|Blooper|For Release|Blooper enemy from SMB.|
 |![img](https://i.imgur.com/iX7FJpr.gif)|Cheep Cheep|For Release|I love fish.|
 ||Paratroopas|For Release|Flying koopas.|

@@ -47,5 +47,3 @@ frame_progress = 0.484063
 
 [node name="shape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_hffs4")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

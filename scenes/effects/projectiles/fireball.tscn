@@ -16,6 +16,7 @@ size = Vector2(6, 6)
 [node name="fireball" type="Area2D"]
 z_index = 50
 collision_layer = 2
+collision_mask = 9
 script = ExtResource("1_k0qyl")
 
 [node name="sprite" type="Sprite2D" parent="."]

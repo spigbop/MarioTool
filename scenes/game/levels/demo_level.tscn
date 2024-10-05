@@ -194,8 +194,9 @@ position = Vector2(881, 40)
 subject = ExtResource("19_mekk4")
 
 [node name="generator2" parent="contents" instance=ExtResource("11_1jkuy")]
-position = Vector2(288, 40)
+position = Vector2(289, 40)
 subject = ExtResource("15_1q337")
+object_deferation = PackedStringArray("direction = 2")
 
 [node name="generator" parent="contents" instance=ExtResource("11_1jkuy")]
 position = Vector2(-224, -8)
@@ -212,7 +213,7 @@ destination = Vector2(288, 40)
 position = Vector2(1201, 65)
 
 [node name="big_green_piranha_plant3" parent="contents" instance=ExtResource("16_se5el")]
-position = Vector2(1233, 56)
+position = Vector2(1233, 57)
 
 [node name="player" parent="." instance=ExtResource("1_ohph1")]
 z_index = 20
@@ -225,7 +226,6 @@ script = ExtResource("2_jwbg5")
 level_dimensions = Rect2(-128, 0, 1152, 0)
 
 [node name="spawn_area" parent="level/main_camera" instance=ExtResource("6_l3dkn")]
-visible = false
 
 [node name="level_music" parent="level/main_camera" instance=ExtResource("1_6mcrj")]
 
@@ -235,5 +235,3 @@ visible = false
 wait_time = 4.0
 one_shot = true
 script = ExtResource("21_10fxp")
-
-[connection signal="body_entered" from="death_zone" to="death_zone" method="_on_body_entered"]
