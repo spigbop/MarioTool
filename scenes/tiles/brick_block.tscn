@@ -86,5 +86,3 @@ bus = &"Sound Effect"
 [node name="contents_sound" type="AudioStreamPlayer2D" parent="channels"]
 stream = ExtResource("4_7rgi0")
 bus = &"Sound Effect"
-
-[connection signal="body_entered" from="bump" to="." method="_on_bump_body_entered"]

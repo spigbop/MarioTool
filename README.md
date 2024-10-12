@@ -8,14 +8,16 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 
 [![itch.io](https://img.shields.io/badge/itch.io-%23FF0B34.svg?logo=Itch.io&logoColor=white&style=for-the-badge)](https://xpoxy.itch.io/mariotool)
 
-# Changelog (0.41.0 - 10/5/24)
-- Finished documenting Classes Reference on the wiki page.
-- Adds Buzzy Beetles. Koopa Troopa AI that is not defeatable with a fireball.
-- Adds generator object deferation, which makes generators able to set variables and call functions on the spawned nodes.
-- Signals are now connected by script instead of the editor.
-- Fixes a bug where generators would generate the same exact frame the player enters the inhib zone. (Happened when warping.)
-- Fixes a bug where generators generated after being despawned.
-- Generators now only stop their timer after timing out when despawned. Meaning after entering the spawn area again, a new object can spawn instantly.
+# Changelog (0.41.0 - 10/12/24)
+- Adds Event blocks, when hit from below by a player any given function is called on the parent.
+- Adds Switchable Generators using event blocks.
+- Adds Ledge AI, when it is attached to a patrol AI it makes the object not fall from edges.
+- Adds red koopa troopas.
+- Red shell color is no longer unused.
+- Adds pipe enemies which can spawn a singular enemy (preferably a piranha plant) when entering the spawn area and inhibits the enemy when inside the area.
+- Piranha plants can now be inhibited, making them unable to appear out of a pipe until released. Piranha plants have to be the subject of a pipe enemy for this to work.
+- Piranha plants now linger longer.
+
 
 # Roadmap
 
@@ -26,7 +28,7 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 ||Objects|✅ Done||
 |![img](https://i.imgur.com/qjX1MtK.gif)|Mario|✅ Done|Same old plumber.|
 |![img](https://i.imgur.com/R5GySVD.gif)|Luigi|For Release|Same old plumber. Higher jump, less acceleration and friction.|
-||Ledge AI|✏️ Working On|Objects that can turn when met with a ledge|
+||Ledge AI|✅ Done|Objects that can turn when met with a ledge|
 |![img](https://i.imgur.com/v2XARhq.gif)|Water & Swimming|For Release| |
 ||Slopes|After 1.0||
 |**Enemies**| | | |

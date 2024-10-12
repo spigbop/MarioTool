@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://cgundduxylatj"]
+[gd_scene load_steps=14 format=3 uid="uid://cgundduxylatj"]
 
 [ext_resource type="Script" path="res://scenes/objects/enemies/koopa_troopa.gd" id="1_flsm3"]
 [ext_resource type="Texture2D" uid="uid://dffstk2br0228" path="res://assets/textures/objects/enemies.png" id="2_vmmia"]
 [ext_resource type="Script" path="res://scenes/objects/ai/patrol.gd" id="3_dkuge"]
+[ext_resource type="Script" path="res://scenes/objects/ai/ledge.gd" id="4_8w28s"]
 [ext_resource type="Script" path="res://scenes/objects/ai/generic_defeat.gd" id="5_hggxi"]
 [ext_resource type="Script" path="res://scenes/objects/ai/stompable.gd" id="6_7ccn2"]
 
@@ -37,7 +38,7 @@ size = Vector2(14, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5vfb"]
 size = Vector2(1.1, 12)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qu62b"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oi7rd"]
 size = Vector2(1, 1)
 
 [node name="red_koopa_troopa" type="RigidBody2D"]
@@ -62,6 +63,9 @@ debug_color = Color(0, 0.6, 0.701961, 0)
 script = ExtResource("3_dkuge")
 speed = 0.6
 flip_when_turned = true
+
+[node name="ledge_ai" type="Node" parent="patrol_ai"]
+script = ExtResource("4_8w28s")
 
 [node name="generic_defeat_ai" type="Node" parent="."]
 script = ExtResource("5_hggxi")
@@ -89,12 +93,9 @@ shape = SubResource("RectangleShape2D_o5vfb")
 position = Vector2(6.5, 0)
 shape = SubResource("RectangleShape2D_o5vfb")
 
-[node name="ground" type="Area2D" parent="."]
+[node name="ledge" type="Area2D" parent="."]
+collision_layer = 8
 
-[node name="shape_left" type="CollisionShape2D" parent="ground"]
-position = Vector2(-7.5, 7.5)
-shape = SubResource("RectangleShape2D_qu62b")
-
-[node name="shape_right" type="CollisionShape2D" parent="ground"]
-position = Vector2(7.5, 7.5)
-shape = SubResource("RectangleShape2D_qu62b")
+[node name="shape_left" type="CollisionShape2D" parent="ledge"]
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_oi7rd")

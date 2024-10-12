@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bb150738ij3by"]
+
+[ext_resource type="Script" path="res://scenes/objects/zones/pipe_enemy.gd" id="1_dghh0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x21mk"]
+size = Vector2(32, 16)
+
+[node name="pipe_enemy" type="Area2D"]
+collision_layer = 128
+collision_mask = 2
+script = ExtResource("1_dghh0")
+
+[node name="shape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_x21mk")

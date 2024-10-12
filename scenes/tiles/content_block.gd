@@ -19,7 +19,10 @@ const EMPTY_BLOCK_ATLAS = preload("res://scenes/tiles/resources/empty_block_atla
 const QUESTION_MARK_BLOCK = preload("res://scenes/tiles/resources/question_mark_block.tres")
 
 
-func _on_bump_body_entered(body: Node2D) -> void:
+func _ready() -> void:
+	$bump.body_entered.connect(on_bump)
+
+func on_bump(body: Node2D) -> void:
 	if body.has_method("block_bumper"):
 		bump_sound.play()
 		if emptied:

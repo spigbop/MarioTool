@@ -17,7 +17,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if Input.is_action_pressed(keys[enter_towards]):
+	if Input.is_action_pressed(keys[enter_towards]) and subject and not subject.freeze:
 		warp_subject()
 
 

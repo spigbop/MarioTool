@@ -2,8 +2,8 @@ extends AI
 class_name Patrolling
 
 
-@export var turnbox_name = "turn"
-@export var hitbox_name = "hitbox"
+@export var turnbox_name: String = "turn"
+@export var hitbox_name: String = "hitbox"
 @export var speed = 1.0 # +: to right -: to left
 @export var autostart = false
 @export var can_fly = false

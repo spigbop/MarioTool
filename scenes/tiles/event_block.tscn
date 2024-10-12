@@ -1,34 +1,33 @@
-[gd_scene load_steps=16 format=3 uid="uid://cqvgw3ogwppb4"]
+[gd_scene load_steps=15 format=3 uid="uid://b3hcnkodvduvt"]
 
-[ext_resource type="Script" path="res://scenes/tiles/content_block.gd" id="1_rdt8a"]
-[ext_resource type="PackedScene" uid="uid://bc2u8vwhksrer" path="res://scenes/tiles/coin.tscn" id="2_jh6od"]
-[ext_resource type="Texture2D" uid="uid://cqe6b0ibn8fgg" path="res://assets/textures/tiles.png" id="2_w8pql"]
-[ext_resource type="AudioStream" uid="uid://c8btas6b0427k" path="res://assets/sounds/blocks/bump.wav" id="3_8v7b5"]
-[ext_resource type="AudioStream" uid="uid://btnyk5k65mj6m" path="res://assets/sounds/blocks/contents.wav" id="4_s070n"]
+[ext_resource type="Script" path="res://scenes/tiles/event_block.gd" id="1_pd5pa"]
+[ext_resource type="Texture2D" uid="uid://cqe6b0ibn8fgg" path="res://assets/textures/tiles.png" id="3_mfxsl"]
+[ext_resource type="AudioStream" uid="uid://c8btas6b0427k" path="res://assets/sounds/blocks/bump.wav" id="4_ghhw5"]
+[ext_resource type="AudioStream" uid="uid://sbib08266h7d" path="res://assets/sounds/blocks/switch.wav" id="5_pqu6j"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_766na"]
-atlas = ExtResource("2_w8pql")
-region = Rect2(96, 16, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_74kq3"]
+atlas = ExtResource("3_mfxsl")
+region = Rect2(96, 48, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2b1il"]
-atlas = ExtResource("2_w8pql")
-region = Rect2(112, 16, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_gp1hi"]
+atlas = ExtResource("3_mfxsl")
+region = Rect2(112, 48, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xkbck"]
-atlas = ExtResource("2_w8pql")
-region = Rect2(128, 16, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ln4ax"]
+atlas = ExtResource("3_mfxsl")
+region = Rect2(128, 48, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lf7yo"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_766na")
+"texture": SubResource("AtlasTexture_74kq3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2b1il")
+"texture": SubResource("AtlasTexture_gp1hi")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xkbck")
+"texture": SubResource("AtlasTexture_ln4ax")
 }],
 "loop": true,
 "name": &"default",
@@ -72,22 +71,10 @@ length = 0.266
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:position")
+tracks/0/path = NodePath("collision:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.133, 0.266),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -6), Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("collision:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.133, 0.266),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
@@ -107,19 +94,15 @@ size = Vector2(16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fg3tb"]
 size = Vector2(16, 1)
 
-[node name="content_block" type="AnimatableBody2D"]
+[node name="event_block" type="AnimatableBody2D"]
 z_index = 2
 collision_mask = 15
-script = ExtResource("1_rdt8a")
-breakable = false
-contents = ExtResource("2_jh6od")
+script = ExtResource("1_pd5pa")
 
 [node name="animated_sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_lf7yo")
 autoplay = "default"
 frame_progress = 0.139281
-
-[node name="sprite" type="Sprite2D" parent="."]
 
 [node name="animation" type="AnimationPlayer" parent="."]
 libraries = {
@@ -140,10 +123,8 @@ shape = SubResource("RectangleShape2D_fg3tb")
 [node name="channels" type="Node" parent="."]
 
 [node name="bump_sound" type="AudioStreamPlayer2D" parent="channels"]
-position = Vector2(0, 0.1)
-stream = ExtResource("3_8v7b5")
+stream = ExtResource("4_ghhw5")
 bus = &"Sound Effect"
 
-[node name="contents_sound" type="AudioStreamPlayer2D" parent="channels"]
-stream = ExtResource("4_s070n")
-bus = &"Sound Effect"
+[node name="switch_sound" type="AudioStreamPlayer2D" parent="channels"]
+stream = ExtResource("5_pqu6j")
