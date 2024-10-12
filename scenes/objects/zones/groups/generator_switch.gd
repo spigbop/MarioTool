@@ -8,15 +8,13 @@ var loads = []
 
 
 func _ready() -> void:
-	if not generator:
+	if not generator or subject_paths.size() == 0:
 		queue_free()
 		return
 	for path in subject_paths:
 		loads.append(load(path))
 
 func on_event_block_hit(times) -> void:
-	var size = subject_paths.size()
-	if not size == 0:
-		generator.subject = loads[times % subject_paths.size()]
-		if tile_layer:
-			tile_layer.visible = not tile_layer.visible
+	generator.subject = loads[times % subject_paths.size()]
+	if tile_layer:
+		tile_layer.visible = not tile_layer.visible
