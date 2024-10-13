@@ -119,7 +119,7 @@ subject = ExtResource("19_mekk4")
 
 [node name="generator_group" type="Node" parent="contents"]
 script = ExtResource("10_rllxi")
-subject_paths = ["res://scenes/objects/enemies/green_koopa_troopa.tscn", "res://scenes/objects/enemies/red_koopa_troopa.tscn"]
+subject_paths = PackedStringArray("res://scenes/objects/enemies/green_koopa_troopa.tscn", "res://scenes/objects/enemies/red_koopa_troopa.tscn")
 
 [node name="event_block" parent="contents/generator_group" instance=ExtResource("23_kph44")]
 position = Vector2(185, -8)

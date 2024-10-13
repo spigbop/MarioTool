@@ -11,11 +11,12 @@ func _ready() -> void:
 
 
 func enter_spawn_area() -> void:
-	enemy = subject.instantiate()
-	enemy.boss = self
-	enemy.position = position
-	call_deferred("add_sibling", enemy)
-	enemy.call_deferred("enter_spawn_area")
+	if not enemy:
+		enemy = subject.instantiate()
+		enemy.boss = self
+		enemy.position = position
+		call_deferred("add_sibling", enemy)
+		enemy.call_deferred("enter_spawn_area")
 
 
 func on_enter(body: Node2D) -> void:

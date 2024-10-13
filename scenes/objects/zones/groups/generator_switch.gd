@@ -1,7 +1,7 @@
 extends Node
 
 
-@export var subject_paths: PackedStringArray = []
+@export var subject_paths: PackedStringArray
 var loads = []
 @onready var generator: Area2D = find_child("generator")
 @onready var tile_layer = find_child("layer")
