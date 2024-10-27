@@ -36,6 +36,9 @@ var logical_position = Vector2(0, 0)
 var projectiles = []
 var is_throwing = false
 
+# Cheats
+var free_jump = false
+
 
 static var current = null
 
@@ -116,9 +119,10 @@ func _physics_process(delta: float) -> void:
 	# Jumping
 	jump_mult = clamp(abs(velocity.x * (speed_mult - 1.0) / jumping_factor), 1.0, 1.25)
 	
-	if Input.is_action_just_pressed("jump_accept") and grounded and not ducking:
-		force_jump()
-		jump_sound.play()
+	if Input.is_action_just_pressed("jump_accept"):
+		if grounded and not ducking or free_jump:
+			force_jump()
+			jump_sound.play()
 	
 	if Input.is_action_just_released("jump_accept") and not grounded and velocity.y < 0:
 		if velocity.y < JUMP_VELOCITY_MIN * jump_mult:
@@ -168,7 +172,7 @@ const POWERUP_OFFSETS = [0.0, -8.0, -8.0, -8.0]
 @onready var powerup_sound:     AudioStreamPlayer2D = $channels/powerup_sound
 @onready var powerup_timer:     Timer               = $hitbox/powerup_timer
 
-func powerup_picker(tier) -> void:
+func powerup_picker(tier: int) -> void:
 	if lost:
 		return
 	if tier == 1 and powerup > 0 or powerup == tier:

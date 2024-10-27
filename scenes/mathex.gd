@@ -15,3 +15,10 @@ static func bool_gate(value: bool, val_tru = 1.0, val_false = 0.0) -> Variant:
 		return val_tru
 	else:
 		return val_false
+
+
+static func safe_convert(what: Variant, type: Variant.Type) -> Variant:
+	if type == Variant.Type.TYPE_BOOL and typeof(what) == Variant.Type.TYPE_STRING:
+		return what.to_lower().begins_with("t") or what == "1"
+	else:
+		return convert(what, type)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://jt24itrw3jdg"]
+[gd_scene load_steps=27 format=4 uid="uid://jt24itrw3jdg"]
 
 [ext_resource type="PackedScene" uid="uid://bcalhgdhc7hm1" path="res://scenes/music/yi_underground.tscn" id="1_6mcrj"]
 [ext_resource type="PackedScene" uid="uid://c5ggejhxdho17" path="res://scenes/objects/player.tscn" id="1_ohph1"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://cikdgbw5psu6a" path="res://scenes/objects/enemies/spiny.tscn" id="19_mekk4"]
 [ext_resource type="PackedScene" uid="uid://ddxin8qn3astx" path="res://scenes/objects/zones/blaster_generator.tscn" id="19_oaer7"]
 [ext_resource type="PackedScene" uid="uid://dexs3y0emybbq" path="res://scenes/objects/enemies/green_piranha_plant.tscn" id="20_bw1l7"]
+[ext_resource type="Script" path="res://scenes/game/levels/level_base.gd" id="20_m82gd"]
 [ext_resource type="PackedScene" uid="uid://bb150738ij3by" path="res://scenes/objects/zones/pipe_enemy.tscn" id="21_4kog6"]
 [ext_resource type="Script" path="res://scenes/timers/death_timer.gd" id="21_10fxp"]
 [ext_resource type="PackedScene" uid="uid://b3hcnkodvduvt" path="res://scenes/tiles/event_block.tscn" id="23_kph44"]
@@ -160,6 +161,7 @@ z_index = 20
 position = Vector2(-28, -3)
 
 [node name="level" type="Node2D" parent="."]
+script = ExtResource("20_m82gd")
 
 [node name="main_camera" type="Camera2D" parent="level"]
 script = ExtResource("2_jwbg5")

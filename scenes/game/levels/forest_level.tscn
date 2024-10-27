@@ -1,0 +1,167 @@
+[gd_scene load_steps=26 format=4 uid="uid://b7bkc3rc7hoyc"]
+
+[ext_resource type="Script" path="res://scenes/game/death_zone.gd" id="1_7c7uq"]
+[ext_resource type="TileSet" uid="uid://160g4sho2ln" path="res://scenes/tiles/tileset.tres" id="3_rmvxt"]
+[ext_resource type="PackedScene" uid="uid://bc2u8vwhksrer" path="res://scenes/tiles/coin.tscn" id="4_ix71m"]
+[ext_resource type="PackedScene" uid="uid://bvmpi7obayaji" path="res://scenes/tiles/brick_block.tscn" id="5_3ilgs"]
+[ext_resource type="PackedScene" uid="uid://dva85grqdyvie" path="res://scenes/objects/powerups/fire_flower.tscn" id="6_65ns3"]
+[ext_resource type="PackedScene" uid="uid://cqvgw3ogwppb4" path="res://scenes/tiles/question_mark_block.tscn" id="7_0kp6t"]
+[ext_resource type="PackedScene" uid="uid://ckp7pgt27w85" path="res://scenes/objects/zones/generator.tscn" id="8_4rgvt"]
+[ext_resource type="PackedScene" uid="uid://cikdgbw5psu6a" path="res://scenes/objects/enemies/spiny.tscn" id="9_6s2hu"]
+[ext_resource type="Script" path="res://scenes/objects/zones/groups/generator_switch.gd" id="10_uxj25"]
+[ext_resource type="PackedScene" uid="uid://b3hcnkodvduvt" path="res://scenes/tiles/event_block.tscn" id="11_hshgc"]
+[ext_resource type="PackedScene" uid="uid://bbu7wme6ergvg" path="res://scenes/objects/enemies/green_koopa_troopa.tscn" id="12_w1n6i"]
+[ext_resource type="PackedScene" uid="uid://bpdobfook80da" path="res://scenes/objects/enemies/goomba.tscn" id="13_3vg7p"]
+[ext_resource type="PackedScene" uid="uid://ddxin8qn3astx" path="res://scenes/objects/zones/blaster_generator.tscn" id="14_qae7y"]
+[ext_resource type="PackedScene" uid="uid://cm603oeauj2tb" path="res://scenes/objects/zones/warp_pipe.tscn" id="15_2duu1"]
+[ext_resource type="PackedScene" uid="uid://bb150738ij3by" path="res://scenes/objects/zones/pipe_enemy.tscn" id="16_31aan"]
+[ext_resource type="PackedScene" uid="uid://bmrqsimy0ohh5" path="res://scenes/objects/enemies/big_green_piranha_plant.tscn" id="17_f4qr2"]
+[ext_resource type="PackedScene" uid="uid://dexs3y0emybbq" path="res://scenes/objects/enemies/green_piranha_plant.tscn" id="18_6uaek"]
+[ext_resource type="PackedScene" uid="uid://c5ggejhxdho17" path="res://scenes/objects/player.tscn" id="19_gceai"]
+[ext_resource type="Script" path="res://scenes/game/levels/level_base.gd" id="19_xq6wd"]
+[ext_resource type="Script" path="res://scenes/game/level_camera.gd" id="20_bnglb"]
+[ext_resource type="PackedScene" uid="uid://cgrei0bayox1g" path="res://scenes/game/spawn_area.tscn" id="21_iglwt"]
+[ext_resource type="PackedScene" uid="uid://dgdv5swug4cef" path="res://scenes/music/smm2_smb_forest.tscn" id="21_thj2c"]
+[ext_resource type="PackedScene" uid="uid://dendcfcbdwy24" path="res://scenes/ui/menus/pause_menu.tscn" id="23_atgmy"]
+[ext_resource type="Script" path="res://scenes/timers/death_timer.gd" id="24_jj18f"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_eqtb4"]
+distance = -44.0
+
+[node name="demo_level" type="Node2D"]
+process_mode = 1
+position = Vector2(1, 0)
+metadata/_edit_horizontal_guides_ = [-155.0]
+
+[node name="death_zone" type="Area2D" parent="."]
+position = Vector2(-89, 89)
+collision_mask = 15
+script = ExtResource("1_7c7uq")
+
+[node name="shape" type="CollisionShape2D" parent="death_zone"]
+position = Vector2(0, -8)
+shape = SubResource("WorldBoundaryShape2D_eqtb4")
+
+[node name="foreground" type="TileMapLayer" parent="."]
+z_index = 10
+tile_map_data = PackedByteArray("AADy/wIAAAABAAAAAADx/wIAAAABAAAAAADw/wIAAAABAAAAAADw/wMAAAABAAEAAADw/wQAAAABAAEAAADw/wUAAAABAAEAAADw/wYAAAABAAEAAADx/wYAAAABAAEAAADx/wUAAAABAAEAAADx/wQAAAABAAEAAADx/wMAAAABAAEAAADy/wMAAAABAAEAAADy/wQAAAABAAEAAADy/wUAAAABAAEAAADy/wYAAAABAAEAAADx/wAAAAAAAAQAAADx/wEAAAAAAAUAAADy/wAAAAABAAQAAADy/wEAAAABAAUAAAACAAUAAAABAAAAAAACAAYAAAABAAEAAAADAAUAAAABAAAAAAADAAYAAAABAAEAAAAEAAUAAAABAAAAAAAEAAYAAAABAAEAAAAFAAUAAAABAAAAAAAFAAYAAAABAAEAAAAGAAUAAAABAAAAAAAGAAYAAAABAAEAAAAHAAUAAAABAAAAAAAHAAYAAAABAAEAAAAIAAUAAAABAAAAAAAIAAYAAAABAAEAAAAJAAUAAAAFAAEAAAAJAAMAAAAAAAAAAAAJAAQAAAAAAAEAAAAKAAMAAAABAAAAAAAKAAQAAAABAAEAAAALAAMAAAABAAAAAAALAAQAAAABAAEAAAAMAAMAAAABAAAAAAAMAAQAAAABAAEAAAANAAMAAAABAAAAAAANAAQAAAABAAEAAAAOAAMAAAABAAAAAAAOAAQAAAABAAEAAAAPAAMAAAABAAAAAAAPAAQAAAABAAEAAAAJAAYAAAABAAEAAAAKAAYAAAABAAEAAAAKAAUAAAABAAEAAAALAAUAAAABAAEAAAAMAAUAAAABAAEAAAANAAUAAAABAAEAAAAOAAUAAAABAAEAAAAPAAUAAAABAAEAAAAOAAYAAAABAAEAAAANAAYAAAABAAEAAAAMAAYAAAABAAEAAAALAAYAAAABAAEAAAAPAAYAAAABAAEAAAD1/wYAAAABAAEAAAD2/wUAAAABAAAAAAD2/wYAAAABAAEAAAD3/wUAAAABAAAAAAD3/wYAAAABAAEAAAD4/wUAAAABAAAAAAD4/wYAAAABAAEAAADz/wIAAAACAAAAAADz/wMAAAACAAEAAADz/wUAAAAEAAEAAADz/wQAAAACAAEAAAD0/wUAAAABAAAAAADz/wYAAAABAAEAAAD0/wYAAAABAAEA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")
+tile_set = ExtResource("3_rmvxt")
+
+[node name="contents" type="Node" parent="."]
+
+[node name="coin9" parent="contents" instance=ExtResource("4_ix71m")]
+position = Vector2(40, 8)
+
+[node name="coin" parent="contents" instance=ExtResource("4_ix71m")]
+position = Vector2(153, 24)
+
+[node name="coin4" parent="contents" instance=ExtResource("4_ix71m")]
+position = Vector2(201, 24)
+
+[node name="coin3" parent="contents" instance=ExtResource("4_ix71m")]
+position = Vector2(185, 24)
+
+[node name="coin5" parent="contents" instance=ExtResource("4_ix71m")]
+position = Vector2(153, 40)
+
+[node name="coin6" parent="contents" instance=ExtResource("4_ix71m")]
+position = Vector2(201, 40)
+
+[node name="coin7" parent="contents" instance=ExtResource("4_ix71m")]
+position = Vector2(185, 40)
+
+[node name="coin8" parent="contents" instance=ExtResource("4_ix71m")]
+position = Vector2(169, 40)
+
+[node name="coin2" parent="contents" instance=ExtResource("4_ix71m")]
+position = Vector2(169, 24)
+
+[node name="content_block2" parent="contents" instance=ExtResource("5_3ilgs")]
+position = Vector2(88, 24)
+contents = ExtResource("6_65ns3")
+
+[node name="content_block8" parent="contents" instance=ExtResource("5_3ilgs")]
+position = Vector2(-136, 24)
+contents = ExtResource("4_ix71m")
+count = 5
+
+[node name="content_block7" parent="contents" instance=ExtResource("5_3ilgs")]
+position = Vector2(72, 24)
+
+[node name="content_block5" parent="contents" instance=ExtResource("5_3ilgs")]
+position = Vector2(56, 24)
+
+[node name="content_block4" parent="contents" instance=ExtResource("5_3ilgs")]
+position = Vector2(40, 24)
+
+[node name="content_block3" parent="contents" instance=ExtResource("7_0kp6t")]
+position = Vector2(-120, 24)
+count = 5
+
+[node name="content_block" parent="contents" instance=ExtResource("7_0kp6t")]
+position = Vector2(104, 24)
+contents = ExtResource("6_65ns3")
+
+[node name="generator3" parent="contents" instance=ExtResource("8_4rgvt")]
+position = Vector2(881, 40)
+subject = ExtResource("9_6s2hu")
+
+[node name="generator_group" type="Node" parent="contents"]
+script = ExtResource("10_uxj25")
+subject_paths = PackedStringArray("res://scenes/objects/enemies/green_koopa_troopa.tscn", "res://scenes/objects/enemies/red_koopa_troopa.tscn")
+
+[node name="event_block" parent="contents/generator_group" instance=ExtResource("11_hshgc")]
+position = Vector2(185, -8)
+
+[node name="generator" parent="contents/generator_group" instance=ExtResource("8_4rgvt")]
+position = Vector2(289, 40)
+subject = ExtResource("12_w1n6i")
+object_deferation = PackedStringArray("direction = 2")
+
+[node name="layer" type="TileMapLayer" parent="contents/generator_group"]
+visible = false
+z_index = 11
+tile_map_data = PackedByteArray("AAARAAMAAAACAAQAAAARAAQAAAACAAUAAAASAAMAAAADAAQAAAASAAQAAAADAAUAAAA=")
+tile_set = ExtResource("3_rmvxt")
+collision_enabled = false
+
+[node name="generator" parent="contents" instance=ExtResource("8_4rgvt")]
+position = Vector2(-224, -8)
+subject = ExtResource("13_3vg7p")
+
+[node name="blaster_generator" parent="contents" instance=ExtResource("14_qae7y")]
+position = Vector2(744, 41)
+
+[node name="warp_pipe" parent="contents" instance=ExtResource("15_2duu1")]
+position = Vector2(-224, -8)
+destination = Vector2(288, 40)
+
+[node name="piranha2" parent="contents" instance=ExtResource("16_31aan")]
+position = Vector2(1233, 24)
+subject = ExtResource("17_f4qr2")
+
+[node name="piranha" parent="contents" instance=ExtResource("16_31aan")]
+position = Vector2(1201, 40)
+subject = ExtResource("18_6uaek")
+
+[node name="player" parent="." instance=ExtResource("19_gceai")]
+z_index = 20
+position = Vector2(-179, 73)
+
+[node name="level" type="Node2D" parent="."]
+script = ExtResource("19_xq6wd")
+
+[node name="main_camera" type="Camera2D" parent="level"]
+script = ExtResource("20_bnglb")
+level_dimensions = Rect2(-128, 0, 1152, 0)
+
+[node name="spawn_area" parent="level/main_camera" instance=ExtResource("21_iglwt")]
+
+[node name="level_music" parent="level/main_camera" instance=ExtResource("21_thj2c")]
+
+[node name="pause_menu" parent="level/main_camera" instance=ExtResource("23_atgmy")]
+
+[node name="death_timer" type="Timer" parent="level"]
+wait_time = 4.0
+one_shot = true
+script = ExtResource("24_jj18f")

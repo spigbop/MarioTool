@@ -23,6 +23,8 @@ func _ready() -> void:
 func spawn_subject() -> Node2D:
 	if inhibited:
 		return null
+	if not subject:
+		subject = load("res://scenes/objects/enemies/goomba.tscn")
 	var inst = subject.instantiate()
 	if inst.has_method("on_appear"):
 		inst.position = position
@@ -34,19 +36,7 @@ func spawn_subject() -> Node2D:
 	return inst
 
 func finalise_subject(node: Node2D) -> void:
-	for line in object_deferation:
-		line = line.replace(" ", "")
-		
-		if "=" in line:
-			var data = line.split("=")
-			if data[0] in node:
-				node.set_deferred(data[0], convert(data[1], typeof(node.get(data[0]))))
-			pass
-		
-		elif "(" in line and ")" in line:
-			var data = line.left(-1).split("(")
-			if node.has_method(data[0]):
-				node.callv(data[0], data[1].split(","))
+	Deferation.execute_on(node, object_deferation)
 
 
 func enter_spawn_area() -> void:

@@ -1,4 +1,5 @@
 extends Node2D
+class_name PauseMenu
 
 
 @onready var menu: TextMenu = $menu
@@ -40,8 +41,12 @@ func _ready() -> void:
 		window_scale_left.position.x += 32
 		window_scale_right.position.x += 32
 
+
+static var interrupted: bool = false
+
+
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("pause_cancel"):
+	if Input.is_action_just_pressed("pause_cancel") and not interrupted:
 		if menu.focused:
 			unfocus()
 		else:

@@ -4,7 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://bk6s23h8qr1dh" path="res://assets/music/yi-underground-start.wav" id="2_ndeyc"]
 [ext_resource type="Script" path="res://scenes/music/music_logic.gd" id="3_xpj3b"]
 
-[node name="yi_underground" type="Node2D"]
+[node name="level_music" type="Node2D"]
 process_mode = 3
 script = ExtResource("3_xpj3b")
 

@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgdv5swug4cef"]
+
+[ext_resource type="Script" path="res://scenes/music/music_logic.gd" id="1_rasiy"]
+[ext_resource type="AudioStream" uid="uid://cjixkgy0o5nqd" path="res://assets/music/smm2-smb-forest-start.wav" id="2_sut8e"]
+[ext_resource type="AudioStream" uid="uid://ddq0622kgb3k0" path="res://assets/music/smm2-smb-forest-loop.wav" id="3_tbhmq"]
+
+[node name="level_music" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_rasiy")
+
+[node name="start" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_sut8e")
+bus = &"Music"
+
+[node name="loop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_tbhmq")
+bus = &"Music"

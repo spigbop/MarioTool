@@ -6,6 +6,57 @@ enum DIRECTION_H { WEST, EAST, PLAYER }
 enum DIRECTION_V { NORTH, SOUTH, PLAYER }
 
 
+static var inst: MarioTool = null
+
+static var CURRENT_LEVEL: Node2D = null
+
+
+static func _static_init() -> void:
+	RenderingServer.set_default_clear_color(Color.BLACK)
+	
+	set_window_size(config.get_value("window", "window_scale"))
+	if config.get_value("window", "fullscreen"):
+		toggle_fullscreen()
+	
+	set_master_volume(config.get_value("bus", "master_volume"))
+	set_music_volume(config.get_value("bus", "music_volume"))
+	set_sound_volume(config.get_value("bus", "sound_volume"))
+
+
+func _ready() -> void:
+	inst = self
+	
+	get_viewport().focus_entered.connect(window_gained_focus)
+	get_viewport().focus_exited.connect(window_lost_focus)
+	
+	if OS.is_debug_build():
+		var console_resource = load("res://scenes/ui/menus/console_overlay.tscn")
+		var console_instance = console_resource.instantiate()
+		add_child(console_instance)
+	
+	Console.println(enter_level("demo_level"))
+
+
+func _notification(noti):
+	if noti == NOTIFICATION_WM_CLOSE_REQUEST:
+		quit_to_desktop()
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("misc_up_screen"):
+		set_window_size(clamp(current_window_size + 1, MIN_WIN_SCALE, MAX_WIN_SCALE))
+	if event.is_action_pressed("misc_down_screen"):
+		set_window_size(clamp(current_window_size - 1, MIN_WIN_SCALE, MAX_WIN_SCALE))
+	if event.is_action_pressed("misc_fullscreen"):
+		toggle_fullscreen()
+
+
+
+
+
+# =============
+#  CONFIG FILE
+# =============
 const CONFIG_DEFAULTS = {
 	"window,fullscreen": false,
 	"window,window_scale": 2,
@@ -17,52 +68,6 @@ const CONFIG_DEFAULTS = {
 
 static var config_maps = {}
 
-
-static var inst: MarioTool = null
-
-static var CURRENT_LEVEL: Node2D = null
-
-
-static func _static_init() -> void:
-	set_window_size(config.get_value("window", "window_scale"))
-	if config.get_value("window", "fullscreen"):
-		toggle_fullscreen()
-	
-	master_volume = config.get_value("bus", "master_volume")
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(master_volume))
-	music_volume = config.get_value("bus", "music_volume")
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(music_volume))
-	sound_volume = config.get_value("bus", "sound_volume")
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sound Effect"), linear_to_db(sound_volume))
-	
-	paused_volume = master_volume / 5
-
-
-func _ready() -> void:
-	inst = self
-	
-	get_viewport().focus_entered.connect(window_gained_focus)
-	get_viewport().focus_exited.connect(window_lost_focus)
-	
-	load_level_from_path("res://scenes/game/levels/demo_level.tscn")
-
-
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("misc_up_screen"):
-		set_window_size(clamp(current_window_size + 1, MIN_WIN_SCALE, MAX_WIN_SCALE))
-	elif Input.is_action_just_pressed("misc_down_screen"):
-		set_window_size(clamp(current_window_size - 1, MIN_WIN_SCALE, MAX_WIN_SCALE))
-	
-	if Input.is_action_just_pressed("misc_fullscreen"):
-		toggle_fullscreen()
-
-
-func _notification(noti):
-	if noti == NOTIFICATION_WM_CLOSE_REQUEST:
-		quit_to_desktop()
-
-
-# Config file
 static var config: ConfigFile = null:
 	get():
 		if config == null:
@@ -87,7 +92,12 @@ static func generate_config() -> ConfigFile:
 	return config
 
 
-# Window management
+
+
+
+# =========
+#  WINDOWS
+# =========
 var skip_pause = false
 func window_gained_focus() -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(master_volume))
@@ -127,7 +137,12 @@ static func toggle_fullscreen() -> void:
 	config_maps["window,fullscreen"] = is_fullscreen
 
 
-# Bus management
+
+
+
+# =======
+#  AUDIO
+# =======
 static var master_volume = 1.0
 static var music_volume = 1.0
 static var sound_volume = 1.0
@@ -150,14 +165,28 @@ static func set_sound_volume(multiplier: float) -> void:
 	config_maps["bus,sound_volume"] = multiplier
 
 
-# Level management
-const HUB_LEVEL_PATH = "res://scenes/game/levels/world_map.tscn"
+
+
+
+# =================
+#  LEVELS & SCENES
+# =================
+const HUB_LEVEL_PATH = "world_map"
 static var current_level_path = null
 
-static func load_level_from_path(level_path) -> void:
-	load_level(load(level_path))
+static func enter_level(level_path) -> String:
+	var queue = CURRENT_LEVEL
+	load_scene_from_path(level_path)
+	if queue:
+		queue.queue_free()
+	return "loaded level: " + level_path
 
-static func load_level(level_scene: PackedScene) -> void:
+static func load_scene_from_path(level_path) -> void:
+	load_scene(load("res://scenes/game/levels/" + level_path + ".tscn"))
+
+static func load_scene(level_scene: PackedScene) -> void:
+	if not level_scene:
+		return
 	current_level_path = level_scene.resource_path
 	CURRENT_LEVEL = level_scene.instantiate()
 	CURRENT_LEVEL.position = Vector2.ZERO
@@ -171,33 +200,61 @@ static func dispose_level() -> void:
 static func exit_level() -> void:
 	if not current_level_path == null and not current_level_path == HUB_LEVEL_PATH:
 		var queue = CURRENT_LEVEL
-		load_level_from_path(HUB_LEVEL_PATH)
+		load_scene_from_path(HUB_LEVEL_PATH)
 		queue.queue_free()
 
 
 static func reset_level() -> void:
 	var queue = CURRENT_LEVEL
-	load_level_from_path(current_level_path)
+	load_scene(load(current_level_path))
 	queue.queue_free()
 
 
-static func get_level_base() -> Node2D:
+
+
+
+# ==============
+#  NODE GETTERS
+# ==============
+static func get_level_base() -> Level:
+	if not CURRENT_LEVEL:
+		return null
 	return CURRENT_LEVEL.get_node_or_null("level")
 
 static func get_main_camera() -> Camera2D:
+	if not CURRENT_LEVEL:
+		return null
 	return CURRENT_LEVEL.get_node_or_null("level/main_camera")
 
 static func get_music() -> Music:
+	if not CURRENT_LEVEL:
+		return null
 	return CURRENT_LEVEL.get_node_or_null("level/main_camera/level_music")
 
 static func get_death_timer() -> Timer:
+	if not CURRENT_LEVEL:
+		return null
 	return CURRENT_LEVEL.get_node_or_null("level/death_timer")
 
 static func get_player() -> Player:
+	if not CURRENT_LEVEL:
+		return null
 	return CURRENT_LEVEL.get_node_or_null("player")
 
 
-# Methods
+
+
+
+# =================
+#  PROCESS METHODS
+# =================
+static func set_vsync(enabled: bool) -> String:
+	DisplayServer.window_set_vsync_mode(int(enabled))
+	return "Vsync " + Mathx.bool_gate(enabled, "enabled.", "disabled.")
+
+static func fps() -> float:
+	return Engine.get_frames_per_second()
+
 static func quit_to_desktop() -> void:
 	for entry in config_maps:
 		var a = entry.split(',')

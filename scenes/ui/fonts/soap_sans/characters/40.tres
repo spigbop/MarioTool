@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://pwjiax1peh5w"]
+
+[ext_resource type="Texture2D" uid="uid://c1uxg2hgp3vds" path="res://assets/textures/ui/fonts/soap_sans.png" id="1_21uvu"]
+
+[resource]
+atlas = ExtResource("1_21uvu")
+region = Rect2(0, 8, 6, 8)
+filter_clip = true

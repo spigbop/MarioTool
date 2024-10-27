@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://csbsv70lkwkeh"]
+
+[ext_resource type="Texture2D" uid="uid://m2piw061xc6o" path="res://assets/textures/ui/fonts/smas_outline.png" id="1_g6vu6"]
+
+[resource]
+atlas = ExtResource("1_g6vu6")
+region = Rect2(160, 8, 8, 8)
+filter_clip = true

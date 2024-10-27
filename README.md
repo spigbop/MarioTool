@@ -1,6 +1,6 @@
 ![Mario Tool](https://i.imgur.com/uQdEY8F.png)
 
-![MarioTool version](https://img.shields.io/badge/version-0.42.2-blue?style=for-the-badge)
+![MarioTool version](https://img.shields.io/badge/version-0.50.0-blue?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/spigbop/MarioTool?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/spigbop/MarioTool?style=for-the-badge)
 
@@ -8,15 +8,16 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 
 [![itch.io](https://img.shields.io/badge/itch.io-%23FF0B34.svg?logo=Itch.io&logoColor=white&style=for-the-badge)](https://xpoxy.itch.io/mariotool)
 
-# Changelog (0.42.0 - 10/12/24)
-- Adds Event blocks, when hit from below by a player any given function is called on the parent.
-- Adds Switchable Generators using event blocks.
-- Adds Ledge AI, when it is attached to a patrol AI it makes the object not fall from edges.
-- Adds red koopa troopas.
-- Red shell color is no longer unused.
-- Adds pipe enemies which can spawn a singular enemy (preferably a piranha plant) when entering the spawn area and inhibits the enemy when inside the area.
-- Piranha plants can now be inhibited, making them unable to appear out of a pipe until released. Piranha plants have to be the subject of a pipe enemy for this to work.
-- Piranha plants now linger longer.
+# Console, Deferation, Total Control! (Changelog - 0.50.0)
+- Adds Object Deferation as a standalone class, generator deferations now rely on it.
+- Adds the Console (press ` to open by default), the console can get or set any variable or call any function.
+- Adds 3 console contexes, being the game, the level, and the player. (switchable by \ by default)
+- Adds the Font Baker to easily create new fonts with atlases. (Yes i did this one by one before.)
+- Adds Text Methods with 2 initial naming conventions. Unicode method splits atlas textures and names character files with their unicode. Filename method is the legacy one, it uses the character itself to name files.
+- Adds the 'Soap Sans' font with the unicode method to be used in the console.
+- The font SMAS Outline now uses the unicode method.
+- Adds the SMM2 Super Mario Bros. Forest (SNES reimagination) music track.
+- Adds a new level: forest_level (currently only just a duplicate of demo level, only accesible via console)
 
 
 # Roadmap
@@ -53,5 +54,6 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 |Asset|Credits|
 |-|-|
 |Super Mario World - Valley of Bowser (Restored Version)|[LadiesMan217](https://www.youtube.com/@LadiesMan217)|
+|Super Mario Maker 2 - Super Mario Bros. Forest (Snes reimagination)|[Tater-Tot Tunes](https://youtu.be/LWWHX6QPfeA)|
 |Yoshi's Island - Game Over (Restored Version)|[michael02022 from Church of Kondo](https://youtu.be/fd936VoGtNo)|
 |Super Mario Allstars Super Mario Bros Assets|Nintendo (Ripped by [me](https://github.com/spigbop) and [Spriters Resource](https://www.spriters-resource.com/snes/smassmb1/))|

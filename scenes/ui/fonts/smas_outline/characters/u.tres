@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dseiysxav15a6"]
-
-[ext_resource type="Texture2D" uid="uid://m2piw061xc6o" path="res://assets/textures/ui/fonts/smas_outline.png" id="1_7ua2c"]
-
-[resource]
-atlas = ExtResource("1_7ua2c")
-region = Rect2(160, 8, 8, 8)
