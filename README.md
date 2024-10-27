@@ -1,6 +1,6 @@
 ![Mario Tool](https://i.imgur.com/uQdEY8F.png)
 
-![MarioTool version](https://img.shields.io/badge/version-0.50.0-blue?style=for-the-badge)
+![MarioTool version](https://img.shields.io/badge/version-0.50.1-blue?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/spigbop/MarioTool?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/spigbop/MarioTool?style=for-the-badge)
 
@@ -8,16 +8,23 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 
 [![itch.io](https://img.shields.io/badge/itch.io-%23FF0B34.svg?logo=Itch.io&logoColor=white&style=for-the-badge)](https://xpoxy.itch.io/mariotool)
 
-# Console, Deferation, Total Control! (Changelog - 0.50.0)
-- Adds Object Deferation as a standalone class, generator deferations now rely on it.
+# Console, Deferation, Total Control! (Changelog - 0.50.1)
+- Skipped adding a few updates to bundle up the console in one go.
+- Adds Object Deferation (access properties and methods in-game) as a standalone class, generator deferations now rely on it.
 - Adds the Console (press ` to open by default), the console can get or set any variable or call any function.
 - Adds 3 console contexes, being the game, the level, and the player. (switchable by \ by default)
 - Adds the Font Baker to easily create new fonts with atlases. (Yes i did this one by one before.)
 - Adds Text Methods with 2 initial naming conventions. Unicode method splits atlas textures and names character files with their unicode. Filename method is the legacy one, it uses the character itself to name files.
 - Adds the 'Soap Sans' font with the unicode method to be used in the console.
 - The font SMAS Outline now uses the unicode method.
+- Fonts now have config files with properties: width and monospaced.
+- Adds the TextBox control.
+- Adds the Do Timer which applies deferation on the parent on timeout.
 - Adds the SMM2 Super Mario Bros. Forest (SNES reimagination) music track.
 - Adds a new level: forest_level (currently only just a duplicate of demo level, only accesible via console)
+- Adds free jump cheat to the player. When enabled it forces jumps on 'z' presses.
+- Fixes an issue with the player audios playing on x:0 and y:0
+- Fixes a potential issue with content block audios playing on x:0 and y:0
 
 
 # Roadmap
