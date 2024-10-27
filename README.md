@@ -21,8 +21,24 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 - Adds the TextBox control.
 - Adds the Do Timer which applies deferation on the parent on timeout.
 - Adds the SMM2 Super Mario Bros. Forest (SNES reimagination) music track.
-- Adds a new level: forest_level (currently only just a duplicate of demo level, only accesible via console)
+- Adds a new level: forest_level. (currently only just a duplicate of demo level, only accesible via console)
 - Adds free jump cheat to the player. When enabled it forces jumps on 'z' presses.
+- Levels bases now have their own Level class.
+- Adds spawn methods to the level class. (`spawn`, `spawn_enemy`, `spawn_powerup`)
+- Adds console placeholders: %dt and %pdt for deltatime, !adv and !pdv for process events.
+- Adds console history.
+- Adds the console log method: `println`
+- The console log now shows 11 lines.
+- The console now only loads when the game is run in debug mode.
+- Adds the console help provider method: `help_log`
+- Adds the `methods` and `props` commands to the console.
+- Disables vsync by default.
+- Adds the `set_vsync` method to the main class.
+- Adds the `fps` method to the main class.
+- Adds the fps counter to the debug menu.
+- Adds the `enter_level` method to the main class.
+- Loading levels now logs to the console.
+- Adds the `safe_convert` method to the mathx class.
 - Fixes an issue with the player audios playing on x:0 and y:0
 - Fixes a potential issue with content block audios playing on x:0 and y:0
 
