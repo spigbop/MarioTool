@@ -163,7 +163,7 @@ text = "_"
 position = Vector2(-123, 105)
 script = ExtResource("6_gqb5n")
 font = "soap_sans"
-spacing = Vector2(-2, 0)
+spacing = Vector2(0, 0)
 
 [node name="console_line" type="LineEdit" parent="layer/root" node_paths=PackedStringArray("boss", "subject", "cursor")]
 visible = false
@@ -183,22 +183,21 @@ cursor = NodePath("../text_cursor")
 position = Vector2(-123, 91)
 script = ExtResource("6_gqb5n")
 font = "soap_sans"
-spacing = Vector2(-2, 0)
+spacing = Vector2(0, 0)
 multiline = true
 reverse_newline = true
 
-[node name="connector" type="Node2D" parent="layer/root"]
+[node name="fps_connector" type="Node2D" parent="layer/root"]
 position = Vector2(-122, -106)
 script = ExtResource("6_h7w70")
 var_or_func = "fps"
 
-[node name="text" type="Node2D" parent="layer/root/connector"]
+[node name="text" type="Node2D" parent="layer/root/fps_connector"]
 script = ExtResource("6_gqb5n")
 text = "60"
 spacing = Vector2(0, 0)
 
-[node name="updater" type="Timer" parent="layer/root/connector"]
+[node name="updater" type="Timer" parent="layer/root/fps_connector"]
 wait_time = 2.0
-autostart = true
 script = ExtResource("7_wg1kt")
 object_deferation = PackedStringArray("upd()")

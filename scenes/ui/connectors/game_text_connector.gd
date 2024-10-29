@@ -1,5 +1,5 @@
 extends Node
-class_name DeferationTimer
+class_name GameTextConnector
 
 
 @export var var_or_func = "is_fullscreen"

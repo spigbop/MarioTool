@@ -36,34 +36,34 @@ text = "→"
 z_index = 999
 script = ExtResource("2_me55k")
 text = "continue"
-spacing = 0.0
+spacing = Vector2(0, 0)
 
 [node name="exit_level" type="Node2D" parent="menu/buttons"]
 z_index = 999
 position = Vector2(0, 12)
 script = ExtResource("2_me55k")
 text = "exit level"
-spacing = 0.0
+spacing = Vector2(0, 0)
 
 [node name="settings" type="Node2D" parent="menu/buttons"]
 z_index = 999
 position = Vector2(0, 24)
 script = ExtResource("2_me55k")
 text = "settings"
-spacing = 0.0
+spacing = Vector2(0, 0)
 
 [node name="save_exit" type="Node2D" parent="menu/buttons"]
 z_index = 999
 position = Vector2(0, 42)
 script = ExtResource("2_me55k")
 text = "save & exit"
-spacing = 0.0
+spacing = Vector2(0, 0)
 
 [node name="quit_desktop" type="Node2D" parent="menu/buttons"]
 z_index = 999
 position = Vector2(0, 54)
 script = ExtResource("2_me55k")
 text = "quit to desktop"
-spacing = 0.0
+spacing = Vector2(0, 0)
 
 [node name="menu_settings" parent="." instance=ExtResource("5_ulpci")]

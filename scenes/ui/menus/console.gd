@@ -14,6 +14,7 @@ var state: CONSOLE_STATE = CONSOLE_STATE.DISABLED:
 				get_tree().paused = false
 				PauseMenu.interrupted = false
 				console_line.focused = false
+				fps_updater.stop()
 			CONSOLE_STATE.OPAQUE:
 				var cam = MarioTool.get_main_camera()
 				if cam:
@@ -22,6 +23,7 @@ var state: CONSOLE_STATE = CONSOLE_STATE.DISABLED:
 				get_tree().paused = true
 				PauseMenu.interrupted = true
 				console_line.focused = true
+				fps_updater.start()
 			CONSOLE_STATE.SEMI_OPAQUE:
 				mod.color = Color(1.0, 1.0, 1.0, 0.5)
 
@@ -38,6 +40,8 @@ var context = MarioTool.inst
 @onready var light_main: AnimatedSprite2D = $layer/root/lights_context/main
 @onready var light_level: AnimatedSprite2D = $layer/root/lights_context/level
 @onready var light_player: AnimatedSprite2D = $layer/root/lights_context/player
+
+@onready var fps_updater: Timer = $layer/root/fps_connector/updater
 
 static var inst: Console = null
 

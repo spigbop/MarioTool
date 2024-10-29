@@ -1,4 +1,5 @@
 extends Timer
+class_name DeferationTimer
 
 
 @onready var boss: Node = get_parent()

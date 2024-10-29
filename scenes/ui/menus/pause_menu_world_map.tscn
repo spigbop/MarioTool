@@ -35,25 +35,25 @@ text = "→"
 z_index = 999
 script = ExtResource("3_ywiae")
 text = "continue"
-spacing = 0.0
+spacing = Vector2(0, 0)
 
 [node name="settings" type="Node2D" parent="menu/buttons"]
 z_index = 999
 position = Vector2(0, 12)
 script = ExtResource("3_ywiae")
 text = "settings"
-spacing = 0.0
+spacing = Vector2(0, 0)
 
 [node name="save_exit" type="Node2D" parent="menu/buttons"]
 z_index = 999
 position = Vector2(0, 30)
 script = ExtResource("3_ywiae")
 text = "save & exit"
-spacing = 0.0
+spacing = Vector2(0, 0)
 
 [node name="quit_desktop" type="Node2D" parent="menu/buttons"]
 z_index = 999
 position = Vector2(0, 42)
 script = ExtResource("3_ywiae")
 text = "quit to desktop"
-spacing = 0.0
+spacing = Vector2(0, 0)

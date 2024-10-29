@@ -1,4 +1,5 @@
 extends Node
+class_name CoinTextConnector
 
 
 func _ready() -> void:

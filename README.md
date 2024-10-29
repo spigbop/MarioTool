@@ -1,6 +1,6 @@
 ![Mario Tool](https://i.imgur.com/uQdEY8F.png)
 
-![MarioTool version](https://img.shields.io/badge/version-0.50.1-blue?style=for-the-badge)
+![MarioTool version](https://img.shields.io/badge/version-0.51.0-blue?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/spigbop/MarioTool?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/spigbop/MarioTool?style=for-the-badge)
 
@@ -8,39 +8,15 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 
 [![itch.io](https://img.shields.io/badge/itch.io-%23FF0B34.svg?logo=Itch.io&logoColor=white&style=for-the-badge)](https://xpoxy.itch.io/mariotool)
 
-# Console, Deferation, Total Control! (Changelog - 0.50.1)
-- Skipped adding a few updates to bundle up the console in one go.
-- Adds Object Deferation (access properties and methods in-game) as a standalone class, generator deferations now rely on it.
-- Adds the Console (press ` to open by default), the console can get or set any variable or call any function.
-- Adds 3 console contexes, being the game, the level, and the player. (switchable by \ by default)
-- Adds the Font Baker to easily create new fonts with atlases. (Yes i did this one by one before.)
-- Adds Text Methods with 2 initial naming conventions. Unicode method splits atlas textures and names character files with their unicode. Filename method is the legacy one, it uses the character itself to name files.
-- Adds the 'Soap Sans' font with the unicode method to be used in the console.
-- The font SMAS Outline now uses the unicode method.
-- Fonts now have config files with properties: width and monospaced.
-- Adds the TextBox control.
-- Adds the Do Timer which applies deferation on the parent on timeout.
-- Adds the SMM2 Super Mario Bros. Forest (SNES reimagination) music track.
-- Adds a new level: forest_level. (currently only just a duplicate of demo level, only accesible via console)
-- Adds free jump cheat to the player. When enabled it forces jumps on 'z' presses.
-- Levels bases now have their own Level class.
-- Adds spawn methods to the level class. (`spawn`, `spawn_enemy`, `spawn_powerup`)
-- Adds console placeholders: %dt and %pdt for deltatime, !adv and !pdv for process events.
-- Adds console history.
-- Adds the console log method: `println`
-- The console log now shows 11 lines.
-- The console now only loads when the game is run in debug mode.
-- Adds the console help provider method: `help_log`
-- Adds the `methods` and `props` commands to the console.
-- Disables vsync by default.
-- Adds the `set_vsync` method to the main class.
-- Adds the `fps` method to the main class.
-- Adds the fps counter to the debug menu.
-- Adds the `enter_level` method to the main class.
-- Loading levels now logs to the console.
-- Adds the `safe_convert` method to the mathx class.
-- Fixes an issue with the player audios playing on x:0 and y:0
-- Fixes a potential issue with content block audios playing on x:0 and y:0
+# Text Caching (Changelog - 0.51.0)
+- Texts now properly read font data.
+- Texts now cache font configs.
+- Texts now cache alphabets.
+- Texts now cache alphabet characters.
+- Pause menu and settings spacings are now fixed.
+- Fixes `do_timer.gd` class name (DeferationTimer) being assigned on Game Text Connector.
+- Text connectors now have class names.
+- The console fps counter is no longer updated when the console is hidden.
 
 
 # Roadmap

@@ -32,42 +32,42 @@ text = "→"
 z_index = 999
 script = ExtResource("2_4l8my")
 text = "back"
-spacing = 0.0
+spacing = Vector2(0, 0)
 
 [node name="fullscreen" type="Node2D" parent="buttons"]
 z_index = 999
 position = Vector2(0, 18)
 script = ExtResource("2_4l8my")
 text = "fullscreen"
-spacing = 0.0
+spacing = Vector2(0, 0)
 
 [node name="window_scale" type="Node2D" parent="buttons"]
 z_index = 999
 position = Vector2(0, 30)
 script = ExtResource("2_4l8my")
-text = "window  scale"
-spacing = 0.0
+text = "window scale"
+spacing = Vector2(0, 0)
 
 [node name="master_volume" type="Node2D" parent="buttons"]
 z_index = 999
 position = Vector2(0, 48)
 script = ExtResource("2_4l8my")
 text = "master volume"
-spacing = 0.0
+spacing = Vector2(0, 0)
 
 [node name="music_volume" type="Node2D" parent="buttons"]
 z_index = 999
 position = Vector2(0, 60)
 script = ExtResource("2_4l8my")
 text = "music volume"
-spacing = 0.0
+spacing = Vector2(0, 0)
 
 [node name="sound_volume" type="Node2D" parent="buttons"]
 z_index = 999
 position = Vector2(0, 72)
 script = ExtResource("2_4l8my")
 text = "sound volume"
-spacing = 0.0
+spacing = Vector2(0, 0)
 
 [node name="window_scale_depth" type="Node" parent="."]
 script = ExtResource("3_7id4i")
@@ -112,7 +112,7 @@ format = "on:off"
 z_index = 999
 script = ExtResource("2_4l8my")
 text = "off"
-spacing = 0.0
+spacing = Vector2(0, 0)
 
 [node name="window_scale" type="CanvasLayer" parent="extensions"]
 
@@ -139,7 +139,7 @@ format = "%sx"
 [node name="text" type="Node2D" parent="extensions/window_scale/connector"]
 script = ExtResource("2_4l8my")
 text = "2x"
-spacing = 0.0
+spacing = Vector2(0, 0)
 
 [node name="master_volume" type="CanvasLayer" parent="extensions"]
 
