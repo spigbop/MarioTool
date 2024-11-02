@@ -98,7 +98,7 @@ static func generate_config() -> ConfigFile:
 # =========
 #  WINDOWS
 # =========
-var skip_pause = false
+var skip_pause: bool = false
 func window_gained_focus() -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(master_volume))
 	if not skip_pause:
@@ -174,14 +174,14 @@ static func set_sound_volume(multiplier: float) -> void:
 const HUB_LEVEL_PATH = "world_map"
 static var current_level_path = null
 
-static func enter_level(level_path) -> String:
+static func enter_level(level_path: String) -> String:
 	var queue = CURRENT_LEVEL
 	load_scene_from_path(level_path)
 	if queue:
 		queue.queue_free()
 	return "loaded level: " + level_path
 
-static func load_scene_from_path(level_path) -> void:
+static func load_scene_from_path(level_path: String) -> void:
 	load_scene(load("res://scenes/game/levels/" + level_path + ".tscn"))
 
 static func load_scene(level_scene: PackedScene) -> void:
@@ -234,7 +234,12 @@ static func get_music() -> Music:
 static func get_death_timer() -> Timer:
 	if not CURRENT_LEVEL:
 		return null
-	return CURRENT_LEVEL.get_node_or_null("level/death_timer")
+	return CURRENT_LEVEL.get_node_or_null("level/main_camera/death_timer")
+
+static func get_level_overlay() -> Node2D:
+	if not CURRENT_LEVEL:
+		return null
+	return CURRENT_LEVEL.get_node_or_null("level/main_camera/level_overlay")
 
 static func get_player() -> Player:
 	if not CURRENT_LEVEL:
@@ -261,3 +266,13 @@ static func quit_to_desktop() -> void:
 		config.set_value(a[0], a[1], config_maps[entry])
 	config.save("user://config.cfg")
 	inst.get_tree().quit()
+
+
+
+
+
+# =================
+#  MISC CONNECTORS
+# =================
+static func get_remaining_lives() -> String:
+	return str(Player.remaining_lives).pad_zeros(2)

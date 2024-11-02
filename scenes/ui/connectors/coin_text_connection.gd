@@ -2,5 +2,12 @@ extends Node
 class_name CoinTextConnector
 
 
+@onready var subject = find_child("text")
+
+
 func _ready() -> void:
-	find_child("text").text = str(Coin.coin_count)
+	upd()
+
+
+func upd() -> void:
+	subject.text = str(Coin.coin_count).pad_zeros(2)

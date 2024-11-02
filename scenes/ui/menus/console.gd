@@ -15,6 +15,9 @@ var state: CONSOLE_STATE = CONSOLE_STATE.DISABLED:
 				PauseMenu.interrupted = false
 				console_line.focused = false
 				fps_updater.stop()
+				var level_ov = MarioTool.get_level_overlay()
+				if level_ov:
+					level_ov.visible = true
 			CONSOLE_STATE.OPAQUE:
 				var cam = MarioTool.get_main_camera()
 				if cam:
@@ -23,6 +26,9 @@ var state: CONSOLE_STATE = CONSOLE_STATE.DISABLED:
 				get_tree().paused = true
 				PauseMenu.interrupted = true
 				console_line.focused = true
+				var level_ov = MarioTool.get_level_overlay()
+				if level_ov:
+					level_ov.visible = false
 				fps_updater.start()
 			CONSOLE_STATE.SEMI_OPAQUE:
 				mod.color = Color(1.0, 1.0, 1.0, 0.5)

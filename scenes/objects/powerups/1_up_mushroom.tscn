@@ -1,12 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://bh8j6lqf5b553"]
+[gd_scene load_steps=8 format=3 uid="uid://t72mweo71qsr"]
 
-[ext_resource type="Texture2D" uid="uid://d2mrke3nllvtp" path="res://assets/textures/objects/powerups.png" id="1_8sqj7"]
-[ext_resource type="Script" path="res://scenes/objects/ai/patrol.gd" id="2_ark5q"]
-[ext_resource type="Script" path="res://scenes/objects/powerups/powerup.gd" id="2_xal1j"]
+[ext_resource type="Script" path="res://scenes/objects/powerups/powerup.gd" id="1_0rgqu"]
+[ext_resource type="Texture2D" uid="uid://d2mrke3nllvtp" path="res://assets/textures/objects/powerups.png" id="2_corwp"]
+[ext_resource type="Script" path="res://scenes/objects/ai/patrol.gd" id="3_u8cl3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xxl3i"]
-atlas = ExtResource("1_8sqj7")
-region = Rect2(0, 0, 16, 16)
+atlas = ExtResource("2_corwp")
+region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ajqsr"]
 size = Vector2(16, 16)
@@ -17,10 +17,11 @@ size = Vector2(16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5vfb"]
 size = Vector2(1.1, 14)
 
-[node name="super_mushroom" type="RigidBody2D"]
+[node name="1_up_mushroom" type="RigidBody2D"]
 collision_layer = 4
 lock_rotation = true
-script = ExtResource("2_xal1j")
+script = ExtResource("1_0rgqu")
+type = 1
 
 [node name="sprite" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_xxl3i")
@@ -32,7 +33,7 @@ shape = SubResource("RectangleShape2D_ajqsr")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="ai" type="Node" parent="."]
-script = ExtResource("2_ark5q")
+script = ExtResource("3_u8cl3")
 
 [node name="hitbox" type="Area2D" parent="."]
 collision_layer = 4

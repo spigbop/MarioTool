@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://jt24itrw3jdg"]
+[gd_scene load_steps=30 format=4 uid="uid://jt24itrw3jdg"]
 
 [ext_resource type="PackedScene" uid="uid://bcalhgdhc7hm1" path="res://scenes/music/yi_underground.tscn" id="1_6mcrj"]
 [ext_resource type="PackedScene" uid="uid://c5ggejhxdho17" path="res://scenes/objects/player.tscn" id="1_ohph1"]
@@ -25,6 +25,9 @@
 [ext_resource type="PackedScene" uid="uid://bb150738ij3by" path="res://scenes/objects/zones/pipe_enemy.tscn" id="21_4kog6"]
 [ext_resource type="Script" path="res://scenes/timers/death_timer.gd" id="21_10fxp"]
 [ext_resource type="PackedScene" uid="uid://b3hcnkodvduvt" path="res://scenes/tiles/event_block.tscn" id="23_kph44"]
+[ext_resource type="PackedScene" uid="uid://dj7feyfmdr7dq" path="res://scenes/objects/powerups/poison_mushroom.tscn" id="26_417l3"]
+[ext_resource type="PackedScene" uid="uid://t72mweo71qsr" path="res://scenes/objects/powerups/1_up_mushroom.tscn" id="26_vqvpa"]
+[ext_resource type="PackedScene" uid="uid://rnj0dw7qmds2" path="res://scenes/ui/menus/level_overlay.tscn" id="28_moqw4"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_eqtb4"]
 distance = -44.0
@@ -156,6 +159,16 @@ subject = ExtResource("16_1t7yc")
 position = Vector2(1201, 40)
 subject = ExtResource("20_bw1l7")
 
+[node name="content_block6" parent="contents" instance=ExtResource("9_4s3u7")]
+position = Vector2(169, -8)
+invisible = true
+contents = ExtResource("26_417l3")
+
+[node name="content_block9" parent="contents" instance=ExtResource("9_4s3u7")]
+position = Vector2(201, -8)
+invisible = true
+contents = ExtResource("26_vqvpa")
+
 [node name="player" parent="." instance=ExtResource("1_ohph1")]
 z_index = 20
 position = Vector2(-28, -3)
@@ -172,8 +185,11 @@ level_dimensions = Rect2(-128, 0, 1152, 0)
 [node name="level_music" parent="level/main_camera" instance=ExtResource("1_6mcrj")]
 
 [node name="pause_menu" parent="level/main_camera" instance=ExtResource("18_f3tq8")]
+visible = false
 
-[node name="death_timer" type="Timer" parent="level"]
+[node name="level_overlay" parent="level/main_camera" instance=ExtResource("28_moqw4")]
+
+[node name="death_timer" type="Timer" parent="level/main_camera"]
 wait_time = 4.0
 one_shot = true
 script = ExtResource("21_10fxp")

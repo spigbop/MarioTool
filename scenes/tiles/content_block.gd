@@ -2,12 +2,15 @@ extends AnimatableBody2D
 
 
 @export var breakable: bool = true
+@export var invisible: bool = false
 @export var contents: PackedScene = null
 @export var count: int = 1
 
 
+@onready var bump: Area2D = $bump
 @onready var sprite: Sprite2D = $sprite
 @onready var animation: AnimationPlayer = $animation
+@onready var collision: CollisionShape2D = $collision
 @onready var bump_sound: AudioStreamPlayer2D = $channels/bump_sound
 @onready var contents_sound: AudioStreamPlayer2D = $channels/contents_sound
 @onready var animated_sprite: AnimatedSprite2D = find_child("animated_sprite")
@@ -20,10 +23,16 @@ const QUESTION_MARK_BLOCK = preload("res://scenes/tiles/resources/question_mark_
 
 
 func _ready() -> void:
-	$bump.body_entered.connect(on_bump)
+	if invisible:
+		collision.one_way_collision = true
+		if animated_sprite:
+			animated_sprite.visible = false
+		else:
+			sprite.visible = false
+	bump.body_entered.connect(on_bump)
 
 func on_bump(body: Node2D) -> void:
-	if body.has_method("block_bumper"):
+	if body.has_method("block_bumper") and (CollisionLogic.get_logical_position(null, body).y > position.y + 7.5 or not invisible):
 		bump_sound.play()
 		if emptied:
 			return
@@ -33,6 +42,12 @@ func on_bump(body: Node2D) -> void:
 			hit(body.powerup, body)
 
 func hit(ptier, _body):
+	if invisible:
+		collision.set_deferred("one_way_collision", false)
+		if animated_sprite:
+			animated_sprite.visible = true
+		else:
+			sprite.visible = true
 	if contents:
 		# box empty
 		current_count -= 1

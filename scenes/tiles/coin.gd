@@ -2,7 +2,18 @@ extends Area2D
 class_name Coin
 
 
-static var coin_count: int = 0
+static var coin_count: int = 0:
+	set(newval):
+		coin_count = newval
+		if coin_count == 100:
+			coin_count = 0
+			Player.remaining_lives += 1
+			MarioTool.get_player().life_picker()
+		var level_ov = MarioTool.get_level_overlay()
+		if level_ov:
+			level_ov.get_node("coin_count").upd()
+			if coin_count == 0:
+				level_ov.get_node("lives_count").upd()
 
 
 func _ready() -> void:

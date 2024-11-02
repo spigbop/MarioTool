@@ -31,7 +31,6 @@ position = Vector2(0, -74)
 script = ExtResource("1_rg5vk")
 text = "level title"
 alignment = 1
-spacing = 0.0
 
 [node name="coins" type="Sprite2D" parent="level/main_camera/overlay"]
 position = Vector2(-118, 98)
@@ -44,4 +43,4 @@ script = ExtResource("6_xmtx4")
 position = Vector2(-115, 104)
 script = ExtResource("1_rg5vk")
 text = "0"
-spacing = 0.0
+spacing = Vector2(0, 0)

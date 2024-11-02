@@ -3,24 +3,26 @@ class_name Player
 
 
 # Basic Settings
-const SPEED = 135.0 # 2.25 pixels/frame (Super Mario World)
-const JUMP_VELOCITY = -350.0 # 4 blocks (Super Mario All Stars: Super Mario Bros)
-const JUMP_VELOCITY_MIN = -150.0 # close guess (SMAS)
+const SPEED: float = 135.0 # 2.25 pixels/frame (Super Mario World)
+const JUMP_VELOCITY: float = -350.0 # 4 blocks (Super Mario All Stars: Super Mario Bros)
+const JUMP_VELOCITY_MIN: float = -150.0 # close guess (SMAS)
 
 # Force Settings
-const ACCELERATION = 8.0 # close guess (SMAS)
-const DECELERATION = 14.0 # close guess (SMAS)
+const ACCELERATION: float = 8.0 # close guess (SMAS)
+const DECELERATION: float = 14.0 # close guess (SMAS)
 
 # Running Settings
-const RUN_SPEED_MULTIPLIER = 1.5 # close guess (SMAS)
-const RUN_ACCEL_MULTIPLIER = 1.1 # close guess (SMAS)
-const RUN_JUMP_VELOCITY_MAX = 1.25 # 5 blocks (Super Mario All Stars: Super Mario Bros) 
+const RUN_SPEED_MULTIPLIER: float = 1.5 # close guess (SMAS)
+const RUN_ACCEL_MULTIPLIER: float = 1.1 # close guess (SMAS)
+const RUN_JUMP_VELOCITY_MAX: float = 1.25 # 5 blocks (Super Mario All Stars: Super Mario Bros) 
 
-var speed_mult = 1.0
-var jump_mult = 1.0
-var accel_mult = 1.0
-var grounded = false
-var ducking = false
+# These values are frequently changed by inputs.
+var speed_mult: float = 1.0
+var jump_mult: float = 1.0
+var accel_mult: float = 1.0
+var grounded: bool = false
+var ducking: bool = false
+var logical_position: Vector2 = Vector2(0, 0)
 
 
 @onready var sprite: AnimatedSprite2D = $sprite
@@ -28,25 +30,21 @@ var ducking = false
 @onready var skid_sound: AudioStreamPlayer2D = $channels/skid_sound
 
 
-@onready var jumping_factor = SPEED * RUN_SPEED_MULTIPLIER * 0.5 / RUN_JUMP_VELOCITY_MAX
-var freeze = false
+@onready var jumping_factor: float = SPEED * RUN_SPEED_MULTIPLIER * 0.5 / RUN_JUMP_VELOCITY_MAX
+var freeze: bool = false
 
 
-var logical_position = Vector2(0, 0)
-var projectiles = []
-var is_throwing = false
+var projectiles: Array = []
+var is_throwing: bool = false
+
 
 # Cheats
-var free_jump = false
+var free_jump: bool = false
 
 
-static var current = null
-
-
-func _ready() -> void:
-	current = self
-	
 # physc process is fixed framerate
+# this runs all player movement logic.
+# this is a very modified version of the characterbody2d movement script.
 func _physics_process(delta: float) -> void:
 	logical_position = position
 	
@@ -155,22 +153,22 @@ func force_jump():
 @onready var collect_sound: AudioStreamPlayer2D = $channels/collect_sound
 
 
-func coin_picker() -> void:
-	collect_sound.play()
-
-
-var powerup = 0
+# =================
+#  POWERUP HANDLER
+# =================
 # 0: small, 1: big, 2: fire
+var powerup = 0
 const POWERUP_FRAMES = [
 	preload("res://scenes/objects/resources/mario_small.tres"),
 	preload("res://scenes/objects/resources/mario_big.tres"),
 	preload("res://scenes/objects/resources/mario_fire.tres")]
-const POWERUP_OFFSETS = [0.0, -8.0, -8.0, -8.0]
+const POWERUP_OFFSETS                               = [0.0, -8.0, -8.0, -8.0]
 @onready var collision_big_mid: CollisionShape2D    = $collision_big_mid
 @onready var collision_big_top: CollisionShape2D    = $collision_big_top
 @onready var shape_big:         CollisionShape2D    = $hitbox/shape_big
 @onready var powerup_sound:     AudioStreamPlayer2D = $channels/powerup_sound
 @onready var powerup_timer:     Timer               = $hitbox/powerup_timer
+
 
 func powerup_picker(tier: int) -> void:
 	if lost:
@@ -198,10 +196,6 @@ func hurt() -> void:
 	else:
 		lose_life()
 
-func _on_iframes_timer_timeout() -> void:
-	iframes = false
-	iframes_animation.stop()
-	sprite.visible = true
 
 func set_powerup(tier) -> void:
 	powerup = tier
@@ -220,14 +214,27 @@ func set_powerup(tier) -> void:
 	powerup_timer.start()
 	iframes_timer.start()
 	sprite.play()
-	
 
-func set_powerup_collisions(enabled) -> void:
-	collision_big_mid.set_deferred("disabled", enabled)
-	collision_big_top.set_deferred("disabled", enabled)
-	shape_big.set_deferred("disabled", enabled)
 
-func _on_powerup_timer_timeout() -> void:
+func set_powerup_collisions(is_small: bool) -> void:
+	collision_big_mid.set_deferred("disabled", is_small)
+	collision_big_top.set_deferred("disabled", is_small)
+	shape_big.set_deferred("disabled", is_small)
+
+
+# Connecting signals
+func _ready() -> void:
+	iframes_timer.timeout.connect(iframes_timeout)
+	powerup_timer.timeout.connect(powerup_timeout)
+
+
+func iframes_timeout() -> void:
+	iframes = false
+	iframes_animation.stop()
+	sprite.visible = true
+
+
+func powerup_timeout() -> void:
 	iframes_animation.play("default")
 	sprite.animation = "idle"
 	sprite.play()
@@ -237,13 +244,13 @@ func _on_powerup_timer_timeout() -> void:
 		sprite.offset.y = POWERUP_OFFSETS[0]
 		sprite.play()
 
-func block_bumper() -> void:
-	return
 
-
-func stomper():
-	return
-
+# ==============
+#  Life Handler
+# ==============
+# Lives are shared across players.
+const MAX_LIVES = 4
+static var remaining_lives: int = MAX_LIVES
 
 var lost = false
 @onready var lose_life_sound: AudioStreamPlayer2D = $channels/lose_life_sound
@@ -252,10 +259,12 @@ var lost = false
 func enter_death_barrier() -> void:
 	lose_life()
 
+
 func lose_life() -> void:
 	if lost:
 		return
 	lost = true
+	remaining_lives -= 1
 	var fallen_foe_effect = load("res://scenes/effects/fallen_effect.tscn")
 	var effect = fallen_foe_effect.instantiate()
 	effect.position = position
@@ -273,10 +282,33 @@ func lose_life() -> void:
 	if death_timer:
 		death_timer.start()
 
-func can_warp() -> void:
-	pass
 
-
-# Methods
+# =========
+#  Methods
+# =========
 func is_running() -> bool:
 	return speed_mult > 1.0
+
+
+# ======
+#  Tags
+# ======
+func coin_picker() -> void:
+	collect_sound.play()
+
+
+func pipe_warper() -> void:
+	return
+
+
+@onready var one_up_sound: AudioStreamPlayer2D = $"channels/1up_sound"
+func life_picker() -> void:
+	one_up_sound.play()
+
+
+func block_bumper() -> void:
+	return
+
+
+func stomper() -> void:
+	return

@@ -8,15 +8,16 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 
 [![itch.io](https://img.shields.io/badge/itch.io-%23FF0B34.svg?logo=Itch.io&logoColor=white&style=for-the-badge)](https://xpoxy.itch.io/mariotool)
 
-# Text Caching (Changelog - 0.51.0)
-- Texts now properly read font data.
-- Texts now cache font configs.
-- Texts now cache alphabets.
-- Texts now cache alphabet characters.
-- Pause menu and settings spacings are now fixed.
-- Fixes `do_timer.gd` class name (DeferationTimer) being assigned on Game Text Connector.
-- Text connectors now have class names.
-- The console fps counter is no longer updated when the console is hidden.
+# Lives and Invisible Blocks (Changelog - 0.52.0)
+- Adds the Level Overlay. (life and coin count)
+- Adds lives.
+- Adds the Game Over screen.
+- Adds the 1 Up Mushroom.
+- Adds the Poison Mushroom.
+- Adds the `invisible` setting to ? and brick blocks.
+- Powerups can now defer on powerup pickers. (players)
+- Powerups can now have one of four types: Player state, lives, hurt and none.
+- The player script is cleaned up.
 
 
 # Roadmap

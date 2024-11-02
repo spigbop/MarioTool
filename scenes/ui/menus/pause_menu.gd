@@ -12,6 +12,9 @@ func focus() -> void:
 	menu.focused = true
 	visible = true
 	get_tree().paused = true
+	var level_ov = MarioTool.get_level_overlay()
+	if level_ov:
+		level_ov.visible = false
 
 func unfocus() -> void:
 	menu.focused = false
@@ -20,6 +23,9 @@ func unfocus() -> void:
 	menu_settings.reset()
 	visible = false
 	get_tree().paused = false
+	var level_ov = MarioTool.get_level_overlay()
+	if level_ov:
+		level_ov.visible = true
 
 func _ready() -> void:
 	unfocus()

@@ -66,6 +66,7 @@ libraries = {
 }
 
 [node name="collision" type="CollisionShape2D" parent="."]
+rotation = 3.14159
 shape = SubResource("RectangleShape2D_6b8lm")
 
 [node name="bump" type="Area2D" parent="."]

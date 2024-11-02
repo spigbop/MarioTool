@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://rnj0dw7qmds2"]
+
+[ext_resource type="Texture2D" uid="uid://cqe6b0ibn8fgg" path="res://assets/textures/tiles.png" id="2_0aumy"]
+[ext_resource type="Texture2D" uid="uid://b6h55abvuebyx" path="res://assets/textures/ui/debug/console_icons.png" id="2_ys1y2"]
+[ext_resource type="Script" path="res://scenes/ui/connectors/game_text_connector.gd" id="3_8iwgy"]
+[ext_resource type="Script" path="res://scenes/ui/connectors/coin_text_connection.gd" id="3_nm1ig"]
+[ext_resource type="Script" path="res://scenes/ui/fonts/sprite_text.gd" id="4_ixa2e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mk4b7"]
+atlas = ExtResource("2_0aumy")
+region = Rect2(112, 0, 16, 16)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxq3f"]
+atlas = ExtResource("2_ys1y2")
+region = Rect2(32, 0, 16, 16)
+
+[node name="level_overlay" type="Node2D"]
+
+[node name="coins" type="Sprite2D" parent="."]
+position = Vector2(-71, -100)
+texture = SubResource("AtlasTexture_mk4b7")
+
+[node name="coin_count" type="Node2D" parent="."]
+position = Vector2(-63, -95)
+script = ExtResource("3_nm1ig")
+
+[node name="text" type="Node2D" parent="coin_count"]
+script = ExtResource("4_ixa2e")
+text = "00"
+spacing = Vector2(0, 0)
+
+[node name="lives" type="Sprite2D" parent="."]
+position = Vector2(-115, -100)
+texture = SubResource("AtlasTexture_sxq3f")
+
+[node name="lives_count" type="Node2D" parent="."]
+position = Vector2(-105, -95)
+script = ExtResource("3_8iwgy")
+var_or_func = "get_remaining_lives"
+
+[node name="text" type="Node2D" parent="lives_count"]
+script = ExtResource("4_ixa2e")
+text = "02"
+spacing = Vector2(0, 0)

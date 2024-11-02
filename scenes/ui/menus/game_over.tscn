@@ -1,12 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://b226xraiwbri6"]
+[gd_scene load_steps=7 format=3 uid="uid://b226xraiwbri6"]
 
+[ext_resource type="Script" path="res://scenes/ui/menus/game_over.gd" id="1_04352"]
 [ext_resource type="Texture2D" uid="uid://bhn2si15wcfyi" path="res://assets/textures/ui/clear_overlay.png" id="1_isgan"]
 [ext_resource type="Script" path="res://scenes/ui/animations/spacing_animation.gd" id="2_5lckt"]
 [ext_resource type="AudioStream" uid="uid://c1ef5y6i2xix0" path="res://assets/music/yi-gameover.wav" id="2_uso5y"]
 [ext_resource type="Script" path="res://scenes/ui/fonts/sprite_text.gd" id="3_84fgb"]
+[ext_resource type="Script" path="res://scenes/ui/controls/text_menu.gd" id="6_hgs45"]
 
 [node name="game_over" type="Node2D"]
-z_index = 999
+process_mode = 3
+z_index = 1200
+script = ExtResource("1_04352")
 
 [node name="background" type="Sprite2D" parent="."]
 texture = ExtResource("1_isgan")
@@ -16,13 +20,53 @@ stream = ExtResource("2_uso5y")
 autoplay = true
 bus = &"Music"
 
-[node name="title" type="Node" parent="."]
+[node name="menu_appear_timer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+autostart = true
+
+[node name="title" type="Node2D" parent="."]
 script = ExtResource("2_5lckt")
 increment = -6.0
+bouncing = 1
 
 [node name="text" type="Node2D" parent="title"]
 z_index = 999
 script = ExtResource("3_84fgb")
 text = "game over"
 alignment = 1
-spacing = 280.0
+spacing = Vector2(300, 0)
+
+[node name="menu" type="Node2D" parent="."]
+visible = false
+position = Vector2(-48, 41)
+script = ExtResource("6_hgs45")
+focused = false
+
+[node name="cursor" type="Node2D" parent="menu"]
+z_index = 999
+position = Vector2(-10, 0)
+script = ExtResource("3_84fgb")
+text = "→"
+
+[node name="buttons" type="Node2D" parent="menu"]
+
+[node name="continue" type="Node2D" parent="menu/buttons"]
+z_index = 999
+script = ExtResource("3_84fgb")
+text = "continue"
+spacing = Vector2(0, 0)
+
+[node name="save_exit" type="Node2D" parent="menu/buttons"]
+z_index = 999
+position = Vector2(0, 12)
+script = ExtResource("3_84fgb")
+text = "save & exit"
+spacing = Vector2(0, 0)
+
+[node name="quit_desktop" type="Node2D" parent="menu/buttons"]
+z_index = 999
+position = Vector2(0, 24)
+script = ExtResource("3_84fgb")
+text = "quit to desktop"
+spacing = Vector2(0, 0)

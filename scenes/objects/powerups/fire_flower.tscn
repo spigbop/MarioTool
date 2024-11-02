@@ -70,5 +70,3 @@ collision_mask = 2
 [node name="shape" type="CollisionShape2D" parent="hitbox"]
 shape = SubResource("RectangleShape2D_qixh6")
 debug_color = Color(0, 0.6, 0.701961, 0)
-
-[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]

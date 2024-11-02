@@ -59,9 +59,9 @@ func force_turn() -> void:
 
 
 func apply_turn_logic(direction: MarioTool.DIRECTION_H) -> void:
-	if direction == MarioTool.DIRECTION_H.WEST or direction == MarioTool.DIRECTION_H.PLAYER and Player.current.position.x - rigid.position.x < 0:
+	if direction == MarioTool.DIRECTION_H.WEST or direction == MarioTool.DIRECTION_H.PLAYER and MarioTool.get_player().position.x - rigid.position.x < 0:
 		speed = -abs(speed)
-	elif direction == MarioTool.DIRECTION_H.EAST or direction == MarioTool.DIRECTION_H.PLAYER and Player.current.position.x - rigid.position.x > 0:
+	elif direction == MarioTool.DIRECTION_H.EAST or direction == MarioTool.DIRECTION_H.PLAYER and MarioTool.get_player().position.x - rigid.position.x > 0:
 		speed = abs(speed)
 	
 	if flip_when_turned:

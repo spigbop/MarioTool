@@ -55,10 +55,10 @@ func warp_finalise(_node) -> void:
 
 
 func on_enter(body: Node2D) -> void:
-	if body.has_method("can_warp"):
+	if body.has_method("pipe_warper"):
 		subject = body
 		set_process(true)
-		body.can_warp()
+		body.pipe_warper()
 
 
 func on_exit(body: Node2D) -> void:
