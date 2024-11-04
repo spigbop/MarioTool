@@ -1,6 +1,6 @@
 ![Mario Tool](https://i.imgur.com/uQdEY8F.png)
 
-![MarioTool version](https://img.shields.io/badge/version-0.51.0-blue?style=for-the-badge)
+![MarioTool version](https://img.shields.io/badge/version-0.53.0-blue?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/spigbop/MarioTool?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/spigbop/MarioTool?style=for-the-badge)
 
@@ -8,16 +8,10 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 
 [![itch.io](https://img.shields.io/badge/itch.io-%23FF0B34.svg?logo=Itch.io&logoColor=white&style=for-the-badge)](https://xpoxy.itch.io/mariotool)
 
-# Lives and Invisible Blocks (Changelog - 0.52.0)
-- Adds the Level Overlay. (life and coin count)
-- Adds lives.
-- Adds the Game Over screen.
-- Adds the 1 Up Mushroom.
-- Adds the Poison Mushroom.
-- Adds the `invisible` setting to ? and brick blocks.
-- Powerups can now defer on powerup pickers. (players)
-- Powerups can now have one of four types: Player state, lives, hurt and none.
-- The player script is cleaned up.
+# Parallax! (Changelog - 0.53.0)
+- Adds parallax layers to the night sky background.
+- Adds stars and SMB 2 Hills to the night sky background.
+- Spinies now do not force jumps after stomping on them.
 
 
 # Roadmap
@@ -56,4 +50,4 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 |Super Mario World - Valley of Bowser (Restored Version)|[LadiesMan217](https://www.youtube.com/@LadiesMan217)|
 |Super Mario Maker 2 - Super Mario Bros. Forest (Snes reimagination)|[Tater-Tot Tunes](https://youtu.be/LWWHX6QPfeA)|
 |Yoshi's Island - Game Over (Restored Version)|[michael02022 from Church of Kondo](https://youtu.be/fd936VoGtNo)|
-|Super Mario Allstars Super Mario Bros Assets|Nintendo (Ripped by [me](https://github.com/spigbop) and [Spriters Resource](https://www.spriters-resource.com/snes/smassmb1/))|
+|Super Mario Allstars Assets|Nintendo (Ripped by [me](https://github.com/spigbop) and [Spriters Resource](https://www.spriters-resource.com/snes/smassmb1/))|

@@ -16,6 +16,7 @@ atlas = ExtResource("2_ys1y2")
 region = Rect2(32, 0, 16, 16)
 
 [node name="level_overlay" type="Node2D"]
+z_index = 999
 
 [node name="coins" type="Sprite2D" parent="."]
 position = Vector2(-71, -100)

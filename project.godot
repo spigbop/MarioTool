@@ -15,7 +15,7 @@ warnings/check_invalid_track_paths=false
 [application]
 
 config/name="Mario Tool"
-config/version="0.52.0"
+config/version="0.53.0"
 config/tags=PackedStringArray("engine", "fangame", "mario")
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
@@ -28,7 +28,6 @@ config/icon="res://icon.png"
 window/size/viewport_width=256
 window/size/viewport_height=224
 window/stretch/mode="canvas_items"
-window/vsync/vsync_mode=0
 
 [file_customization]
 

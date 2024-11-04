@@ -65,6 +65,7 @@ script = ExtResource("4_aikue")
 
 [node name="stompable_ai" type="Node" parent="."]
 script = ExtResource("5_dg6y3")
+force_jump = false
 
 [node name="hitbox" type="Area2D" parent="."]
 collision_layer = 4
