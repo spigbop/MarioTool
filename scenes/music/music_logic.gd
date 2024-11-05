@@ -19,6 +19,13 @@ func end_music() -> void:
 		loop.stop()
 		end.play()
 
+func force_stop() -> void:
+	if start:
+		start.stop()
+	loop.stop()
+	if end:
+		end.stop()
+
 func on_start_finished() -> void:
 	loop.play()
 

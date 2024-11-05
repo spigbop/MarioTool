@@ -17,6 +17,7 @@ static func _static_init() -> void:
 	set_window_size(config.get_value("window", "window_scale"))
 	if config.get_value("window", "fullscreen"):
 		toggle_fullscreen()
+	set_vsync(config.get_value("window", "vsync"))
 	
 	set_master_volume(config.get_value("bus", "master_volume"))
 	set_music_volume(config.get_value("bus", "music_volume"))
@@ -34,7 +35,8 @@ func _ready() -> void:
 		var console_instance = console_resource.instantiate()
 		add_child(console_instance)
 	
-	Console.println(enter_level("demo_level"))
+	#Console.println(enter_level("demo_level"))
+	instantiate_editor()
 
 
 func _notification(noti):
@@ -60,6 +62,7 @@ func _input(event: InputEvent) -> void:
 const CONFIG_DEFAULTS = {
 	"window,fullscreen": false,
 	"window,window_scale": 2,
+	"window,vsync": true,
 	
 	"bus,master_volume": 0.5,
 	"bus,music_volume": 1.0,
@@ -101,14 +104,19 @@ static func generate_config() -> ConfigFile:
 var skip_pause: bool = false
 func window_gained_focus() -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(master_volume))
+	if editor and editor.is_editing:
+		return
 	if not skip_pause:
 		get_tree().paused = false
 
 func window_lost_focus() -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(paused_volume))
+	if editor and editor.is_editing:
+		return
 	if get_tree().paused:
 		skip_pause = true
-	get_tree().paused = true
+	else:
+		get_tree().paused = true
 
 
 const MAX_WIN_SCALE: int = 6
@@ -175,6 +183,9 @@ const HUB_LEVEL_PATH = "world_map"
 static var current_level_path = null
 
 static func enter_level(level_path: String) -> String:
+	if editor:
+		editor.exit_editor()
+		editor = null
 	var queue = CURRENT_LEVEL
 	load_scene_from_path(level_path)
 	if queue:
@@ -184,17 +195,33 @@ static func enter_level(level_path: String) -> String:
 static func load_scene_from_path(level_path: String) -> void:
 	load_scene(load("res://scenes/game/levels/" + level_path + ".tscn"))
 
-static func load_scene(level_scene: PackedScene) -> void:
+static func load_scene(level_scene: PackedScene, load_level_nodes: bool = true, load_player: bool = true) -> void:
 	if not level_scene:
 		return
 	current_level_path = level_scene.resource_path
 	CURRENT_LEVEL = level_scene.instantiate()
 	CURRENT_LEVEL.position = Vector2.ZERO
 	inst.add_child(CURRENT_LEVEL)
+	var cam = get_main_camera()
+	if load_level_nodes:
+		var packed_nodes: PackedScene = load("res://scenes/game/level_nodes.tscn")
+		var level_nodes: Node2D = packed_nodes.instantiate()
+		cam.add_child(level_nodes)
+	if load_player or not is_instance_valid(CURRENT_LEVEL.get_node("player")):
+		var packed_player: PackedScene = load("res://scenes/objects/player.tscn")
+		var player: Player = packed_player.instantiate()
+		player.position = get_level_base().player_spawn
+		CURRENT_LEVEL.add_child(player)
+	if not "player" in cam:
+		cam.set_script(load("res://scenes/game/level_camera.gd"))
+		cam.player = get_player()
+		cam.level_dimensions = get_level_base().level_dimensions
+		cam.set_physics_process(true)
 
 static func dispose_level() -> void:
 	current_level_path = null
-	CURRENT_LEVEL.queue_free()
+	if CURRENT_LEVEL:
+		CURRENT_LEVEL.queue_free()
 
 
 static func exit_level() -> void:
@@ -213,38 +240,79 @@ static func reset_level() -> void:
 
 
 
+# ========
+#  EDITOR
+# ========
+static var editor: MarioToolEditor = null
+
+
+static func instantiate_editor() -> void:
+	var packed: PackedScene = load("res://scenes/editor/editor.tscn")
+	var editor_inst: MarioToolEditor = packed.instantiate()
+	editor_inst.is_editing = true
+	editor = editor_inst
+	inst.add_child(editor_inst)
+
+
+static func enter_level_editor(dir: String = "") -> void:
+	if not editor:
+		instantiate_editor()
+	
+
+
+
+
+
 # ==============
 #  NODE GETTERS
 # ==============
+static var level_base_cache = null
 static func get_level_base() -> Level:
 	if not CURRENT_LEVEL:
 		return null
-	return CURRENT_LEVEL.get_node_or_null("level")
+	if not is_instance_valid(level_base_cache):
+		level_base_cache = CURRENT_LEVEL.get_node_or_null("level")
+	return level_base_cache
 
+static var main_cam_cache = null
 static func get_main_camera() -> Camera2D:
 	if not CURRENT_LEVEL:
 		return null
-	return CURRENT_LEVEL.get_node_or_null("level/main_camera")
+	if not is_instance_valid(main_cam_cache):
+		main_cam_cache = CURRENT_LEVEL.get_node_or_null("level/main_camera")
+	return main_cam_cache
 
+static var music_cache = null
 static func get_music() -> Music:
 	if not CURRENT_LEVEL:
 		return null
-	return CURRENT_LEVEL.get_node_or_null("level/main_camera/level_music")
+	if not is_instance_valid(music_cache):
+		music_cache = CURRENT_LEVEL.get_node_or_null("level/main_camera/music")
+	return music_cache
 
+static var death_timer_cache = null
 static func get_death_timer() -> Timer:
 	if not CURRENT_LEVEL:
 		return null
-	return CURRENT_LEVEL.get_node_or_null("level/main_camera/death_timer")
+	if not is_instance_valid(death_timer_cache):
+		death_timer_cache = CURRENT_LEVEL.get_node_or_null("level/main_camera/game/death_timer")
+	return death_timer_cache
 
+static var level_overlay_cache = null
 static func get_level_overlay() -> Node2D:
 	if not CURRENT_LEVEL:
 		return null
-	return CURRENT_LEVEL.get_node_or_null("level/main_camera/level_overlay")
+	if not is_instance_valid(level_overlay_cache):
+		level_overlay_cache = CURRENT_LEVEL.get_node_or_null("level/main_camera/game/level_overlay")
+	return level_overlay_cache
 
+static var player_cache = null
 static func get_player() -> Player:
 	if not CURRENT_LEVEL:
 		return null
-	return CURRENT_LEVEL.get_node_or_null("player")
+	if not is_instance_valid(player_cache):
+		player_cache = CURRENT_LEVEL.get_node_or_null("player")
+	return player_cache
 
 
 
@@ -255,6 +323,7 @@ static func get_player() -> Player:
 # =================
 static func set_vsync(enabled: bool) -> String:
 	DisplayServer.window_set_vsync_mode(int(enabled))
+	config_maps["window,vsync"] = enabled
 	return "Vsync " + Mathx.bool_gate(enabled, "enabled.", "disabled.")
 
 static func fps() -> float:
@@ -271,8 +340,13 @@ static func quit_to_desktop() -> void:
 
 
 
-# =================
-#  MISC CONNECTORS
-# =================
+# ======
+#  MISC 
+# ======
 static func get_remaining_lives() -> String:
 	return str(Player.remaining_lives).pad_zeros(2)
+
+
+static func go(x: float = 0.0, y: float = 0.0) -> String:
+	get_main_camera().position = Vector2(x, y)
+	return "Teleported to " + str(x) + ", " + str(y)

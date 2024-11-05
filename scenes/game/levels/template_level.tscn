@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://doo5tlulv1p58"]
+
+[ext_resource type="TileSet" uid="uid://160g4sho2ln" path="res://scenes/tiles/tileset.tres" id="1_jrlpf"]
+[ext_resource type="PackedScene" uid="uid://bsyh38s8cn77g" path="res://scenes/backgrounds/night_hills.tscn" id="4_x4fle"]
+[ext_resource type="PackedScene" uid="uid://c5ggejhxdho17" path="res://scenes/objects/player.tscn" id="19_xafve"]
+[ext_resource type="Script" path="res://scenes/game/levels/level_base.gd" id="20_1kibr"]
+[ext_resource type="Script" path="res://scenes/game/level_camera.gd" id="25_gqhaf"]
+[ext_resource type="PackedScene" uid="uid://bcalhgdhc7hm1" path="res://scenes/music/yi_underground.tscn" id="27_47vgc"]
+[ext_resource type="Script" path="res://scenes/game/death_zone.gd" id="31_kwn6e"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_eqtb4"]
+distance = -44.0
+
+[node name="template_level" type="Node2D"]
+process_mode = 1
+position = Vector2(1, 0)
+metadata/_edit_horizontal_guides_ = [-155.0]
+
+[node name="maps" type="Node2D" parent="."]
+
+[node name="foreground" type="TileMapLayer" parent="maps"]
+tile_set = ExtResource("1_jrlpf")
+
+[node name="contents" type="Node2D" parent="."]
+
+[node name="player" parent="." instance=ExtResource("19_xafve")]
+z_index = 20
+position = Vector2(-28, -3)
+
+[node name="level" type="Node2D" parent="."]
+script = ExtResource("20_1kibr")
+
+[node name="background" parent="level" instance=ExtResource("4_x4fle")]
+
+[node name="main_camera" type="Camera2D" parent="level"]
+script = ExtResource("25_gqhaf")
+level_dimensions = Rect2(-128, 0, 128, 0)
+
+[node name="music" parent="level/main_camera" instance=ExtResource("27_47vgc")]
+
+[node name="death_zone" type="Area2D" parent="level"]
+position = Vector2(-89, 89)
+collision_mask = 15
+script = ExtResource("31_kwn6e")
+
+[node name="shape" type="CollisionShape2D" parent="level/death_zone"]
+position = Vector2(0, -8)
+shape = SubResource("WorldBoundaryShape2D_eqtb4")

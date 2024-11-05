@@ -1,18 +1,14 @@
-[gd_scene load_steps=15 format=4 uid="uid://b7bkc3rc7hoyc"]
+[gd_scene load_steps=11 format=4 uid="uid://b7bkc3rc7hoyc"]
 
 [ext_resource type="Script" path="res://scenes/game/death_zone.gd" id="1_7c7uq"]
 [ext_resource type="TileSet" uid="uid://160g4sho2ln" path="res://scenes/tiles/tileset.tres" id="3_rmvxt"]
 [ext_resource type="PackedScene" uid="uid://bh8j6lqf5b553" path="res://scenes/objects/powerups/super_mushroom.tscn" id="5_e4c4t"]
 [ext_resource type="PackedScene" uid="uid://cqvgw3ogwppb4" path="res://scenes/tiles/question_mark_block.tscn" id="7_0kp6t"]
-[ext_resource type="PackedScene" uid="uid://rnj0dw7qmds2" path="res://scenes/ui/menus/level_overlay.tscn" id="12_p175v"]
 [ext_resource type="PackedScene" uid="uid://ddxin8qn3astx" path="res://scenes/objects/zones/blaster_generator.tscn" id="14_qae7y"]
 [ext_resource type="PackedScene" uid="uid://c5ggejhxdho17" path="res://scenes/objects/player.tscn" id="19_gceai"]
 [ext_resource type="Script" path="res://scenes/game/levels/level_base.gd" id="19_xq6wd"]
 [ext_resource type="Script" path="res://scenes/game/level_camera.gd" id="20_bnglb"]
-[ext_resource type="PackedScene" uid="uid://cgrei0bayox1g" path="res://scenes/game/spawn_area.tscn" id="21_iglwt"]
 [ext_resource type="PackedScene" uid="uid://dgdv5swug4cef" path="res://scenes/music/smm2_smb_forest.tscn" id="21_thj2c"]
-[ext_resource type="PackedScene" uid="uid://dendcfcbdwy24" path="res://scenes/ui/menus/pause_menu.tscn" id="23_atgmy"]
-[ext_resource type="Script" path="res://scenes/timers/death_timer.gd" id="24_jj18f"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_eqtb4"]
 distance = -44.0
@@ -22,21 +18,14 @@ process_mode = 1
 position = Vector2(1, 0)
 metadata/_edit_horizontal_guides_ = [-155.0]
 
-[node name="death_zone" type="Area2D" parent="."]
-position = Vector2(-89, 89)
-collision_mask = 15
-script = ExtResource("1_7c7uq")
+[node name="maps" type="Node2D" parent="."]
 
-[node name="shape" type="CollisionShape2D" parent="death_zone"]
-position = Vector2(0, -8)
-shape = SubResource("WorldBoundaryShape2D_eqtb4")
-
-[node name="foreground" type="TileMapLayer" parent="."]
+[node name="foreground" type="TileMapLayer" parent="maps"]
 z_index = 10
 tile_map_data = PackedByteArray("AADy/wIAAAABAAEAAADx/wIAAAAAAAEAAADx/wYAAAAAAAEAAADx/wUAAAAAAAEAAADx/wQAAAAAAAEAAADx/wMAAAAAAAEAAADy/wMAAAABAAEAAADy/wQAAAABAAEAAADy/wUAAAABAAEAAADy/wYAAAABAAEAAADx/wAAAAAAAAAAAADx/wEAAAAAAAEAAADy/wAAAAABAAAAAADy/wEAAAABAAEAAADz/wIAAAACAAEAAADz/wMAAAACAAEAAADz/wUAAAACAAEAAADz/wQAAAACAAEAAADz/wYAAAACAAEAAADv//n/AAAHAAIAAADv//r/AAAHAAIAAADv//v/AAAHAAIAAADv//z/AAAHAAIAAADv//3/AAAHAAIAAADv////AAAHAAIAAADv/wAAAAAHAAIAAADv/wEAAAAHAAIAAADv/wIAAAAHAAIAAADv/wMAAAAHAAIAAADv/wQAAAAHAAIAAADv/wUAAAAHAAIAAADv/wYAAAAHAAIAAADv//7/AAAHAAIAAABQAAUAAAAHAAIAAABQAAQAAAAHAAIAAABQAAMAAAAHAAIAAABQAAIAAAAHAAIAAABQAAEAAAAHAAIAAABQAAAAAAAHAAIAAABQAAYAAAAHAAIAAABQAP//AAAHAAIAAABQAP7/AAAHAAIAAABQAP3/AAAHAAIAAABQAPz/AAAHAAIAAABQAPv/AAAHAAIAAABQAPr/AAAHAAIAAABQAPn/AAAHAAIAAADz/wAAAAACAAAAAADz/wEAAAACAAEAAADw/wAAAAAJAAAAAADw/wEAAAAJAAAAAADw/wIAAAAJAAAAAADw/wMAAAAJAAAAAADw/wUAAAAJAAAAAADw/wYAAAAJAAEAAADw/wQAAAAJAAEAAADw/wcAAAAJAAIAAADw/wgAAAAJAAIAAADw/wkAAAAJAAIAAADz/wcAAAACAAEAAADz/wgAAAACAAEAAADz/wkAAAACAAEAAAAVAAQAAAAAAAAAAAAVAAUAAAAAAAEAAAAWAAQAAAABAAAAAAAWAAUAAAABAAEAAAAXAAQAAAACAAAAAAAXAAUAAAACAAEAAAAVAAYAAAAAAAEAAAAWAAYAAAABAAEAAAAXAAYAAAACAAEAAAAVAAcAAAAAAAEAAAAWAAcAAAABAAEAAAAXAAcAAAACAAEAAAAVAAgAAAAAAAEAAAAWAAgAAAABAAEAAAAXAAgAAAACAAEAAAAVAAkAAAAAAAEAAAAWAAkAAAABAAEAAAAXAAkAAAACAAEAAAAfAAAAAAAJAAAAAAAfAAEAAAAJAAEAAAAfAAMAAAAJAAEAAAAfAAIAAAAJAAAAAAAfAAQAAAAJAAAAAAAfAAUAAAAJAAAAAAAfAAYAAAAJAAAAAAAfAAcAAAAJAAEAAAAfAAgAAAAJAAIAAAAfAAkAAAAJAAIAAABPAAAAAAAJAAAAAABPAAIAAAAJAAAAAABPAAQAAAAJAAAAAABPAAUAAAAJAAAAAABPAAYAAAAJAAAAAABPAAcAAAAJAAEAAABPAAMAAAAJAAEAAABPAAEAAAAJAAEAAABPAAgAAAAJAAIAAABPAAkAAAAJAAIAAABHAAYAAAAAAAAAAABIAAYAAAABAAAAAABJAAYAAAACAAAAAAA=")
 tile_set = ExtResource("3_rmvxt")
 
-[node name="contents" type="Node" parent="."]
+[node name="contents" type="Node2D" parent="."]
 
 [node name="blaster_generator10" parent="contents" instance=ExtResource("14_qae7y")]
 position = Vector2(505, 104)
@@ -83,16 +72,13 @@ script = ExtResource("19_xq6wd")
 script = ExtResource("20_bnglb")
 level_dimensions = Rect2(-128, 0, 1152, 0)
 
-[node name="spawn_area" parent="level/main_camera" instance=ExtResource("21_iglwt")]
+[node name="music" parent="level/main_camera" instance=ExtResource("21_thj2c")]
 
-[node name="level_music" parent="level/main_camera" instance=ExtResource("21_thj2c")]
+[node name="death_zone" type="Area2D" parent="level"]
+position = Vector2(-89, 89)
+collision_mask = 15
+script = ExtResource("1_7c7uq")
 
-[node name="pause_menu" parent="level/main_camera" instance=ExtResource("23_atgmy")]
-visible = false
-
-[node name="level_overlay" parent="level/main_camera" instance=ExtResource("12_p175v")]
-
-[node name="death_timer" type="Timer" parent="level/main_camera"]
-wait_time = 4.0
-one_shot = true
-script = ExtResource("24_jj18f")
+[node name="shape" type="CollisionShape2D" parent="level/death_zone"]
+position = Vector2(0, -8)
+shape = SubResource("WorldBoundaryShape2D_eqtb4")

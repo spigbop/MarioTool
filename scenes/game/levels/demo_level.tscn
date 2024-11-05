@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://jt24itrw3jdg"]
+[gd_scene load_steps=43 format=4 uid="uid://jt24itrw3jdg"]
 
 [ext_resource type="PackedScene" uid="uid://bcalhgdhc7hm1" path="res://scenes/music/yi_underground.tscn" id="1_6mcrj"]
 [ext_resource type="PackedScene" uid="uid://c5ggejhxdho17" path="res://scenes/objects/player.tscn" id="1_ohph1"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bc2u8vwhksrer" path="res://scenes/tiles/coin.tscn" id="3_rwu83"]
 [ext_resource type="TileSet" uid="uid://160g4sho2ln" path="res://scenes/tiles/tileset.tres" id="3_t0kmf"]
 [ext_resource type="PackedScene" uid="uid://bvmpi7obayaji" path="res://scenes/tiles/brick_block.tscn" id="4_unfnx"]
-[ext_resource type="PackedScene" uid="uid://cgrei0bayox1g" path="res://scenes/game/spawn_area.tscn" id="6_l3dkn"]
 [ext_resource type="PackedScene" uid="uid://dva85grqdyvie" path="res://scenes/objects/powerups/fire_flower.tscn" id="7_8cdcs"]
 [ext_resource type="PackedScene" uid="uid://bpdobfook80da" path="res://scenes/objects/enemies/goomba.tscn" id="7_bkpva"]
 [ext_resource type="PackedScene" uid="uid://cqvgw3ogwppb4" path="res://scenes/tiles/question_mark_block.tscn" id="9_4s3u7"]
@@ -16,20 +15,17 @@
 [ext_resource type="PackedScene" uid="uid://bbu7wme6ergvg" path="res://scenes/objects/enemies/green_koopa_troopa.tscn" id="15_1q337"]
 [ext_resource type="PackedScene" uid="uid://bmrqsimy0ohh5" path="res://scenes/objects/enemies/big_green_piranha_plant.tscn" id="16_1t7yc"]
 [ext_resource type="PackedScene" uid="uid://cm603oeauj2tb" path="res://scenes/objects/zones/warp_pipe.tscn" id="17_fmmn5"]
-[ext_resource type="PackedScene" uid="uid://dendcfcbdwy24" path="res://scenes/ui/menus/pause_menu.tscn" id="18_f3tq8"]
 [ext_resource type="PackedScene" uid="uid://cikdgbw5psu6a" path="res://scenes/objects/enemies/spiny.tscn" id="19_mekk4"]
 [ext_resource type="PackedScene" uid="uid://ddxin8qn3astx" path="res://scenes/objects/zones/blaster_generator.tscn" id="19_oaer7"]
 [ext_resource type="PackedScene" uid="uid://dexs3y0emybbq" path="res://scenes/objects/enemies/green_piranha_plant.tscn" id="20_bw1l7"]
 [ext_resource type="Script" path="res://scenes/game/levels/level_base.gd" id="20_m82gd"]
 [ext_resource type="PackedScene" uid="uid://bb150738ij3by" path="res://scenes/objects/zones/pipe_enemy.tscn" id="21_4kog6"]
-[ext_resource type="Script" path="res://scenes/timers/death_timer.gd" id="21_10fxp"]
 [ext_resource type="Texture2D" uid="uid://dtjp0mv6vlypg" path="res://assets/textures/backgrounds/night/night_hills.png" id="21_t7xy7"]
 [ext_resource type="Texture2D" uid="uid://d2oet477dpjms" path="res://assets/textures/backgrounds/night/night_star.png" id="22_qtriw"]
 [ext_resource type="Texture2D" uid="uid://dlh20qwmo8dl2" path="res://assets/textures/backgrounds/night/night_far_hills.png" id="22_utv6d"]
 [ext_resource type="PackedScene" uid="uid://b3hcnkodvduvt" path="res://scenes/tiles/event_block.tscn" id="23_kph44"]
 [ext_resource type="PackedScene" uid="uid://dj7feyfmdr7dq" path="res://scenes/objects/powerups/poison_mushroom.tscn" id="26_417l3"]
 [ext_resource type="PackedScene" uid="uid://t72mweo71qsr" path="res://scenes/objects/powerups/1_up_mushroom.tscn" id="26_vqvpa"]
-[ext_resource type="PackedScene" uid="uid://rnj0dw7qmds2" path="res://scenes/ui/menus/level_overlay.tscn" id="28_moqw4"]
 [ext_resource type="Texture2D" uid="uid://dbtmgyvs2fvvc" path="res://assets/textures/backgrounds/night/night_sky.png" id="28_pttj1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qvly1"]
@@ -345,19 +341,7 @@ texture = ExtResource("21_t7xy7")
 script = ExtResource("2_jwbg5")
 level_dimensions = Rect2(-128, 0, 1152, 0)
 
-[node name="spawn_area" parent="level/main_camera" instance=ExtResource("6_l3dkn")]
-
-[node name="level_music" parent="level/main_camera" instance=ExtResource("1_6mcrj")]
-
-[node name="pause_menu" parent="level/main_camera" instance=ExtResource("18_f3tq8")]
-visible = false
-
-[node name="level_overlay" parent="level/main_camera" instance=ExtResource("28_moqw4")]
-
-[node name="death_timer" type="Timer" parent="level/main_camera"]
-wait_time = 4.0
-one_shot = true
-script = ExtResource("21_10fxp")
+[node name="music" parent="level/main_camera" instance=ExtResource("1_6mcrj")]
 
 [node name="death_zone" type="Area2D" parent="level"]
 position = Vector2(-89, 89)

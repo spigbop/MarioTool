@@ -9,7 +9,7 @@ var player = null
 
 
 func _ready() -> void:
-	player = MarioTool.CURRENT_LEVEL.find_child("player")
+	player = MarioTool.get_player()
 
 func set_camera_dims(blocks_width: int, blocks_height: int) -> void:
 	level_dimensions = Rect2(0.0, 0.0, blocks_width * 16.0, blocks_height * 16.0)

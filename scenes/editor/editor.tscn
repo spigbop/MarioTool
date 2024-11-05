@@ -1,0 +1,81 @@
+[gd_scene load_steps=9 format=4 uid="uid://dqhvl1eepy5ta"]
+
+[ext_resource type="Script" path="res://scenes/editor/editor.gd" id="1_5xxuh"]
+[ext_resource type="Texture2D" uid="uid://jaa3vs85ib7" path="res://assets/textures/editor/grid.png" id="2_1rpb0"]
+[ext_resource type="TileSet" uid="uid://160g4sho2ln" path="res://scenes/tiles/tileset.tres" id="3_4jvqo"]
+[ext_resource type="Script" path="res://scenes/editor/tileset.gd" id="3_j0xtm"]
+[ext_resource type="Texture2D" uid="uid://dswm8n28efrde" path="res://assets/textures/editor/section_grid.png" id="3_tchfj"]
+[ext_resource type="Texture2D" uid="uid://v207n1u0lgqp" path="res://assets/textures/editor/tileset_select.png" id="4_cdclt"]
+[ext_resource type="Texture2D" uid="uid://cnbsbm736i5rm" path="res://assets/textures/players/mario/mario_small.png" id="7_5fmb7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7m0xs"]
+atlas = ExtResource("7_5fmb7")
+region = Rect2(0, 16, 16, 16)
+
+[node name="editor" type="Node2D"]
+script = ExtResource("1_5xxuh")
+
+[node name="dials" type="Node" parent="."]
+
+[node name="save" type="FileDialog" parent="dials"]
+auto_translate_mode = 1
+title = "Save As..."
+initial_position = 1
+size = Vector2i(600, 400)
+ok_button_text = "Save"
+dialog_hide_on_ok = true
+access = 1
+root_subfolder = "user://"
+
+[node name="open" type="FileDialog" parent="dials"]
+title = "Open a File"
+initial_position = 1
+size = Vector2i(600, 400)
+ok_button_text = "Open"
+dialog_hide_on_ok = true
+file_mode = 0
+access = 1
+root_subfolder = "user://"
+
+[node name="tiles" type="Window" parent="."]
+auto_translate_mode = 1
+title = "Tileset"
+initial_position = 1
+size = Vector2i(256, 128)
+
+[node name="grid" type="TileMapLayer" parent="tiles"]
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAEAAAAAAAIAAAAAAAIAAAAAAAMAAAAAAAMAAAAAAAQAAAAAAAQAAAAAAAUAAAAAAAUAAAABAAAAAAABAAAAAAABAAEAAAABAAEAAAABAAIAAAABAAIAAAABAAMAAAABAAMAAAABAAQAAAABAAQAAAABAAUAAAABAAUAAAACAAAAAAACAAAAAAACAAEAAAACAAEAAAACAAIAAAACAAIAAAACAAMAAAACAAMAAAACAAQAAAACAAQAAAACAAUAAAACAAUAAAADAAAAAAADAAAAAAADAAEAAAADAAEAAAADAAIAAAADAAIAAAADAAMAAAADAAMAAAADAAQAAAADAAQAAAADAAUAAAADAAUAAAAEAAAAAAAEAAAAAAAEAAEAAAAEAAEAAAAEAAIAAAAEAAIAAAAFAAAAAAAFAAAAAAAFAAEAAAAFAAEAAAAFAAIAAAAFAAIAAAAGAAAAAAAGAAAAAAAGAAEAAAAGAAEAAAAGAAIAAAAGAAIAAAAGAAMAAAAGAAMAAAAHAAAAAAAHAAAAAAAHAAEAAAAHAAEAAAAHAAIAAAAHAAIAAAAHAAMAAAAHAAMAAAAIAAAAAAAIAAAAAAAIAAEAAAAIAAEAAAAIAAMAAAAIAAMAAAAJAAAAAAAJAAAAAAAJAAEAAAAJAAEAAAAJAAIAAAAJAAIAAAA=")
+tile_set = ExtResource("3_4jvqo")
+script = ExtResource("3_j0xtm")
+
+[node name="selection" type="Sprite2D" parent="tiles/grid"]
+position = Vector2(56, 56)
+texture = ExtResource("4_cdclt")
+
+[node name="grid" type="ParallaxBackground" parent="."]
+
+[node name="mod" type="CanvasModulate" parent="grid"]
+color = Color(1, 1, 1, 0.372549)
+
+[node name="grid" type="ParallaxLayer" parent="grid"]
+motion_mirroring = Vector2(256, 256)
+
+[node name="sprite" type="Sprite2D" parent="grid/grid"]
+position = Vector2(128, 128)
+texture = ExtResource("2_1rpb0")
+
+[node name="section" type="ParallaxLayer" parent="grid"]
+motion_mirroring = Vector2(256, 224)
+
+[node name="sprite" type="Sprite2D" parent="grid/section"]
+position = Vector2(128, 128)
+texture = ExtResource("3_tchfj")
+
+[node name="gizmos" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="player_spawn" type="Sprite2D" parent="gizmos"]
+texture = SubResource("AtlasTexture_7m0xs")
+
+[node name="mod" type="CanvasModulate" parent="gizmos"]
+color = Color(1, 1, 1, 0.67451)

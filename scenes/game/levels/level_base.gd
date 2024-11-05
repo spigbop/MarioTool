@@ -2,7 +2,11 @@ extends Node2D
 class_name Level
 
 
-@onready var contents: Node = get_parent().get_node("contents")
+@onready var maps: Node2D = get_parent().get_node("maps")
+@onready var contents: Node2D = get_parent().get_node("contents")
+
+var level_dimensions: Rect2 = Rect2(0, 0, 0, 0)
+var player_spawn: Vector2 = Vector2.ZERO
 
 
 func spawn(grp: String, obj: String) -> String:

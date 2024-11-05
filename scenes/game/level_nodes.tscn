@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://h0aydx36swd8"]
+
+[ext_resource type="PackedScene" uid="uid://dendcfcbdwy24" path="res://scenes/ui/menus/pause_menu.tscn" id="1_mrl1t"]
+[ext_resource type="PackedScene" uid="uid://cgrei0bayox1g" path="res://scenes/game/spawn_area.tscn" id="2_4n3ns"]
+[ext_resource type="PackedScene" uid="uid://rnj0dw7qmds2" path="res://scenes/ui/menus/level_overlay.tscn" id="3_jnyir"]
+[ext_resource type="Script" path="res://scenes/timers/death_timer.gd" id="4_iat2a"]
+
+[node name="game" type="Node2D"]
+
+[node name="pause_menu" parent="." instance=ExtResource("1_mrl1t")]
+visible = false
+
+[node name="spawn_area" parent="." instance=ExtResource("2_4n3ns")]
+
+[node name="level_overlay" parent="." instance=ExtResource("3_jnyir")]
+
+[node name="death_timer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+script = ExtResource("4_iat2a")

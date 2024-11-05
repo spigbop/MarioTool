@@ -82,7 +82,7 @@ func _process(_delta: float) -> void:
 				light_level.frame = 1
 	if Input.is_action_just_pressed("pause_cancel") and not state == CONSOLE_STATE.DISABLED:
 		state = CONSOLE_STATE.DISABLED
-	if Input.is_action_just_pressed("up_interact") or Input.is_action_just_pressed("down_duck"):
+	if Input.is_action_just_pressed("debug_go_up") or Input.is_action_just_pressed("down_duck"):
 		var current = console_line.text
 		console_line.text = alt_submit
 		console_line.subject.text = alt_submit

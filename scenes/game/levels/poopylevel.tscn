@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=4]
+
+[ext_resource type="TileSet" path="res://scenes/tiles/tileset.tres" id="1_1cyon"]
+[ext_resource type="Script" path="res://scenes/game/levels/level_base.gd" id="2_01yav"]
+[ext_resource type="PackedScene" path="res://scenes/backgrounds/night_hills.tscn" id="3_q3ppc"]
+[ext_resource type="Script" path="res://scenes/editor/editor_camera.gd" id="4_san4i"]
+[ext_resource type="PackedScene" path="res://scenes/music/yi_underground.tscn" id="5_nhsm0"]
+[ext_resource type="Script" path="res://scenes/music/music_logic.gd" id="6_n58rn"]
+[ext_resource type="Script" path="res://scenes/game/death_zone.gd" id="7_qnbbi"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_eqtb4"]
+distance = -44.0
+
+[node name="template_level" type="Node2D"]
+process_mode = 1
+metadata/_edit_horizontal_guides_ = [-155.0]
+
+[node name="maps" type="Node2D" parent="."]
+
+[node name="foreground" type="TileMapLayer" parent="maps"]
+tile_map_data = PackedByteArray("AAD4/wYAAAABAAAAAAD7/wYAAAABAAAAAAD6/wYAAAABAAAAAAD5/wYAAAABAAAAAAD8/wYAAAABAAAAAAD9/wYAAAABAAAAAAD+/wYAAAABAAAAAAD//wYAAAABAAAAAAAAAAYAAAABAAAAAAABAAYAAAABAAAAAAACAAYAAAABAAAAAAADAAYAAAABAAAAAAAEAAYAAAABAAAAAAAFAAYAAAABAAAAAAAGAAYAAAABAAAAAAAHAAYAAAABAAAAAAAIAAYAAAABAAAAAAAJAAYAAAABAAAAAAAKAAYAAAABAAAAAAALAAYAAAABAAAAAAAMAAYAAAABAAAAAAANAAYAAAABAAAAAAAOAAYAAAABAAAAAAAPAAYAAAABAAAAAAAHAAUAAAAJAAEAAAAHAAQAAAAJAAAAAAA=")
+tile_set = ExtResource("1_1cyon")
+
+[node name="contents" type="Node2D" parent="."]
+
+[node name="level" type="Node2D" parent="."]
+script = ExtResource("2_01yav")
+
+[node name="background" type="ParallaxBackground" parent="level" instance=ExtResource("3_q3ppc")]
+scroll_offset = Vector2(43.3093, 70.256)
+
+[node name="main_camera" type="Camera2D" parent="level"]
+position = Vector2(84.6907, 41.744)
+script = ExtResource("4_san4i")
+
+[node name="level_music" type="Node2D" parent="level/main_camera" instance=ExtResource("5_nhsm0")]
+process_mode = 3
+script = ExtResource("6_n58rn")
+
+[node name="death_zone" type="Area2D" parent="level"]
+position = Vector2(-89, 89)
+collision_mask = 15
+script = ExtResource("7_qnbbi")
+
+[node name="shape" type="CollisionShape2D" parent="level/death_zone"]
+position = Vector2(0, -8)
+shape = SubResource("WorldBoundaryShape2D_eqtb4")
