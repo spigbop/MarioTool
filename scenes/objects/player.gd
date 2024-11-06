@@ -264,7 +264,6 @@ func lose_life() -> void:
 	if lost:
 		return
 	lost = true
-	remaining_lives -= 1
 	var fallen_foe_effect = load("res://scenes/effects/fallen_effect.tscn")
 	var effect = fallen_foe_effect.instantiate()
 	effect.position = position
@@ -275,6 +274,11 @@ func lose_life() -> void:
 	sprite.set_deferred("visible", false)
 	lose_life_sound.play()
 	freeze = true
+	if MarioTool.editor:
+		MarioTool.editor.toggle_testing()
+		return
+	else:
+		remaining_lives -= 1
 	var music = MarioTool.get_music()
 	if music:
 		music.queue_free()

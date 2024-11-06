@@ -10,7 +10,7 @@ script = ExtResource("1_rjgvc")
 [node name="sprite" type="Sprite2D" parent="."]
 
 [node name="timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 3.0
 script = ExtResource("2_f6b1f")
 
 [connection signal="timeout" from="timer" to="timer" method="_on_timeout"]

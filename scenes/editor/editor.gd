@@ -8,8 +8,11 @@ var mouse: Vector2 = Vector2.ZERO
 
 var inside: bool = true
 
+@onready var toolbox: Window = $toolbox
 @onready var tiles: Window = $tiles
-var tiles_selected_atlas: Vector2i = Vector2i(3, 3)
+var tiles_selected_atlas: Dictionary = {
+	Vector2i(0, 0): Vector2i(3, 3)
+}
 var player_spawn: Vector2 = Vector2.ZERO
 
 
@@ -31,11 +34,16 @@ func _ready() -> void:
 	var win = get_window()
 	win.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP_HEIGHT
 	win.unresizable = false
-	tiles.position.x -= 520
+	
+	toolbox.position.y -= MarioTool.current_window_size * 112 + tiles.size.y / 2 + 20
+	tiles.position.x -= MarioTool.current_window_size * 128 + tiles.size.x / 2 + 20
+	
 	if level_path == "<new>":
 		open_level("res://scenes/game/levels/template_level.tscn")
 	else:
 		open_level(level_path)
+	
+	MarioTool.set_window_size(MarioTool.current_window_size)
 
 
 func exit_editor() -> void:
@@ -43,6 +51,7 @@ func exit_editor() -> void:
 	win.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
 	win.unresizable = true
 	MarioTool.set_window_size(MarioTool.current_window_size)
+	DisplayServer.window_set_title("Mario Tool")
 	queue_free()
 
 
@@ -74,6 +83,7 @@ func open_level(pth: String) -> String:
 	var player = MarioTool.get_player()
 	if player:
 		player.queue_free()
+	DisplayServer.window_set_title(pth.split("/")[-1])
 	return "Editor opened level: " + pth
 
 

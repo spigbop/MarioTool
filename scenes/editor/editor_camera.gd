@@ -23,8 +23,10 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_pressed("editor_action") and MarioTool.editor.inside:
 		var cell_pos = foreground.local_to_map(to_local(MarioTool.editor.mouse) + position)
-		foreground.set_cell(cell_pos, foreground.tile_set.get_source_id(0), MarioTool.editor.tiles_selected_atlas)
+		for index: Vector2i in MarioTool.editor.tiles_selected_atlas:
+			foreground.set_cell(cell_pos + index, foreground.tile_set.get_source_id(0), MarioTool.editor.tiles_selected_atlas[index])
 	
 	if Input.is_action_pressed("editor_subaction") and MarioTool.editor.inside:
 		var cell_pos = foreground.local_to_map(to_local(MarioTool.editor.mouse) + position)
-		foreground.erase_cell(cell_pos)
+		for index: Vector2i in MarioTool.editor.tiles_selected_atlas:
+			foreground.erase_cell(cell_pos + index)
