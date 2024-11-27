@@ -8,10 +8,9 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 
 [![itch.io](https://img.shields.io/badge/itch.io-%23FF0B34.svg?logo=Itch.io&logoColor=white&style=for-the-badge)](https://xpoxy.itch.io/mariotool)
 
-# Parallax! (Changelog - 0.53.0)
-- Adds parallax layers to the night sky background.
-- Adds stars and SMB 2 Hills to the night sky background.
-- Spinies now do not force jumps after stomping on them.
+# Framework Development Branch!
+Hello my 3 dear followers! This branch will now recieve the same content updates with the master (btafdev) updates except the editor ones. This branch is meant for people that only want to use the engine itself and not the in-game editor.
+Check the `master` branch README.md for changelogs.
 
 
 # Roadmap
