@@ -14,7 +14,7 @@ warnings/check_invalid_track_paths=false
 
 [application]
 
-config/name="Mario Tool"
+config/name="Mario Tool: Framework"
 config/version="0.54.0"
 config/tags=PackedStringArray("engine", "fangame", "mario")
 run/main_scene="res://scenes/main.tscn"
