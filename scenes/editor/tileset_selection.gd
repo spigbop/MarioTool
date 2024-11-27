@@ -46,15 +46,12 @@ func _process(delta: float) -> void:
 
 func update_selection_sprites() -> void:
 	selection.position = cell_selection.position * 16.0
-	$selection/top_right.position.x = (cell_selection.size.x + 1) * 16.0 + 1.0
-	$selection/bottom_left.position.y = (cell_selection.size.y + 1) * 16.0 + 1.0
-	$selection/bottom_right.position = (cell_selection.size + Vector2i.ONE) * 16.0 + Vector2.ONE
 	for node in piles_x:
-		node.position.x = (cell_selection.size.x + 1) * 8.0
+		node.position.x = (cell_selection.size.x + 1) * 8.0 + .5
 		node.scale.x = (cell_selection.size.x + 1) * 16.0
 	for node in piles_y:
-		node.position.y = (cell_selection.size.y + 1) * 8.0
-		node.scale.y = (cell_selection.size.y + 1) * 16.0
+		node.position.y = (cell_selection.size.y + 1) * 8.0 + .5
+		node.scale.y = (cell_selection.size.y + 1) * 16.0 + 2.0
 	piles_x[1].position.y = (cell_selection.size.y + 1) * 16.0 + 1.0
-	piles_y[1].position.x = (cell_selection.size.x + 1) * 16.0 + 1.0
+	piles_y[1].position.x = (cell_selection.size.x + 1) * 16.0 + .5
 	

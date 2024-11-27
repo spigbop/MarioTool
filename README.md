@@ -1,6 +1,6 @@
 ![Mario Tool](https://i.imgur.com/uQdEY8F.png)
 
-![MarioTool version](https://img.shields.io/badge/version-0.55.0_btafdev-blue?style=for-the-badge)
+![MarioTool version](https://img.shields.io/badge/version-0.56.0_btafdev-blue?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/spigbop/MarioTool?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/spigbop/MarioTool?style=for-the-badge)
 
@@ -8,10 +8,11 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 
 [![itch.io](https://img.shields.io/badge/itch.io-%23FF0B34.svg?logo=Itch.io&logoColor=white&style=for-the-badge)](https://xpoxy.itch.io/mariotool)
 
-# Multiple Tiles (Changelog - 0.55.0-btafdev)
-- Multiple tiles can now be selected from the tileset in the Editor.
-- Multiple tiles can now be erased.
-- Adds the toolbox to the editor as an external window.
+# Editor Controls (Changelog - 0.56.0-btafdev)
+- Editor control windows can now be resized.
+- Toolbox window is no more.
+- Adds the hidden Objects window.
+- Renames `tileset.gd` to `tileset_selection.gd`.
 
 
 

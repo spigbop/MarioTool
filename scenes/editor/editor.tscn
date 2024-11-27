@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://jaa3vs85ib7" path="res://assets/textures/editor/grid.png" id="2_1rpb0"]
 [ext_resource type="Script" path="res://scenes/editor/editor_window.gd" id="2_patf2"]
 [ext_resource type="TileSet" uid="uid://160g4sho2ln" path="res://scenes/tiles/tileset.tres" id="3_4jvqo"]
-[ext_resource type="Script" path="res://scenes/editor/tileset.gd" id="3_j0xtm"]
+[ext_resource type="Script" path="res://scenes/editor/tileset_selection.gd" id="3_j0xtm"]
 [ext_resource type="Texture2D" uid="uid://dswm8n28efrde" path="res://assets/textures/editor/section_grid.png" id="3_tchfj"]
 [ext_resource type="Texture2D" uid="uid://v207n1u0lgqp" path="res://assets/textures/editor/tileset_select.png" id="4_cdclt"]
 [ext_resource type="Texture2D" uid="uid://cnbsbm736i5rm" path="res://assets/textures/players/mario/mario_small.png" id="7_5fmb7"]
@@ -38,22 +38,9 @@ file_mode = 0
 access = 1
 root_subfolder = "user://"
 
-[node name="toolbox" type="Window" parent="."]
-auto_translate_mode = 1
-title = "Mario Tool Editor"
-initial_position = 1
-size = Vector2i(512, 24)
-unresizable = true
-
-[node name="layer" type="CanvasLayer" parent="toolbox"]
-
-[node name="background" type="ColorRect" parent="toolbox"]
-offset_right = 512.0
-offset_bottom = 24.0
-color = Color(0.133333, 0.12549, 0.203922, 1)
-
 [node name="tiles" type="Window" parent="."]
 auto_translate_mode = 1
+canvas_item_default_texture_filter = 0
 title = "Tileset"
 initial_position = 1
 size = Vector2i(256, 128)
@@ -69,21 +56,9 @@ script = ExtResource("3_j0xtm")
 [node name="selection" type="Node2D" parent="tiles/layer/grid"]
 position = Vector2(48, 48)
 
-[node name="bottom_right" type="Sprite2D" parent="tiles/layer/grid/selection"]
-position = Vector2(17, 17)
-texture = ExtResource("4_cdclt")
-
-[node name="bottom_left" type="Sprite2D" parent="tiles/layer/grid/selection"]
-position = Vector2(0, 17)
-texture = ExtResource("4_cdclt")
-
-[node name="top_right" type="Sprite2D" parent="tiles/layer/grid/selection"]
-position = Vector2(17, 0)
-texture = ExtResource("4_cdclt")
-
 [node name="top" type="Sprite2D" parent="tiles/layer/grid/selection"]
-position = Vector2(8, 0)
-scale = Vector2(16, 1)
+position = Vector2(8.5, 0)
+scale = Vector2(18, 1)
 texture = ExtResource("4_cdclt")
 
 [node name="right" type="Sprite2D" parent="tiles/layer/grid/selection"]
@@ -92,8 +67,8 @@ scale = Vector2(1, 16)
 texture = ExtResource("4_cdclt")
 
 [node name="bottom" type="Sprite2D" parent="tiles/layer/grid/selection"]
-position = Vector2(8, 17)
-scale = Vector2(16, 1)
+position = Vector2(8.5, 16.5)
+scale = Vector2(18, 1)
 texture = ExtResource("4_cdclt")
 
 [node name="left" type="Sprite2D" parent="tiles/layer/grid/selection"]
@@ -101,8 +76,23 @@ position = Vector2(0, 8)
 scale = Vector2(1, 16)
 texture = ExtResource("4_cdclt")
 
-[node name="top_left" type="Sprite2D" parent="tiles/layer/grid/selection"]
-texture = ExtResource("4_cdclt")
+[node name="background_color" type="ColorRect" parent="tiles"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.385947, 0.3649, 0.41, 1)
+
+[node name="objects" type="Window" parent="."]
+auto_translate_mode = 1
+canvas_item_default_texture_filter = 0
+title = "Objects"
+initial_position = 1
+size = Vector2i(256, 128)
+visible = false
+transient = true
+script = ExtResource("2_patf2")
 
 [node name="grid" type="ParallaxBackground" parent="."]
 

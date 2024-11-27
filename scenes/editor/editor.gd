@@ -8,7 +8,6 @@ var mouse: Vector2 = Vector2.ZERO
 
 var inside: bool = true
 
-@onready var toolbox: Window = $toolbox
 @onready var tiles: Window = $tiles
 var tiles_selected_atlas: Dictionary = {
 	Vector2i(0, 0): Vector2i(3, 3)
@@ -22,6 +21,9 @@ func _notification(what):
 			inside = false
 		NOTIFICATION_WM_MOUSE_ENTER:
 			inside = true
+		NOTIFICATION_APPLICATION_FOCUS_IN:
+			tiles.always_on_top = true
+			tiles.always_on_top = false
 
 
 func _ready() -> void:
@@ -35,8 +37,8 @@ func _ready() -> void:
 	win.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP_HEIGHT
 	win.unresizable = false
 	
-	toolbox.position.y -= MarioTool.current_window_size * 112 + tiles.size.y / 2 + 20
 	tiles.position.x -= MarioTool.current_window_size * 128 + tiles.size.x / 2 + 20
+	update_control_sizes()
 	
 	if level_path == "<new>":
 		open_level("res://scenes/game/levels/template_level.tscn")
@@ -137,3 +139,14 @@ func toggle_testing() -> void:
 		cam.player = player
 		cam.level_dimensions = MarioTool.get_level_base().level_dimensions
 		cam.set_physics_process(true)
+
+
+var current_control_size: int = 2:
+	set(val):
+		current_control_size = val
+		update_control_sizes()
+
+@onready var tiles_layer: CanvasLayer = $tiles/layer
+func update_control_sizes() -> void:
+	tiles.size = Vector2i(256, 128) * sqrt(current_control_size)
+	tiles_layer.scale = Vector2.ONE * current_control_size
