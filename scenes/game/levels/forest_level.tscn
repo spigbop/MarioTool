@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=4 uid="uid://b7bkc3rc7hoyc"]
+[gd_scene load_steps=12 format=4 uid="uid://b7bkc3rc7hoyc"]
 
 [ext_resource type="Script" path="res://scenes/game/death_zone.gd" id="1_7c7uq"]
 [ext_resource type="TileSet" uid="uid://160g4sho2ln" path="res://scenes/tiles/tileset.tres" id="3_rmvxt"]
 [ext_resource type="PackedScene" uid="uid://bh8j6lqf5b553" path="res://scenes/objects/powerups/super_mushroom.tscn" id="5_e4c4t"]
 [ext_resource type="PackedScene" uid="uid://cqvgw3ogwppb4" path="res://scenes/tiles/question_mark_block.tscn" id="7_0kp6t"]
+[ext_resource type="Script" path="res://scenes/timers/death_timer.gd" id="7_yo4oi"]
 [ext_resource type="PackedScene" uid="uid://ddxin8qn3astx" path="res://scenes/objects/zones/blaster_generator.tscn" id="14_qae7y"]
 [ext_resource type="PackedScene" uid="uid://c5ggejhxdho17" path="res://scenes/objects/player.tscn" id="19_gceai"]
 [ext_resource type="Script" path="res://scenes/game/levels/level_base.gd" id="19_xq6wd"]
@@ -67,6 +68,10 @@ position = Vector2(-224, -50)
 
 [node name="level" type="Node2D" parent="."]
 script = ExtResource("19_xq6wd")
+
+[node name="death_timer" type="Timer" parent="level"]
+wait_time = 3.0
+script = ExtResource("7_yo4oi")
 
 [node name="main_camera" type="Camera2D" parent="level"]
 script = ExtResource("20_bnglb")

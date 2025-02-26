@@ -21,4 +21,7 @@ static func safe_convert(what: Variant, type: Variant.Type) -> Variant:
 	if type == Variant.Type.TYPE_BOOL and typeof(what) == Variant.Type.TYPE_STRING:
 		return what.to_lower().begins_with("t") or what == "1"
 	else:
-		return convert(what, type)
+		if not type == TYPE_NIL:
+			return convert(what, type)
+		else:
+			return null

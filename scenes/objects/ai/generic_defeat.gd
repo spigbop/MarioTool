@@ -6,12 +6,13 @@ class_name Defeatable
 @onready var sprite = get_parent().get_node("sprite")
 
 @export var hitbox_name: String = "hitbox"
+
 @export var fireballable: bool = true
 @export var shellable: bool = true
 @export var starmanable: bool = true
 
 
-func generic_defeat(cause, speed) -> void:
+func generic_defeat(cause, speed: float) -> void:
 	# first effect
 	var star_struck_effect = load("res://scenes/effects/star_struck_effect.tscn")
 	var effect_0 = star_struck_effect.instantiate()

@@ -1,6 +1,6 @@
 ![Mario Tool](https://i.imgur.com/uQdEY8F.png)
 
-![MarioTool version](https://img.shields.io/badge/version-0.56.0_btafdev-blue?style=for-the-badge)
+![MarioTool version](https://img.shields.io/badge/version-0.62.0_btafdev-blue?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/spigbop/MarioTool?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/spigbop/MarioTool?style=for-the-badge)
 
@@ -8,11 +8,15 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 
 [![itch.io](https://img.shields.io/badge/itch.io-%23FF0B34.svg?logo=Itch.io&logoColor=white&style=for-the-badge)](https://xpoxy.itch.io/mariotool)
 
-# Editor Controls (Changelog - 0.56.0-btafdev)
-- Editor control windows can now be resized.
-- Toolbox window is no more.
-- Adds the hidden Objects window.
-- Renames `tileset.gd` to `tileset_selection.gd`.
+# Liquids (0.57.1)
+- Adds liquid bodies.
+- Liquid bodies can have different materials with different viscosities.
+- Players now have seperated walk and swim states.
+- Players can swim in water material liquid bodies.
+- Patrolling AI speed is affected by liquid body viscosity.
+- Adds animated tiles to the tileset.
+- Adds running water animated background tiles.
+- Adds a demo water level. (WIP)
 
 
 
@@ -26,7 +30,7 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 |![img](https://i.imgur.com/qjX1MtK.gif)|Mario|✅ Done|Same old plumber.|
 |![img](https://i.imgur.com/R5GySVD.gif)|Luigi|For Release|Same old plumber. Higher jump, less acceleration and friction.|
 ||Ledge AI|✅ Done|Objects that can turn when met with a ledge|
-|![img](https://i.imgur.com/v2XARhq.gif)|Water & Swimming|For Release| |
+|![img](https://i.imgur.com/v2XARhq.gif)|Water & Swimming|✅ Done| |
 ||Slopes|After 1.0||
 |**Enemies**| | | |
 ||Goomba|✅ Done|Goomba enemy from SMB.|

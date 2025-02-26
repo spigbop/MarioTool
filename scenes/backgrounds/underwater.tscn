@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqkrc76tilkcv"]
+
+[ext_resource type="Texture2D" uid="uid://b81m32ufpmcgb" path="res://assets/textures/backgrounds/underwater/underwater_rocks.png" id="1_lrjmd"]
+
+[node name="underground" type="CanvasLayer"]
+layer = -100
+follow_viewport_enabled = true
+
+[node name="rocks" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.3, 1)
+repeat_size = Vector2(1360, 0)
+repeat_times = 4
+
+[node name="sprite" type="Sprite2D" parent="rocks"]
+position = Vector2(0, 44)
+texture = ExtResource("1_lrjmd")

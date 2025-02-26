@@ -5,7 +5,10 @@ extends Timer
 var odd = false
 
 
-func _on_timeout() -> void:
+func _ready() -> void:
+	timeout.connect(on_timeout)
+
+func on_timeout() -> void:
 	if odd:
 		odd = false
 		get_parent().flip_h = !get_parent().flip_h

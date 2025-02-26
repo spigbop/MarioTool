@@ -1,11 +1,14 @@
 extends CharacterBody2D
 class_name Player
 
+# TODO: Split this player script into several other scripts.
+# TODO: Make constants export variables so added characters can have differences.
 
 # Basic Settings
 const SPEED: float = 135.0 # 2.25 pixels/frame (Super Mario World)
 const JUMP_VELOCITY: float = -350.0 # 4 blocks (Super Mario All Stars: Super Mario Bros)
 const JUMP_VELOCITY_MIN: float = -150.0 # close guess (SMAS)
+const SWIM_VERTICAL_CONSTANT: float = .6875
 
 # Force Settings
 const ACCELERATION: float = 8.0 # close guess (SMAS)
@@ -24,19 +27,18 @@ var grounded: bool = false
 var ducking: bool = false
 var logical_position: Vector2 = Vector2(0, 0)
 
+var is_swimming: bool = false
+
+var projectiles: Array = []
+var is_throwing: bool = false
+
+var freeze: bool = false
 
 @onready var sprite: AnimatedSprite2D = $sprite
 @onready var jump_sound: AudioStreamPlayer2D = $channels/jump_sound
 @onready var skid_sound: AudioStreamPlayer2D = $channels/skid_sound
 
-
 @onready var jumping_factor: float = SPEED * RUN_SPEED_MULTIPLIER * 0.5 / RUN_JUMP_VELOCITY_MAX
-var freeze: bool = false
-
-
-var projectiles: Array = []
-var is_throwing: bool = false
-
 
 # Cheats
 var free_jump: bool = false
@@ -55,6 +57,17 @@ func _physics_process(delta: float) -> void:
 	
 	var direction := Input.get_axis("left", "right")
 	
+	if is_swimming:
+		swim(delta, direction)
+	else:
+		walk(delta, direction)
+	
+	move_and_slide()
+
+# ==========
+#  MOVEMENT
+# ==========
+func walk(delta: float, direction) -> void:
 	# Running & Shooting
 	if Input.is_action_just_pressed("run_fire_decline"):
 		speed_mult = RUN_SPEED_MULTIPLIER
@@ -72,7 +85,7 @@ func _physics_process(delta: float) -> void:
 			is_throwing = true
 			add_sibling(inst)
 	
-	if Input.is_action_just_released("run_fire_decline"):
+	if Input.is_action_just_released("run_fire_decline") or is_swimming:
 		speed_mult = 1.0
 		accel_mult = 1.0
 	
@@ -83,17 +96,17 @@ func _physics_process(delta: float) -> void:
 	else:
 		if velocity.x > 0:
 			sprite.flip_h = false
-			sprite.animation = "walking"
+			sprite.animation = "walk"
 			sprite.speed_scale = velocity.x / SPEED * speed_mult
 		elif velocity.x < 0:
 			sprite.flip_h = true
-			sprite.animation = "walking"
+			sprite.animation = "walk"
 			sprite.speed_scale = -velocity.x / SPEED * speed_mult
 		else:
 			sprite.animation = "idle"
 	
 	# Skiding
-	if velocity.x * direction < 0 and grounded:
+	if velocity.x * direction < 0 and grounded and not is_swimming:
 		sprite.animation = "skid"
 		if not skid_sound.playing:
 			skid_sound.play()
@@ -120,7 +133,10 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump_accept"):
 		if grounded and not ducking or free_jump:
 			force_jump()
-			jump_sound.play()
+			if is_swimming:
+				swim_sound.play()
+			else:
+				jump_sound.play()
 	
 	if Input.is_action_just_released("jump_accept") and not grounded and velocity.y < 0:
 		if velocity.y < JUMP_VELOCITY_MIN * jump_mult:
@@ -143,20 +159,67 @@ func _physics_process(delta: float) -> void:
 				velocity.x += DECELERATION
 		else:
 			velocity.x = 0
+
+
+func force_jump() -> void:
+	velocity.y = get_jump_power()
+
+func get_jump_power() -> float:
+	return JUMP_VELOCITY * jump_mult * Mathx.bool_gate(is_swimming, SWIM_VERTICAL_CONSTANT * swim_mult, 1.0)
+
+
+# ==========
+#  SWIMMING
+# ==========
+var swim_mult: float = 1.0
+@onready var swim_sound: AudioStreamPlayer2D = $channels/swim_sound
+
+func enter_liquid(viscosity: float, liquid_material: int) -> void:
+	if liquid_material != 0 and powerup != 3:
+		lose_life()
+	swim_mult = 1.0 - viscosity
+	is_swimming = true
+
+func exit_liquid(_viscosity: float, _liquid_material: int) -> void:
+	var jump_progress = clamp(velocity.y / get_jump_power(), .0, INF)
+	is_swimming = false
+	velocity.y = jump_progress * get_jump_power()
+
+func swim(delta: float, direction) -> void:
+	# Animations
+	if velocity.x != 0:
+		sprite.flip_h = velocity.x < 0
+	sprite.animation = "swim"
+	sprite.speed_scale = clamp(-velocity.y, .0, 1.0)
 	
-	move_and_slide()
-
-func force_jump():
-	velocity.y = JUMP_VELOCITY * jump_mult
-
-
-@onready var collect_sound: AudioStreamPlayer2D = $channels/collect_sound
+	# Gravity
+	if grounded:
+		walk(delta, direction)
+		return
+	else:
+		velocity += get_gravity() * delta * swim_mult
+	
+	if Input.is_action_just_pressed("jump_accept"):
+		force_jump()
+		swim_sound.play()
+	
+	if direction:
+		velocity.x = clamp(velocity.x + direction * ACCELERATION * swim_mult,
+		-SPEED * swim_mult, SPEED * swim_mult)
+	else:
+		if abs(velocity.x) > DECELERATION:
+			if velocity.x > 0:
+				velocity.x -= DECELERATION
+			elif velocity.x < 0:
+				velocity.x += DECELERATION
+		else:
+			velocity.x = 0
 
 
 # =================
 #  POWERUP HANDLER
 # =================
-# 0: small, 1: big, 2: fire
+# 0: small, 1: big, 2: fire, 3: starman
 var powerup = 0
 const POWERUP_FRAMES = [
 	preload("res://scenes/objects/resources/mario_small.tres"),
@@ -297,6 +360,7 @@ func is_running() -> bool:
 # ======
 #  Tags
 # ======
+@onready var collect_sound: AudioStreamPlayer2D = $channels/collect_sound
 func coin_picker() -> void:
 	collect_sound.play()
 

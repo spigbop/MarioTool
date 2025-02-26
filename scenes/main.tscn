@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_00223"]
 
-[node name="main" type="Node"]
+[node name="main" type="CanvasLayer"]
 process_mode = 3
+follow_viewport_enabled = true
 script = ExtResource("1_00223")

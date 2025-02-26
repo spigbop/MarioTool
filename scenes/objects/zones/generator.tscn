@@ -1,9 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckp7pgt27w85"]
+[gd_scene load_steps=6 format=3 uid="uid://ckp7pgt27w85"]
 
 [ext_resource type="Script" path="res://scenes/objects/zones/generator.gd" id="1_lxt5h"]
+[ext_resource type="Texture2D" uid="uid://dlehf7redsfqx" path="res://assets/textures/editor/gizmos/zones.png" id="2_trim0"]
+[ext_resource type="Script" path="res://scenes/editor/objects/object_gizmo.gd" id="3_3hytx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g784u"]
 size = Vector2(32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hm4bv"]
+atlas = ExtResource("2_trim0")
+region = Rect2(48, 0, 32, 16)
 
 [node name="generator" type="Area2D"]
 collision_layer = 128
@@ -16,3 +22,8 @@ wait_time = 5.0
 
 [node name="shape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_g784u")
+
+[node name="gizmo" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_hm4bv")
+script = ExtResource("3_3hytx")

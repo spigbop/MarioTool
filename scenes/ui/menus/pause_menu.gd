@@ -68,7 +68,10 @@ func on_menu_accepted(selection_index: int, menu_name: String) -> void:
 				if is_world_map:
 					switch_menus()
 				else:
-					MarioTool.exit_level()
+					if MarioTool.editor:
+						MarioTool.editor.toggle_testing()
+					else:
+						MarioTool.exit_level()
 			2:
 				if is_world_map:
 					pass

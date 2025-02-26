@@ -105,11 +105,14 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="background" type="ParallaxBackground"]
+[node name="background" type="CanvasLayer"]
+layer = -100
+follow_viewport_enabled = true
 
-[node name="sky" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.1, 1)
-motion_mirroring = Vector2(256, 0)
+[node name="sky" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.1, 1)
+repeat_size = Vector2(256, 0)
+repeat_times = 4
 
 [node name="sprite" type="Sprite2D" parent="sky"]
 z_index = -800
@@ -169,17 +172,19 @@ sprite_frames = SubResource("SpriteFrames_bg1qs")
 autoplay = "default"
 frame = 3
 
-[node name="far_hills" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.4, 1)
-motion_mirroring = Vector2(705, 0)
+[node name="far_hills" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.3, 1)
+repeat_size = Vector2(705, 0)
+repeat_times = 4
 
 [node name="sprite" type="Sprite2D" parent="far_hills"]
 position = Vector2(0, 12)
 texture = ExtResource("3_6dsbq")
 
-[node name="hills" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.6, 1)
-motion_mirroring = Vector2(512, 0)
+[node name="hills" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.7, 1)
+repeat_size = Vector2(512, 0)
+repeat_times = 4
 
 [node name="sprite" type="Sprite2D" parent="hills"]
 position = Vector2(0, 80)

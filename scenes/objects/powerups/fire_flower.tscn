@@ -47,6 +47,7 @@ size = Vector2(16, 16)
 
 [node name="fire_flower" type="RigidBody2D"]
 collision_layer = 4
+gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_d83xt")
 tier = 2

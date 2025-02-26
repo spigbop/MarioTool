@@ -1,10 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://ddxin8qn3astx"]
+[gd_scene load_steps=7 format=3 uid="uid://ddxin8qn3astx"]
 
 [ext_resource type="Script" path="res://scenes/objects/zones/generator.gd" id="1_6frjb"]
 [ext_resource type="PackedScene" uid="uid://du8pbjkw457aw" path="res://scenes/objects/enemies/bullet_bill.tscn" id="2_dbhe1"]
+[ext_resource type="Texture2D" uid="uid://dlehf7redsfqx" path="res://assets/textures/editor/gizmos/zones.png" id="3_yqy0h"]
+[ext_resource type="Script" path="res://scenes/editor/objects/object_gizmo.gd" id="4_4qjrk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jvjnm"]
 size = Vector2(12, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rfx2"]
+atlas = ExtResource("3_yqy0h")
+region = Rect2(0, 0, 48, 32)
 
 [node name="blaster_generator" type="Area2D"]
 collision_layer = 128
@@ -24,3 +30,9 @@ shape = SubResource("RectangleShape2D_jvjnm")
 [node name="shape_right" type="CollisionShape2D" parent="."]
 position = Vector2(14, 8)
 shape = SubResource("RectangleShape2D_jvjnm")
+
+[node name="gizmo" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 8)
+texture = SubResource("AtlasTexture_7rfx2")
+script = ExtResource("4_4qjrk")

@@ -1,9 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://cm603oeauj2tb"]
+[gd_scene load_steps=6 format=3 uid="uid://cm603oeauj2tb"]
 
 [ext_resource type="Script" path="res://scenes/objects/zones/warp_pipe.gd" id="1_ybqby"]
+[ext_resource type="Texture2D" uid="uid://dlehf7redsfqx" path="res://assets/textures/editor/gizmos/zones.png" id="2_i3rc3"]
+[ext_resource type="Script" path="res://scenes/editor/objects/object_gizmo.gd" id="3_wb1js"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chu4m"]
 size = Vector2(16, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3lso"]
+atlas = ExtResource("2_i3rc3")
+region = Rect2(0, 32, 16, 16)
 
 [node name="warp_pipe" type="Area2D"]
 collision_layer = 128
@@ -13,3 +19,8 @@ script = ExtResource("1_ybqby")
 [node name="shape" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_chu4m")
+
+[node name="gizmo" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_m3lso")
+script = ExtResource("3_wb1js")

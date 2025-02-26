@@ -8,10 +8,17 @@ var mouse: Vector2 = Vector2.ZERO
 
 var inside: bool = true
 
-@onready var tiles: Window = $tiles
+@onready var editor_windows: Dictionary = {
+	"tiles": $tiles,
+	"objects": $objects,
+	"properties": $properties,
+	"tools": $tools
+}
+
 var tiles_selected_atlas: Dictionary = {
 	Vector2i(0, 0): Vector2i(3, 3)
 }
+var objects_selected_path: String = "<null>"
 var player_spawn: Vector2 = Vector2.ZERO
 
 
@@ -21,9 +28,6 @@ func _notification(what):
 			inside = false
 		NOTIFICATION_WM_MOUSE_ENTER:
 			inside = true
-		NOTIFICATION_APPLICATION_FOCUS_IN:
-			tiles.always_on_top = true
-			tiles.always_on_top = false
 
 
 func _ready() -> void:
@@ -33,11 +37,11 @@ func _ready() -> void:
 	open_fd.file_selected.connect(open_level)
 	save_fd.file_selected.connect(set_level_path)
 	
-	var win = get_window()
-	win.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP_HEIGHT
+	var win: Window = get_window()
+	win.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_EXPAND
 	win.unresizable = false
 	
-	tiles.position.x -= MarioTool.current_window_size * 128 + tiles.size.x / 2 + 20
+	editor_windows["tools"].position.x += 512
 	update_control_sizes()
 	
 	if level_path == "<new>":
@@ -46,6 +50,8 @@ func _ready() -> void:
 		open_level(level_path)
 	
 	MarioTool.set_window_size(MarioTool.current_window_size)
+	
+	
 
 
 func exit_editor() -> void:
@@ -113,19 +119,40 @@ func set_level_path(pth: String) -> String:
 	return "Editor set path as: " + pth
 
 
-@onready var grid: ParallaxBackground = $grid
+@onready var grid: CanvasLayer = $grid
 @onready var gizmos: CanvasLayer = $gizmos
+var packed_contents: Array = []
+
 func toggle_testing() -> void:
 	is_editing = not is_editing
 	grid.visible = is_editing
 	gizmos.visible = is_editing
+	
 	if is_editing:
 		MarioTool.get_player().queue_free()
+		
+		for child in EditorCamera.contents.get_children():
+			child.queue_free()
+		
+		for packed_child in packed_contents:
+			var child_instance = packed_child.instantiate()
+			EditorCamera.contents.call_deferred("add_child", child_instance)
+		
+		packed_contents.clear()
+		
 		var cam = MarioTool.get_main_camera()
 		cam.get_node("testing_nodes").queue_free()
 		cam.set_script(load("res://scenes/editor/editor_camera.gd"))
 		cam.set_process(true)
 	else:
+		for child in EditorCamera.contents.get_children():
+			var gizmo = child.get_node_or_null("gizmo")
+			if gizmo:
+				gizmo.visible = false
+			var packed = PackedScene.new()
+			packed.pack(child)
+			packed_contents.append(packed)
+		
 		var cam = MarioTool.get_main_camera()
 		var packed_nodes: PackedScene = load("res://scenes/game/level_nodes.tscn")
 		var level_nodes: Node2D = packed_nodes.instantiate()
@@ -133,11 +160,13 @@ func toggle_testing() -> void:
 		cam.add_child(level_nodes)
 		var packed_player: PackedScene = load("res://scenes/objects/player.tscn")
 		var player: Player = packed_player.instantiate()
-		player.position = MarioTool.get_level_base().player_spawn
+		var level_base = MarioTool.get_level_base()
+		level_base.player_spawn = MarioTool.editor.player_spawn
+		player.position = level_base.player_spawn
 		MarioTool.CURRENT_LEVEL.add_child(player)
 		cam.set_script(load("res://scenes/game/level_camera.gd"))
 		cam.player = player
-		cam.level_dimensions = MarioTool.get_level_base().level_dimensions
+		cam.level_dimensions = level_base.level_dimensions
 		cam.set_physics_process(true)
 
 
@@ -148,5 +177,5 @@ var current_control_size: int = 2:
 
 @onready var tiles_layer: CanvasLayer = $tiles/layer
 func update_control_sizes() -> void:
-	tiles.size = Vector2i(256, 128) * sqrt(current_control_size)
+	editor_windows["tiles"].size = Vector2i(256, 128) * sqrt(current_control_size)
 	tiles_layer.scale = Vector2.ONE * current_control_size

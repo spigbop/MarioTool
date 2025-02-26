@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=11 format=3 uid="uid://cjhbn72jjmhgf"]
+[gd_resource type="SpriteFrames" load_steps=14 format=3 uid="uid://cjhbn72jjmhgf"]
 
 [ext_resource type="Texture2D" uid="uid://dfxwfkftphkaj" path="res://assets/textures/players/mario/mario_big.png" id="1_ntwmj"]
 
@@ -17,6 +17,18 @@ region = Rect2(0, 32, 16, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_scf2t"]
 atlas = ExtResource("1_ntwmj")
 region = Rect2(0, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6x38"]
+atlas = ExtResource("1_ntwmj")
+region = Rect2(44, 96, 20, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1yih4"]
+atlas = ExtResource("1_ntwmj")
+region = Rect2(24, 64, 20, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wws4l"]
+atlas = ExtResource("1_ntwmj")
+region = Rect2(44, 64, 20, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rgile"]
 atlas = ExtResource("1_ntwmj")
@@ -73,6 +85,23 @@ animations = [{
 "speed": 0.0
 }, {
 "frames": [{
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_m6x38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1yih4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wws4l")
+}, {
+"duration": 0.8,
+"texture": SubResource("AtlasTexture_m6x38")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 10.0
+}, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rgile")
 }, {
@@ -97,6 +126,6 @@ animations = [{
 "texture": SubResource("AtlasTexture_2qfn2")
 }],
 "loop": true,
-"name": &"walking",
+"name": &"walk",
 "speed": 10.0
 }]

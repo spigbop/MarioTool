@@ -6,7 +6,8 @@ class_name Level
 @onready var contents: Node2D = get_parent().get_node("contents")
 
 var level_dimensions: Rect2 = Rect2(0, 0, 0, 0)
-var player_spawn: Vector2 = Vector2.ZERO
+@export var level_clear_color: Color = Color.BLACK
+@export var player_spawn: Vector2 = Vector2.ZERO
 
 
 func spawn(grp: String, obj: String) -> String:

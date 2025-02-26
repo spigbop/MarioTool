@@ -3,12 +3,14 @@ extends RigidBody2D
 
 @export var shell_color_index = 0
 
-@onready var patrol_ai: Node = $patrol_ai
-@onready var stompable_ai: Node = $stompable_ai
+@onready var patrol_ai: Patrolling = $patrol_ai
+@onready var stompable_ai: Stompable = $stompable_ai
+@onready var generic_defeat_ai: Defeatable = $generic_defeat_ai
 @onready var sprite: AnimatedSprite2D = $sprite
 
 var has_koopa = false
 var kicked = false
+
 
 
 const SHELL_COLORS = [ 
@@ -30,6 +32,14 @@ func enter_spawn_area() -> void:
 			add_sibling(effect_0)
 	patrol_ai.spawn()
 	stompable_ai.spawn()
+
+func enter_liquid(viscosity: float, liquid_material: int) -> void:
+	if liquid_material != 0:
+		generic_defeat_ai.generic_defeat("liquid", patrol_ai.speed)
+	patrol_ai.speed *= (1.0 - viscosity)
+
+func exit_liquid(viscosity: float, _liquid_material: int) -> void:
+	patrol_ai.speed /= (1.0 - viscosity)
 
 
 var skip_kick = false

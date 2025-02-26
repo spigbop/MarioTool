@@ -71,5 +71,3 @@ shape = SubResource("RectangleShape2D_o5vfb")
 [node name="shape_right" type="CollisionShape2D" parent="turn"]
 position = Vector2(6.5, 0)
 shape = SubResource("RectangleShape2D_o5vfb")
-
-[connection signal="timeout" from="sprite/flipper" to="sprite/flipper" method="_on_timeout"]

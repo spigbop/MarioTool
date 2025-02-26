@@ -16,7 +16,7 @@ func _notification(what):
 var cell_selection: Rect2i = Rect2i(3, 3, 1, 1)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("editor_action") and inside:
 		cell_selection.position = local_to_map(get_local_mouse_position())
 		MarioTool.editor.tiles_selected_atlas.clear()
@@ -30,6 +30,7 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_released("editor_action") and currently_selecting:
 		currently_selecting = false
+		EditorCamera.type = EditorCamera.TOOL_TYPE.TILES
 		for sx in cell_selection.size.x + 1:
 			for sy in cell_selection.size.y + 1:
 				MarioTool.editor.tiles_selected_atlas[Vector2i(sx, sy)] = Vector2i(cell_selection.position.x + sx, cell_selection.position.y + sy)
@@ -54,4 +55,3 @@ func update_selection_sprites() -> void:
 		node.scale.y = (cell_selection.size.y + 1) * 16.0 + 2.0
 	piles_x[1].position.y = (cell_selection.size.y + 1) * 16.0 + 1.0
 	piles_y[1].position.x = (cell_selection.size.x + 1) * 16.0 + .5
-	

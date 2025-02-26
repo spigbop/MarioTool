@@ -1,17 +1,87 @@
-[gd_scene load_steps=10 format=4 uid="uid://dqhvl1eepy5ta"]
+[gd_scene load_steps=36 format=4 uid="uid://dqhvl1eepy5ta"]
 
 [ext_resource type="Script" path="res://scenes/editor/editor.gd" id="1_5xxuh"]
 [ext_resource type="Texture2D" uid="uid://jaa3vs85ib7" path="res://assets/textures/editor/grid.png" id="2_1rpb0"]
 [ext_resource type="Script" path="res://scenes/editor/editor_window.gd" id="2_patf2"]
 [ext_resource type="TileSet" uid="uid://160g4sho2ln" path="res://scenes/tiles/tileset.tres" id="3_4jvqo"]
-[ext_resource type="Script" path="res://scenes/editor/tileset_selection.gd" id="3_j0xtm"]
+[ext_resource type="Script" path="res://scenes/editor/tiles/tileset_selection.gd" id="3_j0xtm"]
 [ext_resource type="Texture2D" uid="uid://dswm8n28efrde" path="res://assets/textures/editor/section_grid.png" id="3_tchfj"]
 [ext_resource type="Texture2D" uid="uid://v207n1u0lgqp" path="res://assets/textures/editor/tileset_select.png" id="4_cdclt"]
-[ext_resource type="Texture2D" uid="uid://cnbsbm736i5rm" path="res://assets/textures/players/mario/mario_small.png" id="7_5fmb7"]
+[ext_resource type="Script" path="res://scenes/editor/objects/filter_tree.gd" id="6_00sqg"]
+[ext_resource type="Script" path="res://scenes/editor/objects/object_tree.gd" id="7_m7j6x"]
+[ext_resource type="PackedScene" uid="uid://bpdobfook80da" path="res://scenes/objects/enemies/goomba.tscn" id="8_0pny3"]
+[ext_resource type="Script" path="res://scenes/editor/properties/properties_tree.gd" id="9_862jo"]
+[ext_resource type="Texture2D" uid="uid://cqe6b0ibn8fgg" path="res://assets/textures/tiles.png" id="10_nqgft"]
+[ext_resource type="Script" path="res://scenes/editor/toolbox/window_toggle.gd" id="11_2j4mq"]
+[ext_resource type="Texture2D" uid="uid://dffstk2br0228" path="res://assets/textures/objects/enemies.png" id="11_ikolb"]
+[ext_resource type="Script" path="res://scenes/editor/objects/object_subaction_zone.gd" id="12_j4s55"]
+[ext_resource type="Texture2D" uid="uid://bmtvn75q4fso7" path="res://assets/textures/editor/icons/tools.png" id="12_jcyy4"]
+[ext_resource type="Script" path="res://scenes/editor/toolbox/editor_tool_button.gd" id="14_06bh3"]
+[ext_resource type="Script" path="res://scenes/editor/hierarchy_tree.gd" id="15_noblf"]
+[ext_resource type="PackedScene" uid="uid://bgos3iohabgyl" path="res://scenes/editor/gizmos/player_spawn.tscn" id="17_oiqbg"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7m0xs"]
-atlas = ExtResource("7_5fmb7")
+[sub_resource type="AtlasTexture" id="AtlasTexture_y225p"]
+atlas = ExtResource("10_nqgft")
+region = Rect2(96, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ccoa"]
+atlas = ExtResource("11_ikolb")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r3wra"]
+atlas = ExtResource("12_jcyy4")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80ka1"]
+atlas = ExtResource("12_jcyy4")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5q3rk"]
+atlas = SubResource("AtlasTexture_80ka1")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqxgv"]
+atlas = ExtResource("12_jcyy4")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l60vk"]
+atlas = ExtResource("12_jcyy4")
 region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mg546"]
+atlas = ExtResource("12_jcyy4")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uev8v"]
+atlas = ExtResource("12_jcyy4")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjpjm"]
+atlas = ExtResource("12_jcyy4")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pcebq"]
+atlas = ExtResource("12_jcyy4")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwgov"]
+atlas = ExtResource("12_jcyy4")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txc5e"]
+atlas = ExtResource("12_jcyy4")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3jwb"]
+atlas = ExtResource("12_jcyy4")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ligkt"]
+atlas = ExtResource("12_jcyy4")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1wj1x"]
+size = Vector2(16, 16)
 
 [node name="editor" type="Node2D"]
 script = ExtResource("1_5xxuh")
@@ -38,12 +108,162 @@ file_mode = 0
 access = 1
 root_subfolder = "user://"
 
+[node name="tools" type="Window" parent="."]
+auto_translate_mode = 1
+canvas_item_default_texture_filter = 0
+title = "Toolbox"
+initial_position = 1
+size = Vector2i(256, 193)
+unresizable = true
+always_on_top = true
+script = ExtResource("2_patf2")
+resistant = true
+
+[node name="background_color" type="ColorRect" parent="tools"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.385947, 0.3649, 0.41, 1)
+
+[node name="tileset_browser" type="Button" parent="tools" node_paths=PackedStringArray("target")]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -136.0
+offset_right = -3.0
+offset_bottom = -105.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Tileset Browser"
+icon = SubResource("AtlasTexture_y225p")
+script = ExtResource("11_2j4mq")
+target = NodePath("../../tiles")
+
+[node name="object_browser" type="Button" parent="tools" node_paths=PackedStringArray("target")]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -102.0
+offset_right = -3.0
+offset_bottom = -71.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Object Browser"
+icon = SubResource("AtlasTexture_3ccoa")
+script = ExtResource("11_2j4mq")
+target = NodePath("../../objects")
+
+[node name="hierarchy_window" type="Button" parent="tools" node_paths=PackedStringArray("target")]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -68.0
+offset_right = -3.0
+offset_bottom = -37.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Hierarchy Window"
+icon = SubResource("AtlasTexture_r3wra")
+script = ExtResource("11_2j4mq")
+target = NodePath("../../hierarchy")
+
+[node name="level_settings" type="Button" parent="tools" node_paths=PackedStringArray("target")]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -34.0
+offset_right = -3.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Level Settings"
+icon = SubResource("AtlasTexture_5q3rk")
+script = ExtResource("11_2j4mq")
+target = NodePath("../../level_settings")
+
+[node name="file_control" type="GridContainer" parent="tools"]
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 111.0
+offset_bottom = 27.0
+columns = 8
+
+[node name="new" type="Button" parent="tools/file_control"]
+layout_mode = 2
+icon = SubResource("AtlasTexture_tqxgv")
+
+[node name="open" type="Button" parent="tools/file_control"]
+layout_mode = 2
+icon = SubResource("AtlasTexture_l60vk")
+
+[node name="save" type="Button" parent="tools/file_control"]
+layout_mode = 2
+icon = SubResource("AtlasTexture_mg546")
+
+[node name="save_as" type="Button" parent="tools/file_control"]
+layout_mode = 2
+icon = SubResource("AtlasTexture_uev8v")
+
+[node name="tools" type="GridContainer" parent="tools"]
+offset_left = 3.0
+offset_top = 30.0
+offset_right = 139.0
+offset_bottom = 54.0
+columns = 8
+
+[node name="pan_camera" type="Button" parent="tools/tools"]
+layout_mode = 2
+icon = SubResource("AtlasTexture_yjpjm")
+script = ExtResource("14_06bh3")
+type = 6
+
+[node name="select" type="Button" parent="tools/tools"]
+layout_mode = 2
+icon = SubResource("AtlasTexture_pcebq")
+script = ExtResource("14_06bh3")
+type = 2
+
+[node name="select2" type="Button" parent="tools/tools"]
+layout_mode = 2
+icon = SubResource("AtlasTexture_jwgov")
+script = ExtResource("14_06bh3")
+type = 5
+
+[node name="select_tiles" type="Button" parent="tools/tools"]
+layout_mode = 2
+icon = SubResource("AtlasTexture_txc5e")
+script = ExtResource("14_06bh3")
+
+[node name="select_objects" type="Button" parent="tools/tools"]
+layout_mode = 2
+icon = SubResource("AtlasTexture_x3jwb")
+script = ExtResource("14_06bh3")
+type = 1
+
+[node name="object_properties" type="Button" parent="tools/tools" node_paths=PackedStringArray("target")]
+layout_mode = 2
+icon = SubResource("AtlasTexture_ligkt")
+script = ExtResource("11_2j4mq")
+target = NodePath("../../../properties")
+
 [node name="tiles" type="Window" parent="."]
 auto_translate_mode = 1
 canvas_item_default_texture_filter = 0
-title = "Tileset"
+title = "Tileset Browser"
 initial_position = 1
 size = Vector2i(256, 128)
+visible = false
+always_on_top = true
 script = ExtResource("2_patf2")
 
 [node name="layer" type="CanvasLayer" parent="tiles"]
@@ -86,28 +306,232 @@ color = Color(0.385947, 0.3649, 0.41, 1)
 
 [node name="objects" type="Window" parent="."]
 auto_translate_mode = 1
+title = "Object Browser"
+initial_position = 1
+size = Vector2i(256, 448)
+visible = false
+always_on_top = true
+content_scale_mode = 1
+content_scale_aspect = 1
+script = ExtResource("2_patf2")
+
+[node name="background_color" type="ColorRect" parent="objects"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.385947, 0.3649, 0.41, 1)
+
+[node name="world_container" type="SubViewportContainer" parent="objects"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.0
+offset_right = 128.0
+offset_bottom = 488.0
+grow_horizontal = 2
+
+[node name="world" type="SubViewport" parent="objects/world_container"]
+transparent_bg = true
+handle_input_locally = false
 canvas_item_default_texture_filter = 0
-title = "Objects"
+size = Vector2i(256, 488)
+render_target_update_mode = 0
+
+[node name="layer" type="CanvasLayer" parent="objects/world_container/world"]
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+
+[node name="demo_object" parent="objects/world_container/world/layer" instance=ExtResource("8_0pny3")]
+visible = false
+position = Vector2(64, 32)
+
+[node name="filter" type="LineEdit" parent="objects"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 3.0
+offset_top = 131.0
+offset_right = -3.0
+offset_bottom = 163.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 14
+placeholder_text = "Filter Objects"
+script = ExtResource("6_00sqg")
+
+[node name="tree" type="Tree" parent="objects"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 166.0
+offset_right = -3.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 14
+hide_root = true
+script = ExtResource("7_m7j6x")
+
+[node name="properties" type="Window" parent="."]
+auto_translate_mode = 1
+title = "Select an Object"
+initial_position = 1
+size = Vector2i(256, 448)
+visible = false
+always_on_top = true
+content_scale_mode = 1
+content_scale_aspect = 1
+script = ExtResource("2_patf2")
+
+[node name="background_color" type="ColorRect" parent="properties"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.385947, 0.3649, 0.41, 1)
+
+[node name="world_container" type="SubViewportContainer" parent="properties"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.0
+offset_right = 128.0
+offset_bottom = 488.0
+grow_horizontal = 2
+
+[node name="world" type="SubViewport" parent="properties/world_container"]
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(256, 488)
+render_target_update_mode = 0
+
+[node name="layer" type="CanvasLayer" parent="properties/world_container/world"]
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+
+[node name="demo_object" parent="properties/world_container/world/layer" instance=ExtResource("8_0pny3")]
+visible = false
+position = Vector2(64, 32)
+
+[node name="filter" type="LineEdit" parent="properties"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 3.0
+offset_top = 131.0
+offset_right = -3.0
+offset_bottom = 163.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 14
+placeholder_text = "Filter Properties"
+script = ExtResource("6_00sqg")
+
+[node name="tree" type="Tree" parent="properties"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 166.0
+offset_right = -3.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 14
+columns = 2
+hide_root = true
+select_mode = 1
+script = ExtResource("9_862jo")
+
+[node name="position" type="Label" parent="properties"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+horizontal_alignment = 1
+
+[node name="level_settings" type="Window" parent="."]
+auto_translate_mode = 1
+canvas_item_default_texture_filter = 0
+title = "Level Settings"
 initial_position = 1
 size = Vector2i(256, 128)
 visible = false
-transient = true
+always_on_top = true
 script = ExtResource("2_patf2")
 
-[node name="grid" type="ParallaxBackground" parent="."]
+[node name="background_color" type="ColorRect" parent="level_settings"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.385947, 0.3649, 0.41, 1)
+
+[node name="hierarchy" type="Window" parent="."]
+auto_translate_mode = 1
+title = "Level Hierarchy"
+initial_position = 1
+size = Vector2i(256, 448)
+always_on_top = true
+content_scale_mode = 1
+content_scale_aspect = 1
+script = ExtResource("2_patf2")
+
+[node name="background_color" type="ColorRect" parent="hierarchy"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.385947, 0.3649, 0.41, 1)
+
+[node name="filter" type="LineEdit" parent="hierarchy"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 35.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 14
+placeholder_text = "Filter Properties"
+script = ExtResource("6_00sqg")
+
+[node name="tree" type="Tree" parent="hierarchy"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 37.0
+offset_right = -3.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 14
+hide_root = true
+select_mode = 1
+script = ExtResource("15_noblf")
+
+[node name="grid" type="CanvasLayer" parent="."]
+layer = -99
+follow_viewport_enabled = true
 
 [node name="mod" type="CanvasModulate" parent="grid"]
 color = Color(1, 1, 1, 0.372549)
 
-[node name="grid" type="ParallaxLayer" parent="grid"]
-motion_mirroring = Vector2(256, 256)
+[node name="grid" type="Parallax2D" parent="grid"]
+repeat_size = Vector2(256, 256)
+repeat_times = 4
 
 [node name="sprite" type="Sprite2D" parent="grid/grid"]
 position = Vector2(128, 128)
 texture = ExtResource("2_1rpb0")
 
-[node name="section" type="ParallaxLayer" parent="grid"]
-motion_mirroring = Vector2(256, 224)
+[node name="section" type="Parallax2D" parent="grid"]
+repeat_size = Vector2(256, 224)
+repeat_times = 4
 
 [node name="sprite" type="Sprite2D" parent="grid/section"]
 position = Vector2(128, 128)
@@ -117,8 +541,15 @@ texture = ExtResource("3_tchfj")
 layer = -99
 follow_viewport_enabled = true
 
-[node name="player_spawn" type="Sprite2D" parent="gizmos"]
-texture = SubResource("AtlasTexture_7m0xs")
+[node name="player_spawn" parent="gizmos" instance=ExtResource("17_oiqbg")]
 
 [node name="mod" type="CanvasModulate" parent="gizmos"]
 color = Color(1, 1, 1, 0.67451)
+
+[node name="object_act_zone" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 188
+script = ExtResource("12_j4s55")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="object_act_zone"]
+shape = SubResource("RectangleShape2D_1wj1x")

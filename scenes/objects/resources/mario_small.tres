@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://hwlm3u6ubli"]
+[gd_resource type="SpriteFrames" load_steps=14 format=3 uid="uid://hwlm3u6ubli"]
 
 [ext_resource type="Texture2D" uid="uid://cnbsbm736i5rm" path="res://assets/textures/players/mario/mario_small.png" id="1_66m42"]
 
@@ -10,9 +10,29 @@ region = Rect2(0, 0, 16, 16)
 atlas = ExtResource("1_66m42")
 region = Rect2(0, 16, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0igy"]
+atlas = ExtResource("1_66m42")
+region = Rect2(0, 48, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_vkxt3"]
 atlas = ExtResource("1_66m42")
 region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3x31u"]
+atlas = ExtResource("1_66m42")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ugbp"]
+atlas = ExtResource("1_66m42")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gne4s"]
+atlas = ExtResource("1_66m42")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mxqhd"]
+atlas = ExtResource("1_66m42")
+region = Rect2(0, 48, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_37pti"]
 atlas = ExtResource("1_66m42")
@@ -50,11 +70,36 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_n0igy")
+}],
+"loop": true,
+"name": &"liquid",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_vkxt3")
 }],
 "loop": true,
 "name": &"skid",
 "speed": 0.0
+}, {
+"frames": [{
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_3x31u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ugbp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gne4s")
+}, {
+"duration": 0.8,
+"texture": SubResource("AtlasTexture_mxqhd")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 0.2,
@@ -70,6 +115,6 @@ animations = [{
 "texture": SubResource("AtlasTexture_gu1rx")
 }],
 "loop": true,
-"name": &"walking",
+"name": &"walk",
 "speed": 10.0
 }]

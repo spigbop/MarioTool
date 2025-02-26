@@ -35,8 +35,8 @@ func _ready() -> void:
 		var console_instance = console_resource.instantiate()
 		add_child(console_instance)
 	
-	#Console.println(enter_level("demo_level"))
-	instantiate_editor()
+	Console.println(enter_level("demo_level"))
+	#instantiate_editor()
 
 
 func _notification(noti):
@@ -192,8 +192,8 @@ static func enter_level(level_path: String) -> String:
 		queue.queue_free()
 	return "loaded level: " + level_path
 
-static func load_scene_from_path(level_path: String) -> void:
-	load_scene(load("res://scenes/game/levels/" + level_path + ".tscn"))
+static func load_scene_from_path(level_path: String, load_level_nodes: bool = true, load_player: bool = true) -> void:
+	load_scene(load("res://scenes/game/levels/" + level_path + ".tscn"), load_level_nodes, load_player)
 
 static func load_scene(level_scene: PackedScene, load_level_nodes: bool = true, load_player: bool = true) -> void:
 	if not level_scene:
@@ -202,12 +202,12 @@ static func load_scene(level_scene: PackedScene, load_level_nodes: bool = true, 
 	CURRENT_LEVEL = level_scene.instantiate()
 	CURRENT_LEVEL.position = Vector2.ZERO
 	inst.add_child(CURRENT_LEVEL)
-	var cam = get_main_camera()
+	var cam = CURRENT_LEVEL.get_node("level/main_camera")
 	if load_level_nodes:
 		var packed_nodes: PackedScene = load("res://scenes/game/level_nodes.tscn")
 		var level_nodes: Node2D = packed_nodes.instantiate()
 		cam.add_child(level_nodes)
-	if load_player or not is_instance_valid(CURRENT_LEVEL.get_node("player")):
+	if load_player and not is_instance_valid(CURRENT_LEVEL.get_node("player")):
 		var packed_player: PackedScene = load("res://scenes/objects/player.tscn")
 		var player: Player = packed_player.instantiate()
 		player.position = get_level_base().player_spawn
@@ -227,14 +227,15 @@ static func dispose_level() -> void:
 static func exit_level() -> void:
 	if not current_level_path == null and not current_level_path == HUB_LEVEL_PATH:
 		var queue = CURRENT_LEVEL
-		load_scene_from_path(HUB_LEVEL_PATH)
+		load_scene_from_path(HUB_LEVEL_PATH, false, false)
 		queue.queue_free()
 
 
 static func reset_level() -> void:
 	var queue = CURRENT_LEVEL
-	load_scene(load(current_level_path))
 	queue.queue_free()
+	load_scene(load(current_level_path))
+	
 
 
 
@@ -246,18 +247,18 @@ static func reset_level() -> void:
 static var editor: MarioToolEditor = null
 
 
-static func instantiate_editor() -> void:
+static func instantiate_editor(dir: String = "<new>") -> void:
 	var packed: PackedScene = load("res://scenes/editor/editor.tscn")
 	var editor_inst: MarioToolEditor = packed.instantiate()
 	editor_inst.is_editing = true
+	editor_inst.level_path = dir
 	editor = editor_inst
 	inst.add_child(editor_inst)
 
 
 static func enter_level_editor(dir: String = "") -> void:
 	if not editor:
-		instantiate_editor()
-	
+		instantiate_editor(dir)
 
 
 
@@ -267,7 +268,7 @@ static func enter_level_editor(dir: String = "") -> void:
 #  NODE GETTERS
 # ==============
 static var level_base_cache = null
-static func get_level_base() -> Level:
+static func get_level_base() -> Node2D:
 	if not CURRENT_LEVEL:
 		return null
 	if not is_instance_valid(level_base_cache):

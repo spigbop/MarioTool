@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgos3iohabgyl"]
+
+[ext_resource type="Texture2D" uid="uid://cnbsbm736i5rm" path="res://assets/textures/players/mario/mario_small.png" id="1_mkwe2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7m0xs"]
+atlas = ExtResource("1_mkwe2")
+region = Rect2(0, 16, 16, 16)
+
+[node name="player_spawn" type="Sprite2D"]
+texture = SubResource("AtlasTexture_7m0xs")

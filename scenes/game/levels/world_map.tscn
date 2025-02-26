@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://deqsvv60qd6qj"]
+[gd_scene load_steps=9 format=3 uid="uid://deqsvv60qd6qj"]
 
 [ext_resource type="PackedScene" uid="uid://c0k12oe1x7kol" path="res://scenes/music/smw_valley_of_bowser.tscn" id="1_1pj2n"]
+[ext_resource type="Script" path="res://scenes/game/levels/level_base.gd" id="1_nwrno"]
 [ext_resource type="Script" path="res://scenes/ui/fonts/sprite_text.gd" id="1_rg5vk"]
 [ext_resource type="PackedScene" uid="uid://wrrcf828qx87" path="res://scenes/ui/menus/pause_menu_world_map.tscn" id="2_7x0g4"]
 [ext_resource type="Texture2D" uid="uid://yer30x3p8xua" path="res://assets/textures/ui/map_overlay.png" id="2_lmnte"]
@@ -16,6 +17,7 @@ filter_clip = true
 process_mode = 1
 
 [node name="level" type="Node2D" parent="."]
+script = ExtResource("1_nwrno")
 
 [node name="main_camera" type="Camera2D" parent="level"]
 

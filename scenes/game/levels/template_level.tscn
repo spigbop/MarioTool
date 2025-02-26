@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://doo5tlulv1p58"]
 
 [ext_resource type="TileSet" uid="uid://160g4sho2ln" path="res://scenes/tiles/tileset.tres" id="1_jrlpf"]
+[ext_resource type="Script" path="res://scenes/timers/death_timer.gd" id="4_1yjmf"]
 [ext_resource type="PackedScene" uid="uid://bsyh38s8cn77g" path="res://scenes/backgrounds/night_hills.tscn" id="4_x4fle"]
-[ext_resource type="PackedScene" uid="uid://c5ggejhxdho17" path="res://scenes/objects/player.tscn" id="19_xafve"]
 [ext_resource type="Script" path="res://scenes/game/levels/level_base.gd" id="20_1kibr"]
 [ext_resource type="Script" path="res://scenes/game/level_camera.gd" id="25_gqhaf"]
 [ext_resource type="PackedScene" uid="uid://bcalhgdhc7hm1" path="res://scenes/music/yi_underground.tscn" id="27_47vgc"]
@@ -23,14 +23,14 @@ tile_set = ExtResource("1_jrlpf")
 
 [node name="contents" type="Node2D" parent="."]
 
-[node name="player" parent="." instance=ExtResource("19_xafve")]
-z_index = 20
-position = Vector2(-28, -3)
-
 [node name="level" type="Node2D" parent="."]
 script = ExtResource("20_1kibr")
 
 [node name="background" parent="level" instance=ExtResource("4_x4fle")]
+
+[node name="death_timer" type="Timer" parent="level"]
+wait_time = 3.0
+script = ExtResource("4_1yjmf")
 
 [node name="main_camera" type="Camera2D" parent="level"]
 script = ExtResource("25_gqhaf")

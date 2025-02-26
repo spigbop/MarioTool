@@ -5,13 +5,21 @@ extends RigidBody2D
 
 @onready var patrol_ai: Patrolling = $patrol_ai
 @onready var stompable_ai: Stompable = $stompable_ai
+@onready var generic_defeat_ai: Defeatable = $generic_defeat_ai
 @onready var sprite: Sprite2D = $sprite
 
 
 func enter_spawn_area() -> void:
 	patrol_ai.spawn()
 	stompable_ai.spawn()
-	
+
+#func enter_liquid(viscosity: float, liquid_material: int) -> void:
+	# do goomba swim things from smm
+#	pass
+
+#func exit_liquid(viscosity: float, _liquid_material: int) -> void:
+#	pass
+
 func enter_death_barrier() -> void:
 	queue_free()
 

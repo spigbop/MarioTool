@@ -1,0 +1,159 @@
+[gd_scene load_steps=24 format=3 uid="uid://c3dm8yf3jb3mo"]
+
+[ext_resource type="TileSet" uid="uid://160g4sho2ln" path="res://scenes/tiles/tileset.tres" id="1_0camu"]
+[ext_resource type="Script" path="res://scenes/game/levels/level_base.gd" id="2_sepsr"]
+[ext_resource type="Script" path="res://scenes/timers/death_timer.gd" id="4_jkad2"]
+[ext_resource type="Script" path="res://scenes/game/level_camera.gd" id="5_u36ew"]
+[ext_resource type="PackedScene" uid="uid://bcalhgdhc7hm1" path="res://scenes/music/yi_underground.tscn" id="6_rhk0h"]
+[ext_resource type="PackedScene" uid="uid://df6l2f7k4h3g2" path="res://scenes/effects/background/water.tscn" id="7_ebftx"]
+[ext_resource type="Script" path="res://scenes/game/level_dimensions.gd" id="7_gx0mk"]
+[ext_resource type="Script" path="res://scenes/game/death_zone.gd" id="7_j3h6o"]
+[ext_resource type="PackedScene" uid="uid://cqkrc76tilkcv" path="res://scenes/backgrounds/underwater.tscn" id="7_om2th"]
+[ext_resource type="PackedScene" uid="uid://bl6g7o0b16m1c" path="res://scenes/objects/zones/liquid_body.tscn" id="8_dfp22"]
+[ext_resource type="Texture2D" uid="uid://cqe6b0ibn8fgg" path="res://assets/textures/tiles.png" id="9_ft8pl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_58k5g"]
+size = Vector2(768, 224)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_eqtb4"]
+distance = -44.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rh3i7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ki4h6"]
+atlas = ExtResource("9_ft8pl")
+region = Rect2(64, 64, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7njw"]
+atlas = ExtResource("9_ft8pl")
+region = Rect2(96, 64, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_puv2w"]
+atlas = ExtResource("9_ft8pl")
+region = Rect2(128, 64, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gihv6"]
+atlas = ExtResource("9_ft8pl")
+region = Rect2(160, 64, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kmp37"]
+atlas = ExtResource("9_ft8pl")
+region = Rect2(64, 80, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vq5x5"]
+atlas = ExtResource("9_ft8pl")
+region = Rect2(96, 80, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_54jky"]
+atlas = ExtResource("9_ft8pl")
+region = Rect2(128, 80, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hskta"]
+atlas = ExtResource("9_ft8pl")
+region = Rect2(160, 80, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ew402"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ki4h6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7njw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_puv2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gihv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kmp37")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vq5x5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_54jky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hskta")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="template_level" type="Node2D"]
+process_mode = 1
+position = Vector2(1, 0)
+metadata/_edit_horizontal_guides_ = [-155.0]
+
+[node name="maps" type="Node2D" parent="."]
+
+[node name="foreground" type="TileMapLayer" parent="maps"]
+tile_set = ExtResource("1_0camu")
+
+[node name="contents" type="Node2D" parent="."]
+
+[node name="level" type="Node2D" parent="."]
+script = ExtResource("2_sepsr")
+level_clear_color = Color(0, 0.0941176, 0.45098, 1)
+
+[node name="death_timer" type="Timer" parent="level"]
+wait_time = 3.0
+script = ExtResource("4_jkad2")
+
+[node name="main_camera" type="Camera2D" parent="level"]
+script = ExtResource("5_u36ew")
+
+[node name="music" parent="level/main_camera" instance=ExtResource("6_rhk0h")]
+
+[node name="dimensions" type="Node2D" parent="level/main_camera"]
+position = Vector2(256, 0)
+script = ExtResource("7_gx0mk")
+shape = SubResource("RectangleShape2D_58k5g")
+
+[node name="underground" parent="level/main_camera" instance=ExtResource("7_om2th")]
+
+[node name="death_zone" type="Area2D" parent="level"]
+position = Vector2(-89, 89)
+collision_mask = 15
+script = ExtResource("7_j3h6o")
+
+[node name="shape" type="CollisionShape2D" parent="level/death_zone"]
+position = Vector2(0, -8)
+shape = SubResource("WorldBoundaryShape2D_eqtb4")
+
+[node name="liquid_body" parent="." instance=ExtResource("8_dfp22")]
+
+[node name="level" type="CollisionShape2D" parent="liquid_body"]
+position = Vector2(0, -72)
+shape = SubResource("WorldBoundaryShape2D_rh3i7")
+
+[node name="water" type="CanvasLayer" parent="."]
+layer = -50
+follow_viewport_enabled = true
+
+[node name="waves" type="Parallax2D" parent="water"]
+repeat_size = Vector2(32, 0)
+repeat_times = 10
+
+[node name="sprite" type="AnimatedSprite2D" parent="water/waves"]
+position = Vector2(128, -80)
+sprite_frames = SubResource("SpriteFrames_ew402")
+autoplay = "default"
+frame_progress = 0.347
+
+[node name="mod" type="CanvasModulate" parent="water/waves"]
+color = Color(1, 1, 1, 0.501961)
+
+[node name="water_overlay" type="CanvasLayer" parent="."]
+layer = -50
+
+[node name="water_light" parent="water_overlay" instance=ExtResource("7_ebftx")]
+position = Vector2(128, 40)
+scale = Vector2(20, 0.986939)
+
+[node name="mod" type="CanvasModulate" parent="water_overlay"]
+color = Color(1, 1, 1, 0.501961)
