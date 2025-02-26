@@ -1,6 +1,6 @@
 ![Mario Tool](https://i.imgur.com/uQdEY8F.png)
 
-![MarioTool version](https://img.shields.io/badge/version-0.62.0_btafdev-blue?style=for-the-badge)
+![MarioTool version](https://img.shields.io/badge/version-0.63.0_btafdev-blue?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/spigbop/MarioTool?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/spigbop/MarioTool?style=for-the-badge)
 
@@ -8,7 +8,7 @@ The characters and assets (graphics, audio) all belong to and/or are inspired fr
 
 [![itch.io](https://img.shields.io/badge/itch.io-%23FF0B34.svg?logo=Itch.io&logoColor=white&style=for-the-badge)](https://xpoxy.itch.io/mariotool)
 
-# Liquids (0.57.1)
+# Liquids (0.63.0)
 - Adds liquid bodies.
 - Liquid bodies can have different materials with different viscosities.
 - Players now have seperated walk and swim states.
